@@ -51,6 +51,7 @@ export interface Todo {
   vendorMessage?: string
   vendorFiles?: string[]
   integrationFlow?: string // e.g. "google_business_profile"
+  completedData?: Record<string, string> // read-only submitted values for completed todos
 }
 
 export const PRIORITY_LABELS: Record<TodoPriority, string> = {

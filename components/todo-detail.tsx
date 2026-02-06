@@ -562,6 +562,93 @@ export default function TodoDetail({
             </div>
           )}
 
+          {/* Read-only completed data */}
+          {isCompleted && todo.completedData && (
+            <div
+              style={{
+                marginBottom: "var(--space-6)",
+                padding: "var(--space-5)",
+                backgroundColor: "var(--color-background-light-grey)",
+                borderRadius: "var(--radius-lg)",
+                border: "1px solid var(--color-border-divider)",
+              }}
+            >
+              <h4
+                style={{
+                  fontSize: "var(--text-base-sm)",
+                  fontWeight: "var(--font-semibold)",
+                  color: "var(--color-text-dark)",
+                  marginBottom: "var(--space-4)",
+                  paddingBottom: "var(--space-3)",
+                  borderBottom: "1px solid var(--color-border-divider)",
+                }}
+              >
+                Submitted Information
+              </h4>
+              <div className="flex flex-col" style={{ gap: "var(--space-4)" }}>
+                {Object.entries(todo.completedData).map(([key, value]) => (
+                  <div key={key}>
+                    <span
+                      style={{
+                        fontSize: "var(--text-xs)",
+                        fontWeight: "var(--font-semibold)",
+                        color: "var(--color-text-muted)",
+                        textTransform: "uppercase",
+                        letterSpacing: "0.5px",
+                        display: "block",
+                        marginBottom: "2px",
+                      }}
+                    >
+                      {key}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "var(--text-base-sm)",
+                        color: "var(--color-text-dark)",
+                        lineHeight: "var(--leading-relaxed)",
+                        wordBreak: "break-word",
+                      }}
+                    >
+                      {value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Completed timestamp */}
+          {isCompleted && todo.completedDate && (
+            <div
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                marginBottom: "var(--space-6)",
+                padding: "var(--space-3) var(--space-4)",
+                backgroundColor: "var(--color-background-light-green-alt)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <CheckCircle2 size={14} style={{ color: "var(--color-accent-green)" }} />
+              <span
+                style={{
+                  fontSize: "var(--text-xs)",
+                  color: "var(--color-accent-green)",
+                  fontWeight: "var(--font-medium)",
+                }}
+              >
+                Completed on{" "}
+                {new Date(todo.completedDate).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </span>
+            </div>
+          )}
+
           {/* Feedback request special actions */}
           {todo.archetype === "feedback_request" && !isCompleted && (
             <div

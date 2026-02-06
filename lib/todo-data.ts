@@ -1,7 +1,11 @@
 import type { Todo } from "./todo-types"
 
 export const mockTodos: Todo[] = [
-  // === OPEN TODOS (sorted by priorityScore desc) ===
+  // =============================================
+  //  OPEN TODOS (sorted by priorityScore desc)
+  // =============================================
+
+  // --- PAYMENTS ---
   {
     id: "todo-1",
     title: "Update Payment Method",
@@ -10,7 +14,7 @@ export const mockTodos: Todo[] = [
     archetype: "payment",
     status: "not_started",
     priority: "critical",
-    priorityScore: 0.92,
+    priorityScore: 0.95,
     blocking: true,
     targetActor: "business",
     sourceActor: "system",
@@ -45,6 +49,8 @@ export const mockTodos: Todo[] = [
       },
     ],
   },
+
+  // --- INTEGRATIONS ---
   {
     id: "todo-2",
     title: "Connect Google Business Profile",
@@ -53,7 +59,7 @@ export const mockTodos: Todo[] = [
     archetype: "integration",
     status: "not_started",
     priority: "high",
-    priorityScore: 0.85,
+    priorityScore: 0.88,
     blocking: true,
     targetActor: "business",
     sourceActor: "plan_executor",
@@ -63,6 +69,8 @@ export const mockTodos: Todo[] = [
     productName: "Local SEO",
     integrationFlow: "google_business_profile",
   },
+
+  // --- INFORMATION REQUESTS ---
   {
     id: "todo-3",
     title: "Upload Business Logo",
@@ -97,6 +105,8 @@ export const mockTodos: Todo[] = [
       },
     ],
   },
+
+  // --- FEEDBACK REQUESTS ---
   {
     id: "todo-4",
     title: "Approve Website Draft",
@@ -105,7 +115,7 @@ export const mockTodos: Todo[] = [
     archetype: "feedback_request",
     status: "not_started",
     priority: "high",
-    priorityScore: 0.74,
+    priorityScore: 0.76,
     blocking: true,
     targetActor: "business",
     sourceActor: "vendor",
@@ -117,6 +127,48 @@ export const mockTodos: Todo[] = [
       "Hi! We have completed the initial draft of your website. Please review the homepage, about page, and service pages. Let us know if you'd like any changes to the layout, colors, or content.",
     vendorFiles: ["website-draft-preview.pdf"],
   },
+  {
+    id: "todo-4b",
+    title: "Approve PR Article Draft",
+    description:
+      "A draft PR article has been prepared for your review. Please approve the content or suggest edits before publication.",
+    archetype: "feedback_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.73,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-13T00:00:00Z",
+    requestedDate: "2026-02-06T09:00:00Z",
+    productName: "PR & Content",
+    vendorMessage:
+      "We've drafted a press release highlighting your latest service expansion. Please review the article for accuracy and tone, and let us know if any changes are needed.",
+    vendorFiles: ["pr-article-draft-v1.docx"],
+  },
+  {
+    id: "todo-4c",
+    title: "Approve Campaign Brief",
+    description:
+      "Your PPC campaign brief is ready for review. Please confirm targeting, budget, and ad copy direction before we launch.",
+    archetype: "feedback_request",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.64,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-14T00:00:00Z",
+    requestedDate: "2026-02-06T14:00:00Z",
+    productName: "PPC Management",
+    vendorMessage:
+      "Here is the campaign brief for your Google Ads campaign. It includes target keywords, audience segments, daily budget recommendation, and sample ad copy. Please review and confirm so we can proceed with setup.",
+    vendorFiles: ["campaign-brief.pdf"],
+  },
+
+  // --- INFORMATION REQUESTS (continued) ---
   {
     id: "todo-5",
     title: "Provide Hosting Credentials",
@@ -159,6 +211,8 @@ export const mockTodos: Todo[] = [
       },
     ],
   },
+
+  // --- INTEGRATIONS (continued) ---
   {
     id: "todo-6",
     title: "Connect Google Ads Account",
@@ -167,7 +221,7 @@ export const mockTodos: Todo[] = [
     archetype: "integration",
     status: "not_started",
     priority: "medium",
-    priorityScore: 0.55,
+    priorityScore: 0.58,
     blocking: false,
     targetActor: "business",
     sourceActor: "plan_executor",
@@ -177,6 +231,103 @@ export const mockTodos: Todo[] = [
     productName: "PPC Management",
     integrationFlow: "google_ads",
   },
+  {
+    id: "todo-6b",
+    title: "Connect Facebook Ads",
+    description:
+      "Connect your Facebook Ads account so we can manage and optimize your social media advertising campaigns.",
+    archetype: "integration",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.55,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-16T00:00:00Z",
+    requestedDate: "2026-02-03T16:30:00Z",
+    productName: "Social Media Ads",
+    fields: [
+      {
+        id: "fb_ad_account_id",
+        label: "Facebook Ad Account ID",
+        type: "text",
+        placeholder: "e.g., act_123456789",
+        helpText: "You can find this in your Facebook Business Manager under Ad Accounts.",
+        required: true,
+      },
+    ],
+  },
+  {
+    id: "todo-6c",
+    title: "Provide DNS Access for Domain Configuration",
+    description:
+      "Provide access to your domain's DNS settings so we can configure your domain for website hosting and email routing.",
+    archetype: "integration",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.52,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-15T00:00:00Z",
+    requestedDate: "2026-02-04T11:00:00Z",
+    productName: "Website",
+    fields: [
+      {
+        id: "domain_registrar",
+        label: "Domain Registrar",
+        type: "text",
+        placeholder: "e.g., GoDaddy, Namecheap, Google Domains",
+        helpText: "Where did you purchase your domain?",
+        required: true,
+      },
+      {
+        id: "dns_username",
+        label: "Login Email / Username",
+        type: "email",
+        placeholder: "your-email@example.com",
+        required: true,
+      },
+      {
+        id: "dns_password",
+        label: "Password",
+        type: "credentials",
+        helpText: "Credentials are encrypted and used only for DNS configuration.",
+        required: true,
+      },
+    ],
+  },
+  {
+    id: "todo-6d",
+    title: "Verify Domain Ownership",
+    description:
+      "Verify that you own your domain by adding a TXT record to your DNS settings. This is required before we can proceed with website setup.",
+    archetype: "integration",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.50,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-16T00:00:00Z",
+    requestedDate: "2026-02-04T12:00:00Z",
+    productName: "Website",
+    fields: [
+      {
+        id: "domain_name",
+        label: "Domain Name",
+        type: "text",
+        placeholder: "e.g., yourbusiness.com",
+        helpText: "Enter your primary domain name",
+        required: true,
+      },
+    ],
+  },
+
+  // --- INFORMATION REQUESTS (continued) ---
   {
     id: "todo-7",
     title: "Provide SEO Keywords",
@@ -215,14 +366,329 @@ export const mockTodos: Todo[] = [
     ],
   },
   {
-    id: "todo-8",
-    title: "DNS Configuration Alert",
+    id: "todo-7b",
+    title: "Provide Website Login Credentials",
     description:
-      "We detected a DNS misconfiguration on your domain. This may affect your website performance and email delivery.",
-    archetype: "system_alert",
+      "We need admin access to your current website to perform technical SEO changes and content updates.",
+    archetype: "information_request",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.46,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-14T00:00:00Z",
+    requestedDate: "2026-02-04T09:30:00Z",
+    productName: "Website Design",
+    fields: [
+      {
+        id: "cms_url",
+        label: "Website Admin URL",
+        type: "url",
+        placeholder: "e.g., https://yourbusiness.com/wp-admin",
+        helpText: "The URL you use to log in to your website's admin panel",
+        required: true,
+      },
+      {
+        id: "cms_username",
+        label: "Username / Email",
+        type: "text",
+        placeholder: "admin or your-email@example.com",
+        required: true,
+      },
+      {
+        id: "cms_password",
+        label: "Password",
+        type: "credentials",
+        helpText: "Your credentials are encrypted and stored securely.",
+        required: true,
+      },
+    ],
+  },
+  {
+    id: "todo-7c",
+    title: "Upload Required Documents",
+    description:
+      "Please upload your business license, insurance certificate, and any other required documents for your marketing campaigns.",
+    archetype: "information_request",
     status: "not_started",
     priority: "low",
-    priorityScore: 0.35,
+    priorityScore: 0.42,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-18T00:00:00Z",
+    requestedDate: "2026-02-04T10:00:00Z",
+    productName: "Account Setup",
+    fields: [
+      {
+        id: "business_license",
+        label: "Business License",
+        type: "file",
+        helpText: "Upload a copy of your valid business license (PDF or image)",
+        required: true,
+      },
+      {
+        id: "insurance_cert",
+        label: "Insurance Certificate",
+        type: "file",
+        helpText: "Upload your certificate of insurance",
+        required: true,
+      },
+      {
+        id: "additional_docs",
+        label: "Additional Documents (Optional)",
+        type: "file",
+        helpText: "Upload any other relevant documents (photos, certifications, etc.)",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: "todo-7d",
+    title: "Submit Review Replies",
+    description:
+      "Draft and submit replies for recent customer reviews on Google and Yelp. Responding promptly improves your online reputation.",
+    archetype: "information_request",
+    status: "not_started",
+    priority: "low",
+    priorityScore: 0.38,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 15,
+    dueDate: "2026-02-20T00:00:00Z",
+    requestedDate: "2026-02-05T08:00:00Z",
+    productName: "Reputation Management",
+    fields: [
+      {
+        id: "review_replies",
+        label: "Review Replies",
+        type: "textarea",
+        placeholder: "Draft your replies to recent reviews...",
+        helpText: "You can provide replies for multiple reviews. We'll match them to the right review.",
+        required: true,
+      },
+    ],
+  },
+
+  // --- VENDOR REQUESTS ---
+  {
+    id: "todo-10",
+    title: "Provide Additional Information Requested by Vendor",
+    description:
+      "The vendor working on your website has requested additional details about your services and service areas to complete the content.",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.72,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-12T00:00:00Z",
+    requestedDate: "2026-02-06T10:00:00Z",
+    productName: "Website Design",
+    vendorMessage:
+      "Hi! We need a few more details to finalize the service pages: 1) Please list all services you offer with a brief description for each. 2) What areas/cities do you serve? 3) Do you have any customer testimonials we can feature?",
+    fields: [
+      {
+        id: "services_list",
+        label: "Services Offered",
+        type: "textarea",
+        placeholder: "e.g., Residential Plumbing, Commercial Plumbing, Drain Cleaning...",
+        helpText: "List each service with a brief description",
+        required: true,
+      },
+      {
+        id: "service_areas",
+        label: "Service Areas",
+        type: "textarea",
+        placeholder: "e.g., San Francisco, Oakland, Berkeley...",
+        helpText: "List the cities or neighborhoods you serve",
+        required: true,
+      },
+      {
+        id: "testimonials",
+        label: "Customer Testimonials (Optional)",
+        type: "textarea",
+        placeholder: "Paste any customer testimonials you'd like featured...",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: "todo-10b",
+    title: "Website Draft Ready for Review",
+    description:
+      "Your website design draft has been submitted by the vendor and is ready for your review.",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.70,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 20,
+    dueDate: "2026-02-13T00:00:00Z",
+    requestedDate: "2026-02-07T11:00:00Z",
+    productName: "Website Design",
+    vendorMessage:
+      "The website design is complete and ready for your review. Please check the homepage layout, service pages, contact form, and mobile responsiveness. Let us know your feedback.",
+    vendorFiles: ["website-design-preview-v2.pdf", "mobile-mockups.pdf"],
+  },
+  {
+    id: "todo-10c",
+    title: "Ads Campaign Created - Approval Required",
+    description:
+      "Your Google Ads campaign has been set up and is awaiting your final approval before going live.",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.60,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-15T00:00:00Z",
+    requestedDate: "2026-02-08T09:00:00Z",
+    productName: "PPC Management",
+    vendorMessage:
+      "Your Google Ads campaign is ready! Here's a summary:\n- 3 ad groups targeting your primary services\n- 25 keywords selected\n- Daily budget: $50\n- Estimated impressions: 1,500-2,000/day\n\nPlease review and approve to launch.",
+    vendorFiles: ["campaign-setup-summary.pdf"],
+  },
+  {
+    id: "todo-10d",
+    title: "SSL Activation Pending",
+    description:
+      "SSL certificate activation is pending for your domain. Please confirm domain ownership to proceed with HTTPS activation.",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.56,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-16T00:00:00Z",
+    requestedDate: "2026-02-07T14:00:00Z",
+    productName: "Website",
+    vendorMessage:
+      "We need to activate the SSL certificate for your domain. Please confirm that you own the domain and have access to the admin email associated with it.",
+  },
+
+  // --- PAYMENTS (continued) ---
+  {
+    id: "todo-11",
+    title: "Pay / Approve Invoice",
+    description:
+      "A new invoice is ready for your review and payment. Please approve and process the payment to keep your campaigns running.",
+    archetype: "payment",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.80,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-09T00:00:00Z",
+    requestedDate: "2026-02-05T08:00:00Z",
+    productName: "Account Billing",
+  },
+  {
+    id: "todo-11b",
+    title: "Subscription Payment Failed",
+    description:
+      "Your most recent subscription payment has failed. Please update your payment method or retry the payment to avoid service interruption.",
+    archetype: "payment",
+    status: "not_started",
+    priority: "critical",
+    priorityScore: 0.93,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-07T00:00:00Z",
+    requestedDate: "2026-02-04T12:00:00Z",
+    productName: "Account Billing",
+  },
+  {
+    id: "todo-11c",
+    title: "Credit Card Expiring Soon",
+    description:
+      "Your payment card ending in 4242 expires next month. Update your card to prevent payment failures on your active subscriptions.",
+    archetype: "payment",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.45,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: "2026-03-01T00:00:00Z",
+    requestedDate: "2026-02-05T10:00:00Z",
+    productName: "Account Billing",
+  },
+  {
+    id: "todo-11d",
+    title: "Add Payment Method",
+    description:
+      "Please add a payment method to your account to proceed with plan activation.",
+    archetype: "payment",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.82,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-08T00:00:00Z",
+    requestedDate: "2026-02-03T08:00:00Z",
+    productName: "Account Billing",
+    fields: [
+      {
+        id: "card_number",
+        label: "Card Number",
+        type: "text",
+        placeholder: "1234 5678 9012 3456",
+        required: true,
+      },
+      {
+        id: "expiry",
+        label: "Expiry Date",
+        type: "text",
+        placeholder: "MM/YY",
+        required: true,
+      },
+      {
+        id: "cvv",
+        label: "CVV",
+        type: "text",
+        placeholder: "123",
+        required: true,
+      },
+      {
+        id: "cardholder_name",
+        label: "Cardholder Name",
+        type: "text",
+        placeholder: "John Doe",
+        required: true,
+      },
+    ],
+  },
+
+  // --- SYSTEM ALERTS ---
+  {
+    id: "todo-8",
+    title: "DNS Misconfiguration Detected",
+    description:
+      "We detected a DNS misconfiguration on your domain. This may affect your website performance and email delivery. Please review and fix the issue.",
+    archetype: "system_alert",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.68,
     blocking: false,
     targetActor: "business",
     sourceActor: "system",
@@ -231,6 +697,59 @@ export const mockTodos: Todo[] = [
     requestedDate: "2026-02-05T07:00:00Z",
     productName: "Website",
   },
+  {
+    id: "todo-8b",
+    title: "OAuth Token Expired",
+    description:
+      "Your Google Ads OAuth token has expired. Please re-authorize so we can continue managing your campaigns.",
+    archetype: "system_alert",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.66,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: null,
+    requestedDate: "2026-02-06T06:00:00Z",
+    productName: "PPC Management",
+  },
+  {
+    id: "todo-8c",
+    title: "Tracking Pixel Not Firing",
+    description:
+      "The tracking pixel on your website is not firing correctly. This affects conversion tracking for your ads campaigns.",
+    archetype: "system_alert",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.54,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 10,
+    dueDate: null,
+    requestedDate: "2026-02-06T08:00:00Z",
+    productName: "PPC Management",
+  },
+  {
+    id: "todo-8d",
+    title: "Google Ads Disapproved Ads",
+    description:
+      "Some of your Google Ads have been disapproved by Google. Please review the flagged ads and update them to comply with Google's policies.",
+    archetype: "system_alert",
+    status: "not_started",
+    priority: "medium",
+    priorityScore: 0.50,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 15,
+    dueDate: null,
+    requestedDate: "2026-02-07T07:00:00Z",
+    productName: "PPC Management",
+  },
+
+  // --- INFORMATION REQUESTS (low priority) ---
   {
     id: "todo-9",
     title: "Select Business Category",
@@ -252,7 +771,8 @@ export const mockTodos: Todo[] = [
         id: "category",
         label: "Business Category",
         type: "dropdown",
-        helpText: "Select the primary category that best describes your business",
+        helpText:
+          "Select the primary category that best describes your business",
         required: true,
         options: [
           "Plumbing",
@@ -272,8 +792,39 @@ export const mockTodos: Todo[] = [
       },
     ],
   },
+  {
+    id: "todo-9b",
+    title: "Provide PPC Keywords",
+    description:
+      "Provide the keywords you'd like to bid on for your PPC campaigns. These will be used to target potential customers searching for your services.",
+    archetype: "information_request",
+    status: "not_started",
+    priority: "low",
+    priorityScore: 0.28,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-20T00:00:00Z",
+    requestedDate: "2026-02-04T10:30:00Z",
+    productName: "PPC Management",
+    fields: [
+      {
+        id: "ppc_keywords",
+        label: "PPC Target Keywords",
+        type: "textarea",
+        placeholder: "e.g., emergency plumber, water heater repair, pipe leak fix",
+        helpText: "Enter keywords separated by commas. Include location-specific terms for better targeting.",
+        required: true,
+      },
+    ],
+  },
 
-  // === COMPLETED TODOS ===
+  // =============================================
+  //  COMPLETED TODOS
+  // =============================================
+
+  // --- Information Request: Completed ---
   {
     id: "todo-c1",
     title: "Provide Business Information",
@@ -291,10 +842,19 @@ export const mockTodos: Todo[] = [
     requestedDate: "2026-02-01T09:00:00Z",
     completedDate: "2026-02-03T14:22:00Z",
     productName: "Website Design",
+    completedData: {
+      "Business Name": "Bay Area Plumbing Pros",
+      "Business Address": "1234 Market Street, San Francisco, CA 94103",
+      "Phone Number": "(415) 555-0142",
+      "Operating Hours": "Mon-Fri 7:00 AM - 6:00 PM, Sat 8:00 AM - 2:00 PM",
+      "Website": "www.bayareaplumbingpros.com",
+    },
   },
+
+  // --- System Alert: Completed ---
   {
     id: "todo-c2",
-    title: "Verify Email Address",
+    title: "Email Verification",
     description: "Your email address has been verified successfully.",
     archetype: "system_alert",
     status: "completed",
@@ -308,7 +868,13 @@ export const mockTodos: Todo[] = [
     requestedDate: "2026-02-01T08:00:00Z",
     completedDate: "2026-02-01T08:05:00Z",
     productName: "Account Setup",
+    completedData: {
+      "Email Address": "john@bayareaplumbingpros.com",
+      "Verified On": "Feb 1, 2026 at 8:05 AM",
+    },
   },
+
+  // --- Feedback Request: Completed ---
   {
     id: "todo-c3",
     title: "Confirm Business Address",
@@ -326,5 +892,192 @@ export const mockTodos: Todo[] = [
     requestedDate: "2026-02-02T10:00:00Z",
     completedDate: "2026-02-04T16:45:00Z",
     productName: "Local SEO",
+    completedData: {
+      "Confirmed Address": "1234 Market Street, San Francisco, CA 94103",
+      "Decision": "Approved",
+    },
+  },
+
+  // --- Integration: Completed ---
+  {
+    id: "todo-c4",
+    title: "Connect Google Analytics",
+    description:
+      "Google Analytics has been connected to track website traffic and conversion metrics.",
+    archetype: "integration",
+    status: "completed",
+    priority: "high",
+    priorityScore: 0.80,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-05T00:00:00Z",
+    requestedDate: "2026-02-01T10:00:00Z",
+    completedDate: "2026-02-02T11:30:00Z",
+    productName: "Website Analytics",
+    completedData: {
+      "Account": "Bay Area Plumbing Pros",
+      "Property": "UA-12345678-1",
+      "Connected Email": "john@bayareaplumbingpros.com",
+      "Status": "Connected",
+    },
+  },
+
+  // --- Vendor Request: Completed ---
+  {
+    id: "todo-c5",
+    title: "Review and Approve Delivered Assets",
+    description:
+      "Brand assets including social media banners and profile images have been delivered and approved.",
+    archetype: "vendor_request",
+    status: "completed",
+    priority: "medium",
+    priorityScore: 0.58,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-07T00:00:00Z",
+    requestedDate: "2026-02-03T14:00:00Z",
+    completedDate: "2026-02-05T09:15:00Z",
+    productName: "Social Media",
+    vendorMessage:
+      "We've completed your social media branding assets. Please review the Facebook cover, Instagram profile image, and Twitter banner.",
+    vendorFiles: ["social-branding-assets.zip"],
+    completedData: {
+      "Decision": "Approved",
+      "Feedback": "Looks great! Love the color scheme.",
+      "Files Reviewed": "social-branding-assets.zip",
+    },
+  },
+
+  // --- Payment: Completed ---
+  {
+    id: "todo-c6",
+    title: "Pay Initial Setup Invoice",
+    description:
+      "The initial setup invoice for your marketing plan has been paid.",
+    archetype: "payment",
+    status: "completed",
+    priority: "critical",
+    priorityScore: 0.90,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "system",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-03T00:00:00Z",
+    requestedDate: "2026-02-01T08:30:00Z",
+    completedDate: "2026-02-01T09:15:00Z",
+    productName: "Account Billing",
+    completedData: {
+      "Invoice #": "INV-2026-001",
+      "Amount": "$2,500.00",
+      "Payment Method": "Visa ending in 4242",
+      "Transaction ID": "txn_3PkR9sLq2mN",
+    },
+  },
+
+  // --- Information Request: Completed ---
+  {
+    id: "todo-c7",
+    title: "Upload High-Resolution Photos",
+    description:
+      "Business photos have been uploaded for use on website and marketing materials.",
+    archetype: "information_request",
+    status: "completed",
+    priority: "medium",
+    priorityScore: 0.50,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-08T00:00:00Z",
+    requestedDate: "2026-02-02T09:00:00Z",
+    completedDate: "2026-02-04T15:30:00Z",
+    productName: "Website Design",
+    completedData: {
+      "Files Uploaded": "storefront.jpg, team-photo.jpg, work-sample-1.jpg, work-sample-2.jpg, work-sample-3.jpg",
+      "Total Files": "5 images",
+      "Format": "JPEG, high-resolution",
+    },
+  },
+
+  // --- Information Request: Completed ---
+  {
+    id: "todo-c8",
+    title: "Provide PR Article Keywords",
+    description:
+      "Keywords for the PR article have been submitted for content development.",
+    archetype: "information_request",
+    status: "completed",
+    priority: "low",
+    priorityScore: 0.35,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-10T00:00:00Z",
+    requestedDate: "2026-02-03T11:00:00Z",
+    completedDate: "2026-02-05T10:00:00Z",
+    productName: "PR & Content",
+    completedData: {
+      "Primary Keywords": "Bay Area plumbing, emergency plumber San Francisco, 24/7 plumbing service",
+      "Secondary Keywords": "drain cleaning SF, water heater repair, pipe burst repair",
+      "Target Audience": "Homeowners in San Francisco Bay Area",
+    },
+  },
+
+  // --- Vendor Request: Completed ---
+  {
+    id: "todo-c9",
+    title: "Confirm Completion of Logo Design",
+    description:
+      "The vendor has delivered the final logo design and it has been confirmed as complete.",
+    archetype: "vendor_request",
+    status: "completed",
+    priority: "medium",
+    priorityScore: 0.55,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-06T00:00:00Z",
+    requestedDate: "2026-02-04T10:00:00Z",
+    completedDate: "2026-02-05T14:00:00Z",
+    productName: "Branding",
+    vendorMessage:
+      "Here is the finalized logo in PNG, SVG, and AI formats. Please confirm you're happy with the design.",
+    vendorFiles: ["final-logo-package.zip"],
+    completedData: {
+      "Decision": "Approved",
+      "Feedback": "Perfect! Exactly what we wanted.",
+      "Files Delivered": "final-logo-package.zip (PNG, SVG, AI)",
+    },
+  },
+
+  // --- Feedback Request: Completed ---
+  {
+    id: "todo-c10",
+    title: "Launch / Publish Confirmation",
+    description:
+      "Confirmation received to proceed with launching the website.",
+    archetype: "feedback_request",
+    status: "completed",
+    priority: "high",
+    priorityScore: 0.75,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "vendor",
+    estimatedMinutes: 3,
+    dueDate: "2026-02-05T00:00:00Z",
+    requestedDate: "2026-02-04T09:00:00Z",
+    completedDate: "2026-02-04T11:30:00Z",
+    productName: "Website Design",
+    completedData: {
+      "Decision": "Approved to launch",
+      "Launch Date": "Feb 5, 2026",
+      "Notes": "Go ahead with the current version. We'll iterate after launch.",
+    },
   },
 ]
