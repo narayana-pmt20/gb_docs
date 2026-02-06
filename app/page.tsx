@@ -172,8 +172,9 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="mt-6 flex gap-6">
-              <div className="w-[280px] min-w-[280px]">
+            <div className="mt-6 grid grid-cols-[260px_1fr_1fr] gap-6">
+              {/* Left column - Profile card */}
+              <div>
                 <ContactProfileCard
                   name={contact.name}
                   company={contact.company}
@@ -181,16 +182,26 @@ export default function Home() {
                   createPlanDisabled={plans.length > 0}
                 />
               </div>
-              <div className="flex flex-1 flex-col gap-6">
+
+              {/* Middle column - Contact information */}
+              <div>
                 <ContactInfoCard contact={contact} />
-                {plans.length > 0 && (
-                  <div className="flex flex-col gap-4">
-                    <h2 className="text-lg font-semibold text-foreground">
-                      Plan Details
-                    </h2>
-                    {plans.map((plan) => (
-                      <PlanCard key={plan.id} plan={plan} />
-                    ))}
+              </div>
+
+              {/* Right column - Plans */}
+              <div className="flex flex-col gap-4">
+                <h2 className="text-lg font-semibold text-foreground">
+                  Plan Details
+                </h2>
+                {plans.length > 0 ? (
+                  plans.map((plan) => (
+                    <PlanCard key={plan.id} plan={plan} />
+                  ))
+                ) : (
+                  <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-border bg-card p-8">
+                    <p className="text-sm text-muted-foreground">
+                      No plans created yet
+                    </p>
                   </div>
                 )}
               </div>
