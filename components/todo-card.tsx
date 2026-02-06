@@ -182,17 +182,18 @@ export default function TodoCard({
             className="flex items-center justify-center"
             style={{
               position: "absolute",
-              bottom: "-2px",
-              right: "-2px",
-              width: "16px",
-              height: "16px",
+              bottom: "-3px",
+              right: "-3px",
+              width: "22px",
+              height: "22px",
               borderRadius: "var(--radius-full)",
               backgroundColor: "var(--color-accent-green)",
               color: "#fff",
-              border: "2px solid var(--color-background-white)",
+              border: "2.5px solid var(--color-background-white)",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
             }}
           >
-            <CheckCircle2 size={10} strokeWidth={3} />
+            <CheckCircle2 size={14} strokeWidth={3} />
           </div>
         )}
       </div>
