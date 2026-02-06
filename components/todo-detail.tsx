@@ -21,6 +21,7 @@ import {
 } from "lucide-react"
 import type { Todo, TodoField, TodoArchetype } from "@/lib/todo-types"
 import GbpConnectFlow from "@/components/gbp-connect-flow"
+import GoogleAdsConnectFlow from "@/components/google-ads-connect-flow"
 import {
   ARCHETYPE_LABELS,
   PRIORITY_LABELS,
@@ -487,9 +488,12 @@ export default function TodoDetail({
             </div>
           )}
 
-          {/* Integration connection flow (e.g. GBP) */}
+          {/* Integration connection flows */}
           {todo.integrationFlow === "google_business_profile" && !isCompleted && (
             <GbpConnectFlow onConnected={() => onComplete(todo.id)} />
+          )}
+          {todo.integrationFlow === "google_ads" && !isCompleted && (
+            <GoogleAdsConnectFlow onConnected={() => onComplete(todo.id)} />
           )}
 
           {/* Progress indicator for multi-field forms */}

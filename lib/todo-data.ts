@@ -175,19 +175,7 @@ export const mockTodos: Todo[] = [
     dueDate: "2026-02-15T00:00:00Z",
     requestedDate: "2026-02-03T16:00:00Z",
     productName: "PPC Management",
-    fields: [
-      {
-        id: "gads_action",
-        label: "Connection Method",
-        type: "dropdown",
-        helpText: "Choose how you'd like to connect Google Ads",
-        required: true,
-        options: [
-          "Connect existing Google Ads",
-          "Set up a new Google Ads account for me",
-        ],
-      },
-    ],
+    integrationFlow: "google_ads",
   },
   {
     id: "todo-7",
