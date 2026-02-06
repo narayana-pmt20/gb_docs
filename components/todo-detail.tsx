@@ -290,20 +290,7 @@ export default function TodoDetail({
       <div
         role="dialog"
         aria-label={`Todo: ${todo.title}`}
-        style={{
-          position: "fixed",
-          top: 0,
-          right: 0,
-          width: "560px",
-          maxWidth: "100vw",
-          height: "100vh",
-          backgroundColor: "var(--color-background-white)",
-          boxShadow: "-4px 0 20px rgba(0,0,0,0.1)",
-          zIndex: 50,
-          display: "flex",
-          flexDirection: "column",
-          fontFamily: "inherit",
-        }}
+        className="ds-detail-panel"
       >
         {/* Header */}
         <div
@@ -394,6 +381,7 @@ export default function TodoDetail({
 
           {/* Meta info grid */}
           <div
+            className="ds-meta-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",

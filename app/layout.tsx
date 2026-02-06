@@ -1,12 +1,20 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import type { Metadata, Viewport } from "next"
+import { Jost } from "next/font/google"
 import Sidebar from "@/components/sidebar"
 import "./globals.css"
 
-const inter = Inter({
+const jost = Jost({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-jost",
 })
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#F8F9FA",
+}
 
 export const metadata: Metadata = {
   title: "Growbotik",
@@ -20,18 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} font-sans`}>
-        <div className="flex" style={{ minHeight: "100vh" }}>
+      <body className={`${jost.variable} font-sans`}>
+        <div className="ds-app-layout">
           <Sidebar />
-          <main
-            className="flex-1"
-            style={{
-              backgroundColor: "var(--color-background-white)",
-              padding: "var(--space-12) var(--space-16)",
-              maxWidth: "var(--content-max-width)",
-              overflowY: "auto",
-            }}
-          >
+          <main className="ds-main-content">
             {children}
           </main>
         </div>
