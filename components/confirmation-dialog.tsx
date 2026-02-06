@@ -60,7 +60,7 @@ export function ConfirmationDialog({
             className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
               variant === "danger"
                 ? "bg-destructive/10 text-destructive"
-                : "bg-amber-100 text-amber-600"
+                : "bg-primary/10 text-primary"
             }`}
           >
             <AlertTriangle className="h-5 w-5" />
@@ -93,7 +93,7 @@ export function ConfirmationDialog({
             className={`rounded-md px-4 py-2 text-sm font-medium text-white transition-colors ${
               variant === "danger"
                 ? "bg-destructive hover:bg-destructive/90"
-                : "bg-amber-600 hover:bg-amber-700"
+                : "bg-primary hover:bg-primary/90"
             }`}
           >
             {confirmLabel}
