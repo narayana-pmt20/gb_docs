@@ -217,9 +217,6 @@ export default function Sidebar() {
                       width: "100%",
                       border: "none",
                       backgroundColor: "transparent",
-                      borderLeft: isActive
-                        ? "3px solid var(--color-primary-blue)"
-                        : "3px solid transparent",
                       fontFamily: "inherit",
                     }}
                     onClick={() =>
@@ -271,9 +268,6 @@ export default function Sidebar() {
                       textDecoration: "none",
                       borderRadius: "var(--radius-md)",
                       cursor: "pointer",
-                      borderLeft: isActive
-                        ? "3px solid var(--color-primary-blue)"
-                        : "3px solid transparent",
                     }}
                   >
                     <span
