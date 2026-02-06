@@ -12,6 +12,9 @@ import {
   Filter,
   CheckCircle2,
   Circle,
+  ListTodo,
+  Copy,
+  AlertTriangle,
 } from "lucide-react"
 
 type FilterType = "all" | "blocking" | "information_request" | "integration" | "feedback_request" | "vendor_request" | "payment" | "system_alert"
@@ -106,33 +109,89 @@ export default function TodosPage() {
 
   return (
     <>
-      {/* Page Title */}
-      <h1
+      {/* Top breadcrumb bar */}
+      <div
+        className="flex items-center justify-between"
         style={{
-          fontSize: "var(--text-3xl)",
-          fontWeight: "var(--font-bold)",
-          color: "var(--color-text-dark)",
-          marginTop: "var(--space-8)",
-          marginBottom: "var(--space-5)",
+          padding: "var(--space-3) 0",
+          marginBottom: "var(--space-1)",
+          flexWrap: "wrap",
+          gap: "var(--space-3)",
         }}
       >
-        Todos
-      </h1>
+        <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+          <ListTodo size={18} style={{ color: "var(--color-text-muted)" }} />
+          <span
+            style={{
+              fontSize: "var(--text-base-sm)",
+              color: "var(--color-text-muted)",
+              fontWeight: "var(--font-medium)",
+            }}
+          >
+            Todos
+          </span>
+        </div>
+        <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+          <span
+            style={{
+              fontSize: "var(--text-xs)",
+              color: "var(--color-text-muted)",
+            }}
+          >
+            Your public URL: https://app.growbotik.com/8d0d17f3e6/todos
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              navigator.clipboard.writeText(
+                "https://app.growbotik.com/8d0d17f3e6/todos"
+              )
+            }}
+            aria-label="Copy URL"
+            style={{
+              background: "none",
+              border: "1px solid var(--color-border-divider)",
+              borderRadius: "var(--radius-md)",
+              cursor: "pointer",
+              padding: "var(--space-1)",
+              display: "flex",
+              alignItems: "center",
+              color: "var(--color-text-muted)",
+            }}
+          >
+            <Copy size={14} />
+          </button>
+        </div>
+      </div>
 
-      {/* Page Description */}
-      <p
+      {/* Title row with divider */}
+      <div
         style={{
-          fontSize: "0.9375rem",
-          fontWeight: "var(--font-regular)",
-          lineHeight: "var(--leading-relaxed)",
-          color: "var(--color-text-muted)",
+          paddingBottom: "var(--space-5)",
           marginBottom: "var(--space-8)",
+          borderBottom: "1px solid var(--color-border-divider)",
         }}
       >
-        Complete these tasks to move your marketing plan forward. Tasks are
-        prioritized by urgency and impact. Focus on the top items first --
-        each completed task brings you closer to launch.
-      </p>
+        <h1
+          style={{
+            fontSize: "var(--text-2xl)",
+            fontWeight: "var(--font-bold)",
+            color: "var(--color-text-dark)",
+            marginBottom: "var(--space-1)",
+          }}
+        >
+          Todos
+        </h1>
+        <p
+          style={{
+            fontSize: "var(--text-base-sm)",
+            color: "var(--color-text-muted)",
+            fontWeight: "var(--font-regular)",
+          }}
+        >
+          Complete these tasks to move your marketing plan forward
+        </p>
+      </div>
 
       {/* Summary bar */}
       <div
@@ -163,6 +222,31 @@ export default function TodosPage() {
             {openTodos.length} Open
           </span>
         </div>
+        {blockingCount > 0 && (
+          <div
+            className="flex items-center"
+            style={{
+              gap: "var(--space-2)",
+              padding: "var(--space-3) var(--space-5)",
+              backgroundColor: "var(--color-background-light-pink)",
+              borderRadius: "var(--radius-lg)",
+            }}
+          >
+            <AlertTriangle
+              size={16}
+              style={{ color: "var(--color-accent-pink-bright)" }}
+            />
+            <span
+              style={{
+                fontSize: "var(--text-base-sm)",
+                fontWeight: "var(--font-semibold)",
+                color: "var(--color-accent-pink-bright)",
+              }}
+            >
+              {blockingCount} Blocking
+            </span>
+          </div>
+        )}
         <div
           className="flex items-center"
           style={{
@@ -186,27 +270,6 @@ export default function TodosPage() {
             {completedTodos.length} Completed
           </span>
         </div>
-        {blockingCount > 0 && (
-          <div
-            className="flex items-center"
-            style={{
-              gap: "var(--space-2)",
-              padding: "var(--space-3) var(--space-5)",
-              backgroundColor: "var(--color-background-light-pink)",
-              borderRadius: "var(--radius-lg)",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "var(--text-base-sm)",
-                fontWeight: "var(--font-semibold)",
-                color: "var(--color-accent-pink-bright)",
-              }}
-            >
-              {blockingCount} Blocking
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Tip box */}

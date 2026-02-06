@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import {
   FileText,
-  CheckSquare,
+  ListTodo,
   BarChart2,
   Link2,
   LogOut,
@@ -31,7 +31,7 @@ const navItems: NavItem[] = [
   },
   {
     label: "Todos",
-    icon: <CheckSquare size={18} />,
+    icon: <ListTodo size={18} />,
     href: "/todos",
   },
   {
