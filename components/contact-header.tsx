@@ -7,6 +7,7 @@ import {
   ChevronRight,
   SquarePen,
   Trash2,
+  Archive,
   FileText,
 } from "lucide-react"
 
@@ -15,6 +16,8 @@ interface ContactHeaderProps {
   company: string
   isEditing?: boolean
   onEdit?: () => void
+  onDelete?: () => void
+  onArchive?: () => void
 }
 
 export function ContactHeader({
@@ -22,6 +25,8 @@ export function ContactHeader({
   company,
   isEditing = false,
   onEdit,
+  onDelete,
+  onArchive,
 }: ContactHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -80,7 +85,7 @@ export function ContactHeader({
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 top-8 z-10 w-40 rounded-lg border border-border bg-popover py-1 shadow-md">
+              <div className="absolute right-0 top-8 z-10 w-44 rounded-lg border border-border bg-popover py-1 shadow-md">
                 <button
                   onClick={() => {
                     setMenuOpen(false)
@@ -91,7 +96,23 @@ export function ContactHeader({
                   <SquarePen className="h-4 w-4 text-muted-foreground" />
                   Edit
                 </button>
-                <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-accent">
+                <button
+                  onClick={() => {
+                    setMenuOpen(false)
+                    onArchive?.()
+                  }}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-accent"
+                >
+                  <Archive className="h-4 w-4 text-muted-foreground" />
+                  Archive
+                </button>
+                <button
+                  onClick={() => {
+                    setMenuOpen(false)
+                    onDelete?.()
+                  }}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-accent"
+                >
                   <Trash2 className="h-4 w-4" />
                   Delete
                 </button>
