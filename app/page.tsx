@@ -189,16 +189,18 @@ export default function Home() {
               </div>
 
               {/* Right column - Plans */}
-              <div className="flex flex-col gap-4">
-                <h2 className="text-lg font-semibold text-foreground">
+              <div className="rounded-lg border border-border bg-card p-6">
+                <h2 className="mb-6 text-lg font-semibold text-card-foreground">
                   Plan Details
                 </h2>
                 {plans.length > 0 ? (
-                  plans.map((plan) => (
-                    <PlanCard key={plan.id} plan={plan} />
-                  ))
+                  <div className="flex flex-col gap-4">
+                    {plans.map((plan) => (
+                      <PlanCard key={plan.id} plan={plan} />
+                    ))}
+                  </div>
                 ) : (
-                  <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed border-border bg-card p-8">
+                  <div className="flex items-center justify-center rounded-lg border border-dashed border-border p-8">
                     <p className="text-sm text-muted-foreground">
                       No plans created yet
                     </p>
