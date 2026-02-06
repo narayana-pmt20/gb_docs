@@ -1,4 +1,18 @@
-export function ContactInfoCard() {
+interface ContactData {
+  name: string
+  email: string
+  phone: string
+  company: string
+  status: string
+  website: string
+  address: string
+}
+
+interface ContactInfoCardProps {
+  contact: ContactData
+}
+
+export function ContactInfoCard({ contact }: ContactInfoCardProps) {
   return (
     <div className="rounded-lg border border-border bg-card p-6">
       <h2 className="mb-6 text-lg font-semibold text-card-foreground">
@@ -10,7 +24,7 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Name</p>
           <p className="text-sm font-medium text-card-foreground">
-            Cruz Gallagher
+            {contact.name}
           </p>
         </div>
 
@@ -18,10 +32,10 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Email</p>
           <a
-            href="mailto:koqol@mailinator.com"
+            href={`mailto:${contact.email}`}
             className="text-sm font-medium text-primary hover:underline"
           >
-            koqol@mailinator.com
+            {contact.email}
           </a>
         </div>
 
@@ -29,7 +43,7 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Phone</p>
           <p className="text-sm font-medium text-card-foreground">
-            +1 (794) 132-1076
+            {contact.phone}
           </p>
         </div>
 
@@ -37,7 +51,7 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Company</p>
           <p className="text-sm font-medium text-card-foreground">
-            Martin Moody Co
+            {contact.company}
           </p>
         </div>
 
@@ -45,7 +59,7 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Address</p>
           <p className="text-sm font-medium text-card-foreground">
-            Alpharetta, GA, USA
+            {contact.address}
           </p>
         </div>
 
@@ -53,7 +67,7 @@ export function ContactInfoCard() {
         <div>
           <p className="text-sm text-muted-foreground">Status</p>
           <span className="mt-1 inline-block rounded-md border border-border px-3 py-1 text-xs font-medium text-card-foreground">
-            Discovery
+            {contact.status}
           </span>
         </div>
       </div>

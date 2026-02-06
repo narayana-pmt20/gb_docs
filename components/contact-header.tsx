@@ -10,7 +10,19 @@ import {
   FileText,
 } from "lucide-react"
 
-export function ContactHeader() {
+interface ContactHeaderProps {
+  contactName: string
+  company: string
+  isEditing?: boolean
+  onEdit?: () => void
+}
+
+export function ContactHeader({
+  contactName,
+  company,
+  isEditing = false,
+  onEdit,
+}: ContactHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -32,7 +44,7 @@ export function ContactHeader() {
           <FileText className="h-4 w-4" />
           <span className="font-medium text-foreground">Contacts</span>
           <ChevronRight className="h-3 w-3" />
-          <span>Cruz Gallagher</span>
+          <span>{isEditing ? `Edit ${contactName}` : contactName}</span>
         </div>
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span>
@@ -51,34 +63,42 @@ export function ContactHeader() {
       <div className="flex items-start justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">
-            Cruz Gallagher
+            {isEditing ? `Edit ${contactName}` : contactName}
           </h1>
-          <p className="text-sm text-muted-foreground">Martin Moody Co</p>
+          <p className="text-sm text-muted-foreground">{company}</p>
         </div>
 
-        {/* Three-dot menu */}
-        <div className="relative" ref={menuRef}>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="rounded p-1 hover:bg-accent"
-            aria-label="More actions"
-          >
-            <MoreVertical className="h-5 w-5 text-muted-foreground" />
-          </button>
+        {/* Three-dot menu - only show in detail view */}
+        {!isEditing && (
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="rounded p-1 hover:bg-accent"
+              aria-label="More actions"
+            >
+              <MoreVertical className="h-5 w-5 text-muted-foreground" />
+            </button>
 
-          {menuOpen && (
-            <div className="absolute right-0 top-8 z-10 w-40 rounded-lg border border-border bg-popover py-1 shadow-md">
-              <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-accent">
-                <SquarePen className="h-4 w-4 text-muted-foreground" />
-                Edit
-              </button>
-              <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-accent">
-                <Trash2 className="h-4 w-4" />
-                Delete
-              </button>
-            </div>
-          )}
-        </div>
+            {menuOpen && (
+              <div className="absolute right-0 top-8 z-10 w-40 rounded-lg border border-border bg-popover py-1 shadow-md">
+                <button
+                  onClick={() => {
+                    setMenuOpen(false)
+                    onEdit?.()
+                  }}
+                  className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-accent"
+                >
+                  <SquarePen className="h-4 w-4 text-muted-foreground" />
+                  Edit
+                </button>
+                <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-accent">
+                  <Trash2 className="h-4 w-4" />
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )
