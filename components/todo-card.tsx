@@ -256,20 +256,6 @@ export default function TodoCard({
           className="flex items-center"
           style={{ gap: "var(--space-4)", flexWrap: "wrap" }}
         >
-          {/* Archetype badge */}
-          <span
-            style={{
-              fontSize: "var(--text-xs)",
-              fontWeight: "var(--font-medium)",
-              color: iconColors.color,
-              backgroundColor: iconColors.bg,
-              padding: "2px var(--space-2)",
-              borderRadius: "var(--radius-sm)",
-            }}
-          >
-            {ARCHETYPE_LABELS[todo.archetype]}
-          </span>
-
           {/* Priority badge */}
           {!isCompleted && (
             <span
@@ -286,20 +272,19 @@ export default function TodoCard({
             </span>
           )}
 
-          {/* Estimated time */}
-          {!isCompleted && (
-            <span
-              className="flex items-center"
-              style={{
-                gap: "4px",
-                fontSize: "var(--text-xs)",
-                color: "var(--color-text-muted)",
-              }}
-            >
-              <Clock size={12} />
-              {todo.estimatedMinutes} min
-            </span>
-          )}
+          {/* Archetype badge */}
+          <span
+            style={{
+              fontSize: "var(--text-xs)",
+              fontWeight: "var(--font-medium)",
+              color: iconColors.color,
+              backgroundColor: iconColors.bg,
+              padding: "2px var(--space-2)",
+              borderRadius: "var(--radius-sm)",
+            }}
+          >
+            {ARCHETYPE_LABELS[todo.archetype]}
+          </span>
 
           {/* Due date / Completed date */}
           {isCompleted ? (
@@ -331,6 +316,21 @@ export default function TodoCard({
                 {formatDueDate(todo.dueDate)}
               </span>
             )
+          )}
+
+          {/* Estimated time */}
+          {!isCompleted && (
+            <span
+              className="flex items-center"
+              style={{
+                gap: "4px",
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+              }}
+            >
+              <Clock size={12} />
+              {todo.estimatedMinutes} min
+            </span>
           )}
         </div>
       </div>
