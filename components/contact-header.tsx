@@ -11,7 +11,7 @@ import {
 } from "lucide-react"
 
 export function ContactHeader() {
-  const [menuOpen, setMenuOpen] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
