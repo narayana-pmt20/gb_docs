@@ -20,6 +20,7 @@ import {
   User,
 } from "lucide-react"
 import type { Todo, TodoField, TodoArchetype } from "@/lib/todo-types"
+import GbpConnectFlow from "@/components/gbp-connect-flow"
 import {
   ARCHETYPE_LABELS,
   PRIORITY_LABELS,
@@ -392,12 +393,14 @@ export default function TodoDetail({
               borderRadius: "var(--radius-lg)",
             }}
           >
-            <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-              <ShieldAlert size={14} style={{ color: todo.blocking ? "var(--color-accent-pink-bright)" : "var(--color-text-muted)" }} />
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
-                {todo.blocking ? "Blocking" : "Non-blocking"}
-              </span>
-            </div>
+            {todo.blocking && (
+              <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+                <ShieldAlert size={14} style={{ color: "var(--color-accent-pink-bright)" }} />
+                <span style={{ fontSize: "var(--text-xs)", color: "var(--color-accent-pink-bright)", fontWeight: "var(--font-medium)" }}>
+                  Blocking
+                </span>
+              </div>
+            )}
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
               <Clock size={14} style={{ color: "var(--color-text-muted)" }} />
               <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
@@ -484,8 +487,13 @@ export default function TodoDetail({
             </div>
           )}
 
+          {/* Integration connection flow (e.g. GBP) */}
+          {todo.integrationFlow === "google_business_profile" && !isCompleted && (
+            <GbpConnectFlow onConnected={() => onComplete(todo.id)} />
+          )}
+
           {/* Progress indicator for multi-field forms */}
-          {todo.fields && todo.fields.length > 1 && !isCompleted && (
+          {todo.fields && todo.fields.length > 1 && !isCompleted && !todo.integrationFlow && (
             <div style={{ marginBottom: "var(--space-6)" }}>
               <div
                 className="flex items-center justify-between"
@@ -535,7 +543,7 @@ export default function TodoDetail({
           )}
 
           {/* Form Fields */}
-          {todo.fields && !isCompleted && (
+          {todo.fields && !isCompleted && !todo.integrationFlow && (
             <div style={{ marginBottom: "var(--space-6)" }}>
               {todo.fields.map((field) => (
                 <TodoFormField
@@ -606,7 +614,7 @@ export default function TodoDetail({
         </div>
 
         {/* Footer actions */}
-        {!isCompleted && (
+        {!isCompleted && !todo.integrationFlow && (
           <div
             className="flex items-center justify-between"
             style={{

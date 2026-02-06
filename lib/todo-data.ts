@@ -61,16 +61,7 @@ export const mockTodos: Todo[] = [
     dueDate: "2026-02-10T00:00:00Z",
     requestedDate: "2026-02-03T14:30:00Z",
     productName: "Local SEO",
-    fields: [
-      {
-        id: "gbp_action",
-        label: "Connection Method",
-        type: "dropdown",
-        helpText: "Choose how you'd like to connect your Google Business Profile",
-        required: true,
-        options: ["Connect existing GBP", "Create new GBP for me"],
-      },
-    ],
+    integrationFlow: "google_business_profile",
   },
   {
     id: "todo-3",

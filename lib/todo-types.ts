@@ -50,6 +50,7 @@ export interface Todo {
   fields?: TodoField[]
   vendorMessage?: string
   vendorFiles?: string[]
+  integrationFlow?: string // e.g. "google_business_profile"
 }
 
 export const PRIORITY_LABELS: Record<TodoPriority, string> = {
