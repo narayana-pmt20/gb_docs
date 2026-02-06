@@ -11,7 +11,6 @@ import {
   Filter,
   CheckCircle2,
   Circle,
-  ListTodo,
 } from "lucide-react"
 
 type FilterType = "all" | "information_request" | "integration" | "feedback_request" | "vendor_request" | "payment" | "system_alert"
@@ -98,31 +97,6 @@ export default function TodosPage() {
 
   return (
     <>
-      {/* Top breadcrumb bar */}
-      <div
-        className="flex items-center justify-between"
-        style={{
-          padding: "var(--space-3) 0",
-          marginBottom: "var(--space-1)",
-          flexWrap: "wrap",
-          gap: "var(--space-3)",
-        }}
-      >
-        <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
-          <ListTodo size={18} style={{ color: "var(--color-text-muted)" }} />
-          <span
-            style={{
-              fontSize: "var(--text-base-sm)",
-              color: "var(--color-text-muted)",
-              fontWeight: "var(--font-medium)",
-            }}
-          >
-            Todos
-          </span>
-        </div>
-
-      </div>
-
       {/* Title row with counts */}
       <div
         style={{
@@ -223,10 +197,7 @@ export default function TodosPage() {
             margin: 0,
           }}
         >
-          Complete these tasks to move your marketing plan forward.
-          <span style={{ color: "var(--color-primary-blue)" }}>
-            {" "}Tip: Focus on critical tasks first to keep your campaigns running smoothly.
-          </span>
+          Complete these tasks to move your marketing plan forward. Tip: Focus on critical tasks first to keep your campaigns running smoothly.
         </p>
       </div>
 
