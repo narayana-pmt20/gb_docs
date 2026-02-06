@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Base */
+  --background: 0 0% 100%;
+  --foreground: 215 28% 17%;
+
+  /* Card */
+  --card: 0 0% 100%;
+  --card-foreground: 215 28% 17%;
+
+  /* Popover */
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 28% 17%;
+
+  /* Primary */
+  --primary: 211 100% 50%;
+  --primary-foreground: 0 0% 100%;
+
+  /* Secondary */
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 215 28% 17%;
+
+  /* Muted */
+  --muted: 210 40% 96%;
+  --muted-foreground: 220 9% 46%;
+
+  /* Accent */
+  --accent: 210 40% 96%;
+  --accent-foreground: 215 28% 17%;
+
+  /* Destructive */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Border */
+  --border: 220 13% 91%;
+  --input: 214 14% 81%;
+  --ring: 211 100% 50%;
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Design system tokens from design-system-v0.css */
+  --color-white: #FFFFFF;
+  --color-text-dark: #1F2937;
+  --color-text-dark-alt: #333333;
+  --color-text-medium: #4B5563;
+  --color-text-muted: #6B7280;
+  --color-text-secondary: #6C757D;
+  --color-text-charcoal: #343A40;
+
+  --color-background-white: #FFFFFF;
+  --color-background-light-grey: #F8F9FA;
+  --color-background-off-white: #F8FAFC;
+  --color-background-active: #F3F4F6;
+  --color-background-light-blue: #E6F0FF;
+  --color-background-light-green: #E6F4EA;
+  --color-background-light-orange: #FFF3E6;
+  --color-background-light-pink: #FFEBF5;
+  --color-background-tag: #E5E7EB;
+
+  --color-border-light: #E0E0E0;
+  --color-border-input: #CED4DA;
+  --color-border-divider: #E5E7EB;
+
+  --color-primary-blue: #007BFF;
+  --color-accent-blue: #3B82F6;
+  --color-accent-green: #28A745;
+  --color-accent-green-bright: #10B981;
+  --color-accent-orange: #FFC107;
+  --color-accent-pink: #E83E8C;
+  --color-accent-pink-bright: #F43F5E;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card-lg: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  --sidebar-width: 220px;
+  --progress-bar-height: 8px;
+}
+
+@layer base {
+  * {
+    @apply border-[var(--color-border-divider)];
+  }
+  body {
+    @apply bg-[var(--color-background-white)] text-[var(--color-text-dark)];
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
