@@ -5,7 +5,6 @@ import { mockTodos } from "@/lib/todo-data"
 import type { Todo } from "@/lib/todo-types"
 import TodoCard from "@/components/todo-card"
 import TodoDetail from "@/components/todo-detail"
-import TipBox from "@/components/tip-box"
 import {
   ChevronDown,
   ChevronUp,
@@ -58,6 +57,9 @@ export default function TodosPage() {
         ),
     [todos]
   )
+
+  // Critical count (open + critical priority)
+  const criticalCount = openTodos.filter((t) => t.priority === "critical").length
 
   // Top 3 + "X more to go" pattern per spec
   const MAX_VISIBLE = 3
@@ -121,7 +123,7 @@ export default function TodosPage() {
 
       </div>
 
-      {/* Title row with divider */}
+      {/* Title row with counts */}
       <div
         style={{
           paddingBottom: "var(--space-5)",
@@ -129,83 +131,104 @@ export default function TodosPage() {
           borderBottom: "1px solid var(--color-border-divider)",
         }}
       >
-        <h1
-          style={{
-            fontSize: "var(--text-2xl)",
-            fontWeight: "var(--font-bold)",
-            color: "var(--color-text-dark)",
-            marginBottom: "var(--space-1)",
-          }}
+        <div
+          className="flex items-center justify-between"
+          style={{ marginBottom: "var(--space-2)", flexWrap: "wrap", gap: "var(--space-3)" }}
         >
-          Todos
-        </h1>
+          <h1
+            style={{
+              fontSize: "var(--text-2xl)",
+              fontWeight: "var(--font-bold)",
+              color: "var(--color-text-dark)",
+              margin: 0,
+            }}
+          >
+            Todos
+          </h1>
+
+          {/* Count badges */}
+          <div className="flex items-center" style={{ gap: "var(--space-3)" }}>
+            <div
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                padding: "var(--space-1) var(--space-4)",
+                backgroundColor: "var(--color-background-light-blue)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <Circle size={13} style={{ color: "var(--color-accent-blue)" }} />
+              <span
+                style={{
+                  fontSize: "var(--text-xs)",
+                  fontWeight: "var(--font-semibold)",
+                  color: "var(--color-accent-blue)",
+                }}
+              >
+                {openTodos.length} Open
+              </span>
+            </div>
+            <div
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                padding: "var(--space-1) var(--space-4)",
+                backgroundColor: "var(--color-background-light-pink)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <span
+                style={{
+                  fontSize: "var(--text-xs)",
+                  fontWeight: "var(--font-semibold)",
+                  color: "var(--color-accent-pink-bright)",
+                }}
+              >
+                {criticalCount} Critical
+              </span>
+            </div>
+            <div
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                padding: "var(--space-1) var(--space-4)",
+                backgroundColor: "var(--color-background-light-green-alt)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <CheckCircle2
+                size={13}
+                style={{ color: "var(--color-accent-green)" }}
+              />
+              <span
+                style={{
+                  fontSize: "var(--text-xs)",
+                  fontWeight: "var(--font-semibold)",
+                  color: "var(--color-accent-green)",
+                }}
+              >
+                {completedTodos.length} Completed
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Subtitle + inline tip */}
         <p
           style={{
             fontSize: "var(--text-base-sm)",
             color: "var(--color-text-muted)",
             fontWeight: "var(--font-regular)",
+            lineHeight: "var(--leading-relaxed)",
+            margin: 0,
           }}
         >
-          Complete these tasks to move your marketing plan forward
+          Complete these tasks to move your marketing plan forward.
+          <span style={{ color: "var(--color-primary-blue)" }}>
+            {" "}Tip: Focus on critical tasks first to keep your campaigns running smoothly.
+          </span>
         </p>
       </div>
-
-      {/* Summary bar */}
-      <div
-        className="flex items-center"
-        style={{
-          gap: "var(--space-6)",
-          marginBottom: "var(--space-8)",
-          flexWrap: "wrap",
-        }}
-      >
-        <div
-          className="flex items-center"
-          style={{
-            gap: "var(--space-2)",
-            padding: "var(--space-3) var(--space-5)",
-            backgroundColor: "var(--color-background-light-blue)",
-            borderRadius: "var(--radius-lg)",
-          }}
-        >
-          <Circle size={16} style={{ color: "var(--color-accent-blue)" }} />
-          <span
-            style={{
-              fontSize: "var(--text-base-sm)",
-              fontWeight: "var(--font-semibold)",
-              color: "var(--color-accent-blue)",
-            }}
-          >
-            {openTodos.length} Open
-          </span>
-        </div>
-        <div
-          className="flex items-center"
-          style={{
-            gap: "var(--space-2)",
-            padding: "var(--space-3) var(--space-5)",
-            backgroundColor: "var(--color-background-light-green-alt)",
-            borderRadius: "var(--radius-lg)",
-          }}
-        >
-          <CheckCircle2
-            size={16}
-            style={{ color: "var(--color-accent-green)" }}
-          />
-          <span
-            style={{
-              fontSize: "var(--text-base-sm)",
-              fontWeight: "var(--font-semibold)",
-              color: "var(--color-accent-green)",
-            }}
-          >
-            {completedTodos.length} Completed
-          </span>
-        </div>
-      </div>
-
-      {/* Tip box */}
-      <TipBox text="Todos are sorted by priority. Focus on critical tasks first to keep your marketing campaigns running smoothly. Click on any task to view details and take action." />
 
       {/* Filters */}
       <div
