@@ -3,6 +3,7 @@
 import { useState } from "react"
 import {
   FileText,
+  CheckSquare,
   BarChart2,
   Link2,
   LogOut,
@@ -23,6 +24,11 @@ const navItems: NavItem[] = [
     icon: <FileText size={18} />,
     href: "#",
     hasSubmenu: true,
+  },
+  {
+    label: "Todos",
+    icon: <CheckSquare size={18} />,
+    href: "#",
   },
   {
     label: "Reporting",
