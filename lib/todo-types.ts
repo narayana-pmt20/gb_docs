@@ -52,6 +52,21 @@ export interface Todo {
   vendorFiles?: string[]
   integrationFlow?: string // e.g. "google_business_profile"
   completedData?: Record<string, string> // read-only submitted values for completed todos
+  paymentDetails?: {
+    // Invoice-type
+    invoiceNumber?: string
+    amount?: string
+    issuedDate?: string
+    dueDate?: string
+    items?: { description: string; amount: string }[]
+    paymentMethod?: string
+    // Subscription-type
+    subscriptionName?: string
+    lastAttempt?: string
+    failureReason?: string
+    cardOnFile?: string
+    retryDate?: string
+  }
 }
 
 export const PRIORITY_LABELS: Record<TodoPriority, string> = {

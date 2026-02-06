@@ -488,6 +488,374 @@ export default function TodoDetail({
             </div>
           )}
 
+          {/* Payment details (Invoice / Subscription) */}
+          {todo.paymentDetails && !isCompleted && (
+            <div
+              style={{
+                marginBottom: "var(--space-8)",
+                border: "1px solid var(--color-border-divider)",
+                borderRadius: "var(--radius-lg)",
+                overflow: "hidden",
+              }}
+            >
+              {/* Invoice-type payment */}
+              {todo.paymentDetails.invoiceNumber && (
+                <>
+                  <div
+                    style={{
+                      padding: "var(--space-5)",
+                      backgroundColor: "var(--color-background-light-grey)",
+                      borderBottom: "1px solid var(--color-border-divider)",
+                    }}
+                  >
+                    <div
+                      className="flex items-center justify-between"
+                      style={{ marginBottom: "var(--space-3)" }}
+                    >
+                      <span
+                        style={{
+                          fontSize: "var(--text-base-sm)",
+                          fontWeight: "var(--font-semibold)",
+                          color: "var(--color-text-dark)",
+                        }}
+                      >
+                        Invoice {todo.paymentDetails.invoiceNumber}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: "var(--text-xs)",
+                          fontWeight: "var(--font-medium)",
+                          color: "var(--color-accent-orange)",
+                          backgroundColor: "var(--color-background-light-orange)",
+                          padding: "2px var(--space-3)",
+                          borderRadius: "var(--radius-sm)",
+                        }}
+                      >
+                        Unpaid
+                      </span>
+                    </div>
+                    <div
+                      className="flex items-center"
+                      style={{
+                        gap: "var(--space-6)",
+                        fontSize: "var(--text-xs)",
+                        color: "var(--color-text-secondary)",
+                      }}
+                    >
+                      <span>Issued: {todo.paymentDetails.issuedDate}</span>
+                      <span>Due: {todo.paymentDetails.dueDate}</span>
+                    </div>
+                  </div>
+
+                  {/* Line items */}
+                  {todo.paymentDetails.items && (
+                    <div style={{ padding: "var(--space-5)" }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                        <thead>
+                          <tr
+                            style={{
+                              borderBottom: "1px solid var(--color-border-divider)",
+                            }}
+                          >
+                            <th
+                              style={{
+                                textAlign: "left",
+                                fontSize: "var(--text-xs)",
+                                fontWeight: "var(--font-semibold)",
+                                color: "var(--color-text-muted)",
+                                paddingBottom: "var(--space-3)",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.5px",
+                              }}
+                            >
+                              Description
+                            </th>
+                            <th
+                              style={{
+                                textAlign: "right",
+                                fontSize: "var(--text-xs)",
+                                fontWeight: "var(--font-semibold)",
+                                color: "var(--color-text-muted)",
+                                paddingBottom: "var(--space-3)",
+                                textTransform: "uppercase",
+                                letterSpacing: "0.5px",
+                              }}
+                            >
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {todo.paymentDetails.items.map((item, idx) => (
+                            <tr
+                              key={idx}
+                              style={{
+                                borderBottom:
+                                  idx < (todo.paymentDetails?.items?.length || 0) - 1
+                                    ? "1px solid var(--color-border-divider)"
+                                    : "none",
+                              }}
+                            >
+                              <td
+                                style={{
+                                  padding: "var(--space-3) 0",
+                                  fontSize: "var(--text-base-sm)",
+                                  color: "var(--color-text-dark)",
+                                }}
+                              >
+                                {item.description}
+                              </td>
+                              <td
+                                style={{
+                                  padding: "var(--space-3) 0",
+                                  fontSize: "var(--text-base-sm)",
+                                  color: "var(--color-text-dark)",
+                                  textAlign: "right",
+                                  fontWeight: "var(--font-medium)",
+                                }}
+                              >
+                                {item.amount}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+
+                      {/* Total */}
+                      <div
+                        className="flex items-center justify-between"
+                        style={{
+                          marginTop: "var(--space-4)",
+                          paddingTop: "var(--space-4)",
+                          borderTop: "2px solid var(--color-text-dark)",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            fontWeight: "var(--font-bold)",
+                            color: "var(--color-text-dark)",
+                          }}
+                        >
+                          Total Due
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-lg)",
+                            fontWeight: "var(--font-bold)",
+                            color: "var(--color-text-dark)",
+                          }}
+                        >
+                          {todo.paymentDetails.amount}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Payment method on file */}
+                  {todo.paymentDetails.paymentMethod && (
+                    <div
+                      style={{
+                        padding: "var(--space-4) var(--space-5)",
+                        backgroundColor: "var(--color-background-light-grey)",
+                        borderTop: "1px solid var(--color-border-divider)",
+                      }}
+                    >
+                      <div
+                        className="flex items-center"
+                        style={{ gap: "var(--space-2)" }}
+                      >
+                        <CreditCard
+                          size={14}
+                          style={{ color: "var(--color-text-muted)" }}
+                        />
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-secondary)",
+                          }}
+                        >
+                          Pay with: {todo.paymentDetails.paymentMethod}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+
+              {/* Subscription-type failed payment */}
+              {todo.paymentDetails.subscriptionName && (
+                <>
+                  <div
+                    style={{
+                      padding: "var(--space-5)",
+                      backgroundColor: "var(--color-background-light-pink)",
+                      borderBottom: "1px solid var(--color-border-divider)",
+                    }}
+                  >
+                    <div
+                      className="flex items-center"
+                      style={{ gap: "var(--space-2)", marginBottom: "var(--space-2)" }}
+                    >
+                      <AlertTriangle
+                        size={16}
+                        style={{ color: "var(--color-accent-pink-bright)" }}
+                      />
+                      <span
+                        style={{
+                          fontSize: "var(--text-base-sm)",
+                          fontWeight: "var(--font-semibold)",
+                          color: "var(--color-accent-pink-bright)",
+                        }}
+                      >
+                        Payment Failed
+                      </span>
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "var(--text-xs)",
+                        color: "var(--color-text-dark)",
+                        lineHeight: "var(--leading-relaxed)",
+                      }}
+                    >
+                      {todo.paymentDetails.failureReason}
+                    </p>
+                  </div>
+
+                  <div style={{ padding: "var(--space-5)" }}>
+                    <div
+                      className="flex flex-col"
+                      style={{ gap: "var(--space-4)" }}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-muted)",
+                            fontWeight: "var(--font-medium)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Subscription
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            color: "var(--color-text-dark)",
+                            fontWeight: "var(--font-medium)",
+                          }}
+                        >
+                          {todo.paymentDetails.subscriptionName}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-muted)",
+                            fontWeight: "var(--font-medium)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Amount
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-lg)",
+                            color: "var(--color-text-dark)",
+                            fontWeight: "var(--font-bold)",
+                          }}
+                        >
+                          {todo.paymentDetails.amount}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-muted)",
+                            fontWeight: "var(--font-medium)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Last Attempt
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            color: "var(--color-text-secondary)",
+                          }}
+                        >
+                          {todo.paymentDetails.lastAttempt}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-muted)",
+                            fontWeight: "var(--font-medium)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Card on File
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            color: "var(--color-accent-pink-bright)",
+                            fontWeight: "var(--font-medium)",
+                          }}
+                        >
+                          {todo.paymentDetails.cardOnFile}
+                        </span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-muted)",
+                            fontWeight: "var(--font-medium)",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                          }}
+                        >
+                          Auto-retry
+                        </span>
+                        <span
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            color: "var(--color-text-secondary)",
+                          }}
+                        >
+                          {todo.paymentDetails.retryDate}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        marginTop: "var(--space-6)",
+                        padding: "var(--space-4)",
+                        backgroundColor: "var(--color-background-light-grey)",
+                        borderRadius: "var(--radius-md)",
+                        fontSize: "var(--text-xs)",
+                        color: "var(--color-text-muted)",
+                        lineHeight: "var(--leading-relaxed)",
+                      }}
+                    >
+                      Update your card below and click "Update Card & Retry Payment" to process the charge immediately.
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+
           {/* Integration connection flows */}
           {todo.integrationFlow === "google_business_profile" && !isCompleted && (
             <GbpConnectFlow onConnected={() => onComplete(todo.id)} />
@@ -761,12 +1129,31 @@ export default function TodoDetail({
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "inherit",
-                  backgroundColor: "var(--color-primary-blue)",
+                  backgroundColor:
+                    todo.paymentDetails?.subscriptionName
+                      ? "var(--color-accent-pink-bright)"
+                      : todo.paymentDetails?.invoiceNumber
+                        ? "var(--color-accent-green)"
+                        : "var(--color-primary-blue)",
                   color: "var(--color-white)",
                 }}
               >
-                <CheckCircle2 size={16} />
-                Submit & Complete
+                {todo.paymentDetails?.invoiceNumber ? (
+                  <>
+                    <CreditCard size={16} />
+                    Approve & Pay Invoice
+                  </>
+                ) : todo.paymentDetails?.subscriptionName ? (
+                  <>
+                    <CreditCard size={16} />
+                    Update Card & Retry Payment
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 size={16} />
+                    Submit & Complete
+                  </>
+                )}
               </button>
             )}
           </div>

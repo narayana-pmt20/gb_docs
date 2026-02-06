@@ -596,6 +596,18 @@ export const mockTodos: Todo[] = [
     dueDate: "2026-02-09T00:00:00Z",
     requestedDate: "2026-02-05T08:00:00Z",
     productName: "Account Billing",
+    paymentDetails: {
+      invoiceNumber: "INV-2026-0042",
+      amount: "$2,500.00",
+      issuedDate: "Feb 5, 2026",
+      dueDate: "Feb 9, 2026",
+      items: [
+        { description: "Website Design & Development", amount: "$1,500.00" },
+        { description: "Local SEO Setup (Monthly)", amount: "$500.00" },
+        { description: "Google Ads Management Setup", amount: "$500.00" },
+      ],
+      paymentMethod: "Visa ending in 4242",
+    },
   },
   {
     id: "todo-11b",
@@ -613,6 +625,39 @@ export const mockTodos: Todo[] = [
     dueDate: "2026-02-07T00:00:00Z",
     requestedDate: "2026-02-04T12:00:00Z",
     productName: "Account Billing",
+    paymentDetails: {
+      subscriptionName: "Growth Marketing Plan",
+      amount: "$499.00/mo",
+      lastAttempt: "Feb 4, 2026 at 3:00 AM",
+      failureReason: "Card declined - insufficient funds",
+      cardOnFile: "Visa ending in 1234 (expired 01/26)",
+      retryDate: "Feb 7, 2026",
+    },
+    fields: [
+      {
+        id: "card_number",
+        label: "New Card Number",
+        type: "text",
+        placeholder: "1234 5678 9012 3456",
+        helpText: "Enter your new 16-digit card number",
+        required: true,
+      },
+      {
+        id: "expiry",
+        label: "Expiry Date",
+        type: "text",
+        placeholder: "MM/YY",
+        required: true,
+      },
+      {
+        id: "cvv",
+        label: "CVV",
+        type: "text",
+        placeholder: "123",
+        helpText: "3-digit security code",
+        required: true,
+      },
+    ],
   },
   {
     id: "todo-11c",
