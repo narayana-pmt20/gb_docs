@@ -167,9 +167,7 @@ export default function TodoCard({
             width: "var(--icon-circle-size)",
             height: "var(--icon-circle-size)",
             borderRadius: "var(--radius-full)",
-            backgroundColor: isCompleted
-              ? "var(--color-background-light-green-alt)"
-              : iconColors.bg,
+            backgroundColor: "#E5E5E5",
             color: isCompleted
               ? "var(--color-accent-green)"
               : iconColors.color,
