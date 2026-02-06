@@ -277,7 +277,7 @@ export default function TodoDetail({
                 width: "var(--icon-circle-size)",
                 height: "var(--icon-circle-size)",
                 borderRadius: "var(--radius-full)",
-                backgroundColor: "#E5E5E5",
+                backgroundColor: iconColors.bg,
                 color: iconColors.color,
               }}
             >
