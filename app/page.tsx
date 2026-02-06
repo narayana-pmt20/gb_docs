@@ -1,645 +1,513 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState } from "react"
 import {
   LayoutDashboard,
   Users,
-  CheckSquare,
-  BarChart3,
-  ChevronDown,
+  ListChecks,
+  TrendingUp,
   Mail,
   Phone,
   Globe,
   Building2,
   MapPin,
+  ChevronDown,
   MoreHorizontal,
-  Copy,
   Pencil,
   Archive,
   Trash2,
-  BookOpen,
   ExternalLink,
+  Copy,
   Calendar,
 } from "lucide-react"
 
-/* ─── Sidebar ─── */
+/* ------------------------------------------------------------------ */
+/*  DATA                                                               */
+/* ------------------------------------------------------------------ */
 
 const navItems = [
-  { label: "Dashboard", icon: LayoutDashboard, href: "#" },
-  { label: "Contacts", icon: Users, href: "#", active: true },
-  { label: "To-do's", icon: CheckSquare, href: "#" },
-  { label: "Marketing Plans", icon: BarChart3, href: "#" },
+  { label: "Dashboard", icon: LayoutDashboard, active: false },
+  { label: "Contacts", icon: Users, active: true },
+  { label: "To-do's", icon: ListChecks, active: false },
+  { label: "Marketing Plans", icon: TrendingUp, active: false },
 ]
+
+const contactInfo = {
+  name: "Elena Rodriguez",
+  company: "Innovate Solutions",
+  stage: "Discovery",
+  email: "elena.r@innovatesolutions.com",
+  phone: "+1 (555) 123-4567",
+  website: "www.growbotik.com",
+  address: "123 Innovation Drive, San Francisco, CA 94102",
+}
+
+const plans = [
+  {
+    id: 1,
+    name: "Plan 1",
+    progress: 40,
+    stage: "Discovery",
+    startedOn: "Jun 20 2025",
+    pricingGroup: "Group 1",
+    avatarSeed: "Felix",
+  },
+  {
+    id: 2,
+    name: "Plan 2",
+    progress: 25,
+    stage: "Discovery",
+    startedOn: "Jun 20 2025",
+    pricingGroup: "Group 1",
+    avatarSeed: null,
+  },
+]
+
+/* ------------------------------------------------------------------ */
+/*  SIDEBAR                                                            */
+/* ------------------------------------------------------------------ */
 
 function Sidebar() {
   return (
     <aside
-      className="flex h-screen flex-col border-r"
+      className="flex w-[220px] min-w-[220px] flex-col border-r"
       style={{
-        width: "var(--sidebar-width)",
-        minWidth: "var(--sidebar-width)",
-        backgroundColor: "var(--color-background-light-grey)",
-        borderColor: "var(--color-border-divider)",
+        backgroundColor: "var(--color-sidebar-bg)",
+        borderColor: "var(--color-sidebar-border)",
       }}
     >
       {/* Brand */}
-      <div className="flex items-center gap-2 px-4 pb-2 pt-5">
+      <div className="flex items-center gap-3 px-4 pt-5 pb-2">
         <div
-          className="flex items-center justify-center rounded-lg"
+          className="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-bold"
           style={{
-            width: 32,
-            height: 32,
-            backgroundColor: "var(--color-primary-blue)",
+            backgroundColor: "var(--color-primary)",
+            color: "var(--color-primary-foreground)",
           }}
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path
-              d="M3 14V4C3 3.44772 3.44772 3 4 3H6C6.55228 3 7 3.44772 7 4V14C7 14.5523 6.55228 15 6 15H4C3.44772 15 3 14.5523 3 14Z"
-              fill="white"
-            />
-            <path
-              d="M9 10C9 7.79086 10.7909 6 13 6H14C14.5523 6 15 6.44772 15 7V14C15 14.5523 14.5523 15 14 15H13C10.7909 15 9 13.2091 9 11V10Z"
-              fill="white"
-            />
-          </svg>
+          U
         </div>
-        <div className="flex flex-col">
-          <span
-            className="text-sm font-semibold leading-tight"
-            style={{ color: "var(--color-text-dark)" }}
-          >
-            Admin Agency
-          </span>
-          <span className="text-xs" style={{ color: "var(--color-text-muted)" }}>
-            Enterprise
-          </span>
+        <div className="flex flex-1 items-center justify-between">
+          <div>
+            <div className="text-sm font-semibold" style={{ color: "var(--color-foreground)" }}>
+              Admin Agency
+            </div>
+            <div className="text-xs" style={{ color: "var(--color-muted)" }}>
+              Enterprise
+            </div>
+          </div>
+          <ChevronDown className="h-4 w-4" style={{ color: "var(--color-muted)" }} />
         </div>
-        <ChevronDown
-          size={14}
-          className="ml-auto"
-          style={{ color: "var(--color-text-muted)" }}
-        />
       </div>
 
-      {/* Nav Section Label */}
-      <div
-        className="px-4 pb-1 pt-6 text-xs font-medium uppercase tracking-wide"
-        style={{ color: "var(--color-text-secondary)" }}
-      >
-        Platform
-      </div>
-
-      {/* Nav Items */}
-      <nav className="flex flex-col gap-0.5 px-2">
+      {/* Nav */}
+      <nav className="mt-6 flex flex-col gap-0.5 px-3">
+        <div
+          className="mb-2 px-2 text-xs font-medium uppercase tracking-wide"
+          style={{ color: "var(--color-sidebar-muted)" }}
+        >
+          Platform
+        </div>
         {navItems.map((item) => (
           <a
             key={item.label}
-            href={item.href}
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium"
+            href="#"
+            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors"
             style={{
-              color: item.active
-                ? "var(--color-primary-blue)"
-                : "var(--color-text-dark)",
-              fontWeight: item.active ? 600 : 500,
-              backgroundColor: item.active
-                ? "var(--color-background-light-blue)"
-                : "transparent",
+              color: item.active ? "var(--color-primary)" : "var(--color-foreground)",
+              backgroundColor: item.active ? "var(--color-sidebar-active)" : "transparent",
               borderLeft: item.active
-                ? "3px solid var(--color-primary-blue)"
+                ? "3px solid var(--color-primary)"
                 : "3px solid transparent",
             }}
           >
-            <item.icon size={18} />
-            <span>{item.label}</span>
+            <item.icon className="h-4 w-4" />
+            {item.label}
           </a>
         ))}
       </nav>
 
-      {/* Spacer */}
-      <div className="flex-1" />
-
-      {/* User */}
-      <div
-        className="flex items-center gap-2 border-t px-4 py-3"
-        style={{ borderColor: "var(--color-border-divider)" }}
-      >
-        <div
-          className="flex items-center justify-center overflow-hidden rounded-full"
-          style={{ width: 32, height: 32 }}
-        >
-          <img
-            src="https://api.dicebear.com/9.x/avataaars/svg?seed=Shaden&backgroundColor=c0aede"
-            alt="Shaden avatar"
-            className="h-full w-full object-cover"
-          />
-        </div>
-        <div className="flex flex-col">
-          <span
-            className="text-sm font-semibold leading-tight"
-            style={{ color: "var(--color-text-dark)" }}
+      {/* User at bottom */}
+      <div className="mt-auto border-t px-4 py-4" style={{ borderColor: "var(--color-sidebar-border)" }}>
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full"
+            style={{ backgroundColor: "var(--color-tag-bg)" }}
           >
-            Shaden
-          </span>
-          <span className="text-xs" style={{ color: "var(--color-text-muted)" }}>
-            m@example.com
-          </span>
+            <img
+              src="https://api.dicebear.com/9.x/avataaars/svg?seed=Shaden&backgroundColor=b6e3f4"
+              alt="User avatar"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="flex flex-1 items-center justify-between">
+            <div>
+              <div className="text-sm font-semibold" style={{ color: "var(--color-foreground)" }}>
+                Shaden
+              </div>
+              <div className="text-xs" style={{ color: "var(--color-muted)" }}>
+                m@example.com
+              </div>
+            </div>
+            <ChevronDown className="h-4 w-4" style={{ color: "var(--color-muted)" }} />
+          </div>
         </div>
-        <ChevronDown
-          size={14}
-          className="ml-auto"
-          style={{ color: "var(--color-text-muted)" }}
-        />
       </div>
     </aside>
   )
 }
 
-/* ─── Contact Header ─── */
+/* ------------------------------------------------------------------ */
+/*  ACTION DROPDOWN                                                    */
+/* ------------------------------------------------------------------ */
 
-function ContactHeader() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
-    if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [menuOpen])
-
+function ActionDropdown({
+  open,
+  onToggle,
+}: {
+  open: boolean
+  onToggle: () => void
+}) {
   return (
-    <div>
-      {/* Top bar */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <BookOpen size={18} style={{ color: "var(--color-text-muted)" }} />
-          <span
-            className="text-sm font-medium"
-            style={{ color: "var(--color-text-dark)" }}
-          >
-            Contacts
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs" style={{ color: "var(--color-text-muted)" }}>
-            Your public URL: https://app.growbotik.com/ec9bbfd0d0/plan
-          </span>
-          <button
-            className="rounded p-1 transition-colors hover:bg-[var(--color-background-active)]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <Copy size={14} />
+    <div className="relative">
+      <button
+        onClick={onToggle}
+        className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-100"
+      >
+        <MoreHorizontal className="h-5 w-5" style={{ color: "var(--color-muted)" }} />
+      </button>
+      {open && (
+        <div
+          className="absolute right-0 z-50 mt-1 w-40 rounded-lg border py-1.5 shadow-lg"
+          style={{
+            backgroundColor: "var(--color-card)",
+            borderColor: "var(--color-border)",
+          }}
+        >
+          <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+            <Pencil className="h-4 w-4" style={{ color: "var(--color-muted)" }} />
+            <span style={{ color: "var(--color-foreground)" }}>Edit</span>
+          </button>
+          <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+            <Archive className="h-4 w-4" style={{ color: "var(--color-muted)" }} />
+            <span style={{ color: "var(--color-foreground)" }}>Unarchive</span>
+          </button>
+          <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+            <Trash2 className="h-4 w-4" style={{ color: "var(--color-destructive)" }} />
+            <span style={{ color: "var(--color-destructive)" }}>Delete</span>
           </button>
         </div>
-      </div>
-
-      {/* Contact name + actions */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1
-            className="text-2xl font-bold"
-            style={{ color: "var(--color-text-dark)" }}
-          >
-            Elena Rodriguez
-          </h1>
-          <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-            Umbrella US
-          </span>
-        </div>
-
-        <div className="relative" ref={menuRef}>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="rounded-full p-2 transition-colors hover:bg-[var(--color-background-active)]"
-            style={{ color: "var(--color-text-muted)" }}
-            aria-label="Contact actions"
-          >
-            <MoreHorizontal size={20} />
-          </button>
-          {menuOpen && (
-            <div
-              className="absolute right-0 top-10 z-20 min-w-[140px] rounded-lg border py-1"
-              style={{
-                backgroundColor: "var(--color-background-white)",
-                borderColor: "var(--color-border-light)",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-              }}
-            >
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "var(--color-text-dark)" }}
-              >
-                <Pencil size={14} />
-                Edit
-              </button>
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "var(--color-text-dark)" }}
-              >
-                <Archive size={14} />
-                Archive
-              </button>
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "#DC2626" }}
-              >
-                <Trash2 size={14} />
-                Delete
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      )}
     </div>
   )
 }
 
-/* ─── Contact Card ─── */
+/* ------------------------------------------------------------------ */
+/*  CONTACT CARD                                                       */
+/* ------------------------------------------------------------------ */
 
 function ContactCard() {
   return (
     <div
       className="rounded-xl border p-6"
       style={{
-        backgroundColor: "var(--color-background-white)",
-        borderColor: "var(--color-border-light)",
-        boxShadow: "var(--shadow-card-lg)",
+        backgroundColor: "var(--color-card)",
+        borderColor: "var(--color-border)",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
       }}
     >
-      {/* Avatar + Name */}
-      <div className="flex flex-col items-center pb-5">
+      {/* Avatar & Name */}
+      <div className="mb-6 flex flex-col items-center text-center">
         <div
-          className="mb-3 flex h-20 w-20 items-center justify-center overflow-hidden rounded-full"
-          style={{ backgroundColor: "var(--color-background-light-grey)" }}
+          className="mb-3 h-20 w-20 overflow-hidden rounded-full"
+          style={{ backgroundColor: "var(--color-tag-bg)" }}
         >
           <img
-            src="https://api.dicebear.com/9.x/avataaars/svg?seed=Elena&backgroundColor=b6e3f4,c0aede,d1d4f9"
-            alt="Elena Rodriguez avatar"
+            src="https://api.dicebear.com/9.x/avataaars/svg?seed=Elena&backgroundColor=ffdfbf,ffd5dc,d1d4f9,c0aede&backgroundType=gradientLinear"
+            alt="Elena Rodriguez"
             className="h-full w-full object-cover"
           />
         </div>
-        <h2
-          className="text-lg font-semibold"
-          style={{ color: "var(--color-text-dark)" }}
-        >
+        <h3 className="text-base font-semibold" style={{ color: "var(--color-foreground)" }}>
           Elena Rodriguez
-        </h2>
-        <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-          Innovate Solutions
-        </span>
+        </h3>
+        <p className="text-sm" style={{ color: "var(--color-muted)" }}>
+          {contactInfo.company}
+        </p>
         <span
-          className="mt-1.5 inline-flex items-center rounded-full px-3 py-0.5 text-xs font-medium"
+          className="mt-1.5 inline-block rounded-full px-3 py-0.5 text-xs font-medium"
           style={{
-            backgroundColor: "var(--color-background-light-blue)",
-            color: "var(--color-primary-blue)",
+            backgroundColor: "var(--color-light-blue-bg)",
+            color: "var(--color-primary)",
           }}
         >
-          Discovery
+          {contactInfo.stage}
         </span>
       </div>
 
       {/* Divider */}
-      <div
-        className="my-4 h-px w-full"
-        style={{ backgroundColor: "var(--color-border-divider)" }}
-      />
+      <div className="mb-4 h-px" style={{ backgroundColor: "var(--color-border)" }} />
 
-      {/* Last Active / Role */}
-      <div className="mb-4 flex justify-between">
-        <div>
-          <span
-            className="block text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            Last Active:
-          </span>
-        </div>
-        <div className="text-right">
-          <span
-            className="block text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            Last Active
-          </span>
-        </div>
-      </div>
-      <div className="mb-4 flex justify-between">
-        <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-          Role:
-        </span>
-        <span
-          className="text-sm font-medium"
-          style={{ color: "var(--color-text-dark)" }}
-        >
-          Administrator
-        </span>
-      </div>
-
-      {/* Divider */}
-      <div
-        className="my-4 h-px w-full"
-        style={{ backgroundColor: "var(--color-border-divider)" }}
-      />
-
-      {/* Contact Info */}
+      {/* Contact details */}
       <div className="flex flex-col gap-3">
-        <div className="flex items-center gap-3">
-          <Mail size={16} style={{ color: "var(--color-text-muted)" }} />
-          <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
-            elena.r@innovatesolutions.com
-          </span>
+        <div className="flex items-center gap-3 text-sm">
+          <Mail className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-muted)" }} />
+          <span style={{ color: "var(--color-foreground)" }}>{contactInfo.email}</span>
         </div>
-        <div className="flex items-center gap-3">
-          <Phone size={16} style={{ color: "var(--color-text-muted)" }} />
-          <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
-            +1 (555) 123-4567
-          </span>
+        <div className="flex items-center gap-3 text-sm">
+          <Phone className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-muted)" }} />
+          <span style={{ color: "var(--color-foreground)" }}>{contactInfo.phone}</span>
         </div>
-        <div className="flex items-center gap-3">
-          <Globe size={16} style={{ color: "var(--color-text-muted)" }} />
-          <a
-            href="https://www.growbotik.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm underline"
-            style={{ color: "var(--color-primary-blue)" }}
-          >
-            www.growbotik.com
+        <div className="flex items-center gap-3 text-sm">
+          <Globe className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-muted)" }} />
+          <a href="#" style={{ color: "var(--color-primary)" }} className="underline">
+            {contactInfo.website}
           </a>
+          <ExternalLink className="h-3 w-3" style={{ color: "var(--color-primary)" }} />
         </div>
-        <div className="flex items-center gap-3">
-          <Building2 size={16} style={{ color: "var(--color-text-muted)" }} />
-          <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
-            Innovate Solutions
-          </span>
+        <div className="flex items-center gap-3 text-sm">
+          <Building2 className="h-4 w-4 flex-shrink-0" style={{ color: "var(--color-muted)" }} />
+          <span style={{ color: "var(--color-foreground)" }}>{contactInfo.company}</span>
         </div>
-        <div className="flex items-start gap-3">
-          <MapPin
-            size={16}
-            className="mt-0.5 flex-shrink-0"
-            style={{ color: "var(--color-text-muted)" }}
-          />
-          <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
-            123 Innovation Drive, San Francisco, CA 94102
-          </span>
+        <div className="flex items-start gap-3 text-sm">
+          <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: "var(--color-muted)" }} />
+          <span style={{ color: "var(--color-foreground)" }}>{contactInfo.address}</span>
         </div>
       </div>
     </div>
   )
 }
 
-/* ─── Plan Details ─── */
+/* ------------------------------------------------------------------ */
+/*  PLAN ROW                                                           */
+/* ------------------------------------------------------------------ */
 
-interface Plan {
-  id: number
-  name: string
-  progress: number
-  stage: string
-  startedOn: string
-  pricingGroup: string
-  hasAvatar?: boolean
-}
-
-const plans: Plan[] = [
-  {
-    id: 1,
-    name: "Plan 1",
-    progress: 45,
-    stage: "Discovery",
-    startedOn: "Jun 20 2025",
-    pricingGroup: "Group 1",
-    hasAvatar: true,
-  },
-  {
-    id: 2,
-    name: "Plan 2",
-    progress: 30,
-    stage: "Discovery",
-    startedOn: "Jun 20 2025",
-    pricingGroup: "Group 1",
-  },
-]
-
-function PlanRow({ plan }: { plan: Plan }) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
-    if (menuOpen) {
-      document.addEventListener("mousedown", handleClickOutside)
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [menuOpen])
-
+function PlanRow({
+  plan,
+  showDropdown,
+  onToggleDropdown,
+}: {
+  plan: (typeof plans)[0]
+  showDropdown: boolean
+  onToggleDropdown: () => void
+}) {
   return (
     <div
-      className="rounded-lg border p-5"
+      className="rounded-xl border p-5"
       style={{
-        backgroundColor: "var(--color-background-white)",
-        borderColor: "var(--color-border-light)",
-        boxShadow: "var(--shadow-card)",
+        backgroundColor: "var(--color-card)",
+        borderColor: "var(--color-border)",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
       }}
     >
       {/* Plan header */}
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <h4
-            className="text-base font-semibold"
-            style={{ color: "var(--color-text-dark)" }}
-          >
+          <h4 className="text-base font-semibold" style={{ color: "var(--color-foreground)" }}>
             {plan.name}
           </h4>
-          {plan.hasAvatar && (
+          {plan.avatarSeed && (
             <div
-              className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full"
-              style={{ backgroundColor: "var(--color-background-light-grey)" }}
+              className="h-8 w-8 overflow-hidden rounded-full"
+              style={{ backgroundColor: "var(--color-tag-bg)" }}
             >
               <img
-                src="https://api.dicebear.com/9.x/avataaars/svg?seed=TeamMember&backgroundColor=ffd5dc"
-                alt="Team member"
+                src={`https://api.dicebear.com/9.x/avataaars/svg?seed=${plan.avatarSeed}&backgroundColor=b6e3f4`}
+                alt="Assigned user"
                 className="h-full w-full object-cover"
               />
             </div>
           )}
         </div>
-        <div className="relative flex items-center gap-2" ref={menuRef}>
+        <div className="flex items-center gap-2">
           <a
             href="#"
             className="flex items-center gap-1 text-sm font-medium"
-            style={{ color: "var(--color-primary-blue)" }}
+            style={{ color: "var(--color-primary)" }}
           >
             Review plan
-            <ExternalLink size={14} />
+            <ExternalLink className="h-3.5 w-3.5" />
           </a>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="rounded p-1 transition-colors hover:bg-[var(--color-background-active)]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <MoreHorizontal size={18} />
-          </button>
-          {menuOpen && (
-            <div
-              className="absolute right-0 top-8 z-10 min-w-[140px] rounded-lg border py-1"
-              style={{
-                backgroundColor: "var(--color-background-white)",
-                borderColor: "var(--color-border-light)",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.12)",
-              }}
+          <div className="relative">
+            <button
+              onClick={onToggleDropdown}
+              className="flex h-7 w-7 items-center justify-center rounded-full transition-colors hover:bg-gray-100"
             >
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "var(--color-text-dark)" }}
+              <MoreHorizontal className="h-4 w-4" style={{ color: "var(--color-muted)" }} />
+            </button>
+            {showDropdown && (
+              <div
+                className="absolute right-0 z-50 mt-1 w-36 rounded-lg border py-1.5 shadow-lg"
+                style={{
+                  backgroundColor: "var(--color-card)",
+                  borderColor: "var(--color-border)",
+                }}
               >
-                <Pencil size={14} />
-                Edit
-              </button>
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "var(--color-text-dark)" }}
-              >
-                <Archive size={14} />
-                Archive
-              </button>
-              <button
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm transition-colors hover:bg-[var(--color-background-active)]"
-                style={{ color: "#DC2626" }}
-              >
-                <Trash2 size={14} />
-                Delete
-              </button>
-            </div>
-          )}
+                <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+                  <Pencil className="h-3.5 w-3.5" style={{ color: "var(--color-muted)" }} />
+                  <span style={{ color: "var(--color-foreground)" }}>Edit</span>
+                </button>
+                <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+                  <Archive className="h-3.5 w-3.5" style={{ color: "var(--color-muted)" }} />
+                  <span style={{ color: "var(--color-foreground)" }}>Archive</span>
+                </button>
+                <button className="flex w-full items-center gap-2.5 px-4 py-2 text-sm transition-colors hover:bg-gray-50">
+                  <Trash2 className="h-3.5 w-3.5" style={{ color: "var(--color-destructive)" }} />
+                  <span style={{ color: "var(--color-destructive)" }}>Delete</span>
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Plan info grid */}
-      <div className="grid grid-cols-4 items-start gap-4">
+      {/* Plan details grid */}
+      <div className="grid grid-cols-4 gap-4">
         {/* Progress */}
         <div>
-          <span
-            className="mb-1 block text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          <p className="mb-1 text-xs" style={{ color: "var(--color-muted)" }}>
             Progress
-          </span>
+          </p>
           <span
-            className="mb-2 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium"
+            className="mb-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-medium"
             style={{
-              backgroundColor: "var(--color-background-light-blue)",
-              color: "var(--color-primary-blue)",
+              backgroundColor: "var(--color-light-blue-bg)",
+              color: "var(--color-primary)",
             }}
           >
             {plan.stage}
           </span>
           {/* Progress bar */}
           <div
-            className="mt-1 h-2 w-full overflow-hidden rounded-sm"
-            style={{ backgroundColor: "var(--color-background-active)" }}
+            className="mt-1.5 h-2 w-full overflow-hidden rounded-full"
+            style={{ backgroundColor: "var(--color-progress-track)" }}
           >
             <div
-              className="h-full rounded-sm"
+              className="h-full rounded-full transition-all"
               style={{
                 width: `${plan.progress}%`,
-                backgroundColor: "var(--color-accent-blue)",
+                backgroundColor: "var(--color-primary)",
               }}
             />
           </div>
         </div>
 
-        {/* Spacer for alignment */}
-        <div />
-
         {/* Started on */}
         <div>
-          <span
-            className="mb-1 block text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          <p className="mb-1 text-xs" style={{ color: "var(--color-muted)" }}>
             Started on
-          </span>
-          <div className="flex items-center gap-1.5">
-            <Calendar size={14} style={{ color: "var(--color-text-muted)" }} />
-            <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
-              {plan.startedOn}
-            </span>
+          </p>
+          <div className="flex items-center gap-1.5 text-sm" style={{ color: "var(--color-foreground)" }}>
+            <Calendar className="h-3.5 w-3.5" style={{ color: "var(--color-muted)" }} />
+            {plan.startedOn}
           </div>
         </div>
 
         {/* Pricing Group */}
         <div>
-          <span
-            className="mb-1 block text-xs"
-            style={{ color: "var(--color-text-muted)" }}
-          >
+          <p className="mb-1 text-xs" style={{ color: "var(--color-muted)" }}>
             Pricing Group
-          </span>
-          <span className="text-sm" style={{ color: "var(--color-text-dark)" }}>
+          </p>
+          <p className="text-sm" style={{ color: "var(--color-foreground)" }}>
             {plan.pricingGroup}
-          </span>
+          </p>
         </div>
       </div>
     </div>
   )
 }
 
+/* ------------------------------------------------------------------ */
+/*  PLAN DETAILS SECTION                                               */
+/* ------------------------------------------------------------------ */
+
 function PlanDetails() {
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null)
+
   return (
-    <div className="relative">
+    <div>
       <h3
         className="mb-4 text-lg font-semibold"
-        style={{ color: "var(--color-text-dark)" }}
+        style={{ color: "var(--color-foreground)" }}
       >
         Plan Details
       </h3>
       <div className="flex flex-col gap-4">
         {plans.map((plan) => (
-          <PlanRow key={plan.id} plan={plan} />
+          <PlanRow
+            key={plan.id}
+            plan={plan}
+            showDropdown={openDropdown === plan.id}
+            onToggleDropdown={() =>
+              setOpenDropdown(openDropdown === plan.id ? null : plan.id)
+            }
+          />
         ))}
-      </div>
-
-      {/* Floating avatar at bottom-right */}
-      <div
-        className="absolute -bottom-4 -right-4 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2"
-        style={{
-          borderColor: "var(--color-background-white)",
-          backgroundColor: "var(--color-background-light-grey)",
-        }}
-      >
-        <img
-          src="https://api.dicebear.com/9.x/avataaars/svg?seed=Shaden&backgroundColor=ffd5dc,d1d4f9"
-          alt="Assigned user"
-          className="h-full w-full object-cover"
-        />
       </div>
     </div>
   )
 }
 
-/* ─── Main Page ─── */
+/* ------------------------------------------------------------------ */
+/*  PAGE HEADER                                                        */
+/* ------------------------------------------------------------------ */
+
+function ContactPageHeader() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  return (
+    <div>
+      {/* Top bar */}
+      <div className="mb-6 flex items-center justify-between">
+        <div className="flex items-center gap-2 text-sm" style={{ color: "var(--color-muted)" }}>
+          <Users className="h-4 w-4" />
+          <span style={{ color: "var(--color-foreground)" }} className="font-medium">
+            Contacts
+          </span>
+        </div>
+        <div className="flex items-center gap-2 text-xs" style={{ color: "var(--color-muted)" }}>
+          <span>{'Your public URL: https://app.growbotik.com/ec9bbfd0d0/plan'}</span>
+          <button className="rounded p-1 transition-colors hover:bg-gray-100">
+            <Copy className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Name + actions */}
+      <div className="mb-1 flex items-start justify-between">
+        <div className="flex items-center gap-3">
+          <h1 className="text-2xl font-bold" style={{ color: "var(--color-foreground)" }}>
+            {contactInfo.name}
+          </h1>
+          <span
+            className="inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium"
+            style={{
+              backgroundColor: "var(--color-archived-bg)",
+              color: "var(--color-archived-foreground)",
+            }}
+          >
+            <Archive className="h-3 w-3" />
+            Archived
+          </span>
+        </div>
+        <ActionDropdown open={menuOpen} onToggle={() => setMenuOpen(!menuOpen)} />
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  MAIN PAGE                                                          */
+/* ------------------------------------------------------------------ */
 
 export default function ContactDetailPage() {
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen" style={{ backgroundColor: "var(--color-background)" }}>
       <Sidebar />
+      <main className="flex-1 px-8 py-6">
+        <ContactPageHeader />
 
-      <main
-        className="flex-1 overflow-auto px-10 py-6"
-        style={{ backgroundColor: "var(--color-background-white)" }}
-      >
-        <ContactHeader />
-
-        <div className="mt-6 grid grid-cols-[320px_1fr] items-start gap-6">
+        <div className="mt-6 grid gap-6" style={{ gridTemplateColumns: "320px 1fr" }}>
           <ContactCard />
           <PlanDetails />
         </div>
