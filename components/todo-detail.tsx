@@ -5,11 +5,8 @@ import {
   X,
   Clock,
   Calendar,
-  ShieldAlert,
   FileText,
-  Link2,
   MessageSquare,
-  ShoppingCart,
   CreditCard,
   AlertTriangle,
   Upload,
@@ -17,53 +14,23 @@ import {
   Eye,
   EyeOff,
   CheckCircle2,
+  Globe,
   User,
 } from "lucide-react"
-import type { Todo, TodoField, TodoArchetype } from "@/lib/todo-types"
+import type { Todo, TodoField } from "@/lib/todo-types"
 import GbpConnectFlow from "@/components/gbp-connect-flow"
 import GoogleAdsConnectFlow from "@/components/google-ads-connect-flow"
+import { productIconMap, productColorMap } from "@/components/todo-card"
 import {
   ARCHETYPE_LABELS,
   PRIORITY_LABELS,
   STATUS_LABELS,
 } from "@/lib/todo-types"
 
-const archetypeIconMap: Record<TodoArchetype, React.ReactNode> = {
-  information_request: <FileText size={22} />,
-  integration: <Link2 size={22} />,
-  feedback_request: <MessageSquare size={22} />,
-  vendor_request: <ShoppingCart size={22} />,
-  payment: <CreditCard size={22} />,
-  system_alert: <AlertTriangle size={22} />,
+const defaultColors = {
+  bg: "var(--color-background-light-grey)",
+  color: "var(--color-text-muted)",
 }
-
-const archetypeColorMap: Record<TodoArchetype, { bg: string; color: string }> =
-  {
-    information_request: {
-      bg: "var(--color-background-light-blue)",
-      color: "var(--color-accent-blue)",
-    },
-    integration: {
-      bg: "var(--color-background-light-green-alt)",
-      color: "var(--color-accent-green)",
-    },
-    feedback_request: {
-      bg: "var(--color-background-light-orange)",
-      color: "var(--color-accent-orange)",
-    },
-    vendor_request: {
-      bg: "var(--color-background-light-pink)",
-      color: "var(--color-accent-pink)",
-    },
-    payment: {
-      bg: "var(--color-background-light-orange)",
-      color: "var(--color-accent-orange)",
-    },
-    system_alert: {
-      bg: "var(--color-background-light-pink)",
-      color: "var(--color-accent-pink-bright)",
-    },
-  }
 
 interface TodoDetailProps {
   todo: Todo
@@ -262,7 +229,8 @@ export default function TodoDetail({
     return initial
   })
 
-  const archetypeColors = archetypeColorMap[todo.archetype]
+  const product = todo.productName || ""
+  const iconColors = productColorMap[product] || defaultColors
   const isCompleted = todo.status === "completed"
   const totalFields = todo.fields?.filter((f) => f.required).length || 0
   const filledFields =
@@ -309,19 +277,19 @@ export default function TodoDetail({
                 width: "var(--icon-circle-size)",
                 height: "var(--icon-circle-size)",
                 borderRadius: "var(--radius-full)",
-                backgroundColor: archetypeColors.bg,
-                color: archetypeColors.color,
+                backgroundColor: iconColors.bg,
+                color: iconColors.color,
               }}
             >
-              {archetypeIconMap[todo.archetype]}
+              {productIconMap[product] || <Globe size={22} />}
             </div>
             <div>
               <span
                 style={{
                   fontSize: "var(--text-xs)",
                   fontWeight: "var(--font-medium)",
-                  color: archetypeColors.color,
-                  backgroundColor: archetypeColors.bg,
+                  color: iconColors.color,
+                  backgroundColor: iconColors.bg,
                   padding: "2px var(--space-2)",
                   borderRadius: "var(--radius-sm)",
                 }}
@@ -394,14 +362,6 @@ export default function TodoDetail({
               borderRadius: "var(--radius-lg)",
             }}
           >
-            {todo.blocking && (
-              <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                <ShieldAlert size={14} style={{ color: "var(--color-accent-pink-bright)" }} />
-                <span style={{ fontSize: "var(--text-xs)", color: "var(--color-accent-pink-bright)", fontWeight: "var(--font-medium)" }}>
-                  Blocking
-                </span>
-              </div>
-            )}
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
               <Clock size={14} style={{ color: "var(--color-text-muted)" }} />
               <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
@@ -425,13 +385,7 @@ export default function TodoDetail({
                 Status: {STATUS_LABELS[todo.status]}
               </span>
             </div>
-            {todo.productName && (
-              <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-                <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
-                  Product: {todo.productName}
-                </span>
-              </div>
-            )}
+
           </div>
 
           {/* Vendor message (for feedback/vendor request) */}

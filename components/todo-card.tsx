@@ -1,57 +1,84 @@
 "use client"
 
 import {
-  FileText,
-  Link2,
-  MessageSquare,
-  ShoppingCart,
-  CreditCard,
-  AlertTriangle,
   Clock,
   Calendar,
-  ShieldAlert,
   CheckCircle2,
+  CreditCard,
+  Globe,
+  Search,
+  MousePointerClick,
+  MonitorSmartphone,
+  Megaphone,
+  FolderCog,
+  Star,
+  PenTool,
+  Share2,
+  Server,
 } from "lucide-react"
-import type { Todo, TodoArchetype, TodoPriority } from "@/lib/todo-types"
+import type { Todo, TodoPriority } from "@/lib/todo-types"
 import { ARCHETYPE_LABELS, PRIORITY_LABELS } from "@/lib/todo-types"
 
-const archetypeIconMap: Record<TodoArchetype, React.ReactNode> = {
-  information_request: <FileText size={20} />,
-  integration: <Link2 size={20} />,
-  feedback_request: <MessageSquare size={20} />,
-  vendor_request: <ShoppingCart size={20} />,
-  payment: <CreditCard size={20} />,
-  system_alert: <AlertTriangle size={20} />,
+// Product-based icon map
+export const productIconMap: Record<string, React.ReactNode> = {
+  "Account Billing": <CreditCard size={20} />,
+  "Local SEO": <Search size={20} />,
+  "Website Design": <PenTool size={20} />,
+  "PR & Content": <Megaphone size={20} />,
+  "PPC Management": <MousePointerClick size={20} />,
+  "Website Migration": <Server size={20} />,
+  "Social Media Ads": <Share2 size={20} />,
+  "Website": <MonitorSmartphone size={20} />,
+  "Account Setup": <FolderCog size={20} />,
+  "Reputation Management": <Star size={20} />,
 }
 
-const archetypeColorMap: Record<
-  TodoArchetype,
-  { bg: string; color: string }
-> = {
-  information_request: {
-    bg: "var(--color-background-light-blue)",
-    color: "var(--color-accent-blue)",
+export const productColorMap: Record<string, { bg: string; color: string }> = {
+  "Account Billing": {
+    bg: "var(--color-background-light-orange)",
+    color: "var(--color-accent-orange)",
   },
-  integration: {
+  "Local SEO": {
     bg: "var(--color-background-light-green-alt)",
     color: "var(--color-accent-green)",
   },
-  feedback_request: {
-    bg: "var(--color-background-light-orange)",
-    color: "var(--color-accent-orange)",
+  "Website Design": {
+    bg: "var(--color-background-light-blue)",
+    color: "var(--color-accent-blue)",
   },
-  vendor_request: {
+  "PR & Content": {
     bg: "var(--color-background-light-pink)",
     color: "var(--color-accent-pink)",
   },
-  payment: {
+  "PPC Management": {
     bg: "var(--color-background-light-orange)",
     color: "var(--color-accent-orange)",
   },
-  system_alert: {
+  "Website Migration": {
+    bg: "var(--color-background-light-blue)",
+    color: "var(--color-primary-blue)",
+  },
+  "Social Media Ads": {
     bg: "var(--color-background-light-pink)",
     color: "var(--color-accent-pink-bright)",
   },
+  "Website": {
+    bg: "var(--color-background-light-blue)",
+    color: "var(--color-accent-blue)",
+  },
+  "Account Setup": {
+    bg: "var(--color-background-light-grey)",
+    color: "var(--color-text-muted)",
+  },
+  "Reputation Management": {
+    bg: "var(--color-background-light-orange)",
+    color: "var(--color-accent-orange)",
+  },
+}
+
+const defaultColors = {
+  bg: "var(--color-background-light-grey)",
+  color: "var(--color-text-muted)",
 }
 
 const priorityColorMap: Record<TodoPriority, { bg: string; color: string }> = {
@@ -95,7 +122,8 @@ export default function TodoCard({
   onClick,
   isCompleted = false,
 }: TodoCardProps) {
-  const archetypeColors = archetypeColorMap[todo.archetype]
+  const product = todo.productName || ""
+  const iconColors = productColorMap[product] || defaultColors
   const priorityColors = priorityColorMap[todo.priority]
   const isDueOverdue =
     todo.dueDate && new Date(todo.dueDate).getTime() < Date.now()
@@ -128,7 +156,7 @@ export default function TodoCard({
         e.currentTarget.style.borderColor = "var(--color-border-light)"
       }}
     >
-      {/* Archetype Icon */}
+      {/* Product Icon */}
       <div
         className="shrink-0"
         style={{ position: "relative" }}
@@ -141,13 +169,13 @@ export default function TodoCard({
             borderRadius: "var(--radius-full)",
             backgroundColor: isCompleted
               ? "var(--color-background-light-green-alt)"
-              : archetypeColors.bg,
+              : iconColors.bg,
             color: isCompleted
               ? "var(--color-accent-green)"
-              : archetypeColors.color,
+              : iconColors.color,
           }}
         >
-          {archetypeIconMap[todo.archetype]}
+          {productIconMap[product] || <Globe size={20} />}
         </div>
         {isCompleted && (
           <div
@@ -191,24 +219,6 @@ export default function TodoCard({
             {todo.title}
           </span>
 
-          {todo.blocking && !isCompleted && (
-            <span
-              className="flex items-center"
-              style={{
-                gap: "2px",
-                fontSize: "var(--text-xs)",
-                fontWeight: "var(--font-medium)",
-                color: "var(--color-accent-pink-bright)",
-                backgroundColor: "var(--color-background-light-pink)",
-                padding: "2px var(--space-2)",
-                borderRadius: "var(--radius-sm)",
-              }}
-            >
-              <ShieldAlert size={12} />
-              Blocking
-            </span>
-          )}
-
           {todo.status === "reopened" && (
             <span
               style={{
@@ -251,8 +261,8 @@ export default function TodoCard({
             style={{
               fontSize: "var(--text-xs)",
               fontWeight: "var(--font-medium)",
-              color: archetypeColors.color,
-              backgroundColor: archetypeColors.bg,
+              color: iconColors.color,
+              backgroundColor: iconColors.bg,
               padding: "2px var(--space-2)",
               borderRadius: "var(--radius-sm)",
             }}
@@ -321,21 +331,6 @@ export default function TodoCard({
                 {formatDueDate(todo.dueDate)}
               </span>
             )
-          )}
-
-          {/* Product name */}
-          {todo.productName && (
-            <span
-              style={{
-                fontSize: "var(--text-xs)",
-                color: "var(--color-text-secondary)",
-                backgroundColor: "var(--color-background-tag)",
-                padding: "2px var(--space-2)",
-                borderRadius: "var(--radius-sm)",
-              }}
-            >
-              {todo.productName}
-            </span>
           )}
         </div>
       </div>

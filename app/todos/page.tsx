@@ -13,14 +13,12 @@ import {
   CheckCircle2,
   Circle,
   ListTodo,
-  AlertTriangle,
 } from "lucide-react"
 
-type FilterType = "all" | "blocking" | "information_request" | "integration" | "feedback_request" | "vendor_request" | "payment" | "system_alert"
+type FilterType = "all" | "information_request" | "integration" | "feedback_request" | "vendor_request" | "payment" | "system_alert"
 
 const FILTER_OPTIONS: { value: FilterType; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "blocking", label: "Blocking Only" },
   { value: "information_request", label: "Information" },
   { value: "integration", label: "Integrations" },
   { value: "feedback_request", label: "Feedback" },
@@ -46,7 +44,6 @@ export default function TodosPage() {
       .sort((a, b) => b.priorityScore - a.priorityScore)
 
     if (activeFilter === "all") return open
-    if (activeFilter === "blocking") return open.filter((t) => t.blocking)
     return open.filter((t) => t.archetype === activeFilter)
   }, [todos, activeFilter])
 
@@ -69,14 +66,6 @@ export default function TodosPage() {
     : openTodos.slice(0, MAX_VISIBLE)
   const remainingCount = openTodos.length - MAX_VISIBLE
 
-  // Summary counts
-  const blockingCount = todos.filter(
-    (t) =>
-      t.blocking &&
-      t.status !== "completed" &&
-      t.status !== "cancelled"
-  ).length
-
   // Handle complete
   const handleComplete = (todoId: string) => {
     setTodos((prev) =>
@@ -86,7 +75,6 @@ export default function TodosPage() {
               ...t,
               status: "completed" as const,
               completedDate: new Date().toISOString(),
-              blocking: false,
             }
           : t
       )
@@ -191,31 +179,6 @@ export default function TodosPage() {
             {openTodos.length} Open
           </span>
         </div>
-        {blockingCount > 0 && (
-          <div
-            className="flex items-center"
-            style={{
-              gap: "var(--space-2)",
-              padding: "var(--space-3) var(--space-5)",
-              backgroundColor: "var(--color-background-light-pink)",
-              borderRadius: "var(--radius-lg)",
-            }}
-          >
-            <AlertTriangle
-              size={16}
-              style={{ color: "var(--color-accent-pink-bright)" }}
-            />
-            <span
-              style={{
-                fontSize: "var(--text-base-sm)",
-                fontWeight: "var(--font-semibold)",
-                color: "var(--color-accent-pink-bright)",
-              }}
-            >
-              {blockingCount} Blocking
-            </span>
-          </div>
-        )}
         <div
           className="flex items-center"
           style={{
@@ -242,7 +205,7 @@ export default function TodosPage() {
       </div>
 
       {/* Tip box */}
-      <TipBox text="todos are sorted by priority. Complete blocking tasks first to unblock your marketing campaigns. You can click on any task to view details and take action." />
+      <TipBox text="Todos are sorted by priority. Focus on critical tasks first to keep your marketing campaigns running smoothly. Click on any task to view details and take action." />
 
       {/* Filters */}
       <div
