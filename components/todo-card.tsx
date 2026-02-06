@@ -130,19 +130,42 @@ export default function TodoCard({
     >
       {/* Archetype Icon */}
       <div
-        className="flex items-center justify-center shrink-0"
-        style={{
-          width: "var(--icon-circle-size)",
-          height: "var(--icon-circle-size)",
-          borderRadius: "var(--radius-full)",
-          backgroundColor: archetypeColors.bg,
-          color: archetypeColors.color,
-        }}
+        className="shrink-0"
+        style={{ position: "relative" }}
       >
-        {isCompleted ? (
-          <CheckCircle2 size={20} style={{ color: "var(--color-accent-green)" }} />
-        ) : (
-          archetypeIconMap[todo.archetype]
+        <div
+          className="flex items-center justify-center"
+          style={{
+            width: "var(--icon-circle-size)",
+            height: "var(--icon-circle-size)",
+            borderRadius: "var(--radius-full)",
+            backgroundColor: isCompleted
+              ? "var(--color-background-light-green-alt)"
+              : archetypeColors.bg,
+            color: isCompleted
+              ? "var(--color-accent-green)"
+              : archetypeColors.color,
+          }}
+        >
+          {archetypeIconMap[todo.archetype]}
+        </div>
+        {isCompleted && (
+          <div
+            className="flex items-center justify-center"
+            style={{
+              position: "absolute",
+              bottom: "-2px",
+              right: "-2px",
+              width: "16px",
+              height: "16px",
+              borderRadius: "var(--radius-full)",
+              backgroundColor: "var(--color-accent-green)",
+              color: "#fff",
+              border: "2px solid var(--color-background-white)",
+            }}
+          >
+            <CheckCircle2 size={10} strokeWidth={3} />
+          </div>
         )}
       </div>
 
