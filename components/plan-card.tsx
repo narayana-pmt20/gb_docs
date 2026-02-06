@@ -16,20 +16,22 @@ interface Plan {
 
 export function PlanCard({ plan }: { plan: Plan }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-5">
+    <div className="rounded-lg border border-border bg-card p-5">
       {/* Plan title row */}
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between">
         <h3 className="text-base font-semibold text-card-foreground">
           {plan.name}
         </h3>
-        <button className="flex shrink-0 items-center gap-1 text-sm font-medium text-primary hover:underline">
-          Review plan
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </button>
+        <div className="flex items-center gap-2">
+          <button className="flex items-center gap-1 text-sm font-medium text-primary hover:underline">
+            Review plan
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Details row */}
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mt-4 grid grid-cols-[1fr_auto_1fr_1fr] items-start gap-6">
         {/* Progress */}
         <div>
           <p className="text-sm text-muted-foreground">Progress</p>
@@ -46,11 +48,14 @@ export function PlanCard({ plan }: { plan: Plan }) {
           </div>
         </div>
 
+        {/* Spacer */}
+        <div />
+
         {/* Started on */}
         <div>
           <p className="text-sm text-muted-foreground">Started on</p>
           <div className="mt-2 flex items-center gap-2 text-sm font-medium text-card-foreground">
-            <Calendar className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <Calendar className="h-4 w-4 text-muted-foreground" />
             {plan.startedOn}
           </div>
         </div>

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ContactHeader } from "@/components/contact-header"
 import { ContactProfileCard } from "@/components/contact-profile-card"
+import { ContactInfoCard } from "@/components/contact-info-card"
 import { PlanCard } from "@/components/plan-card"
 import { CreatePlanModal } from "@/components/create-plan-modal"
 import { EditContactForm } from "@/components/edit-contact-form"
@@ -84,7 +85,7 @@ export default function Home() {
     return (
       <div className="flex min-h-screen">
         <AppSidebar />
-        <main className="flex flex-1 items-center justify-center p-6 pt-16 md:pt-6">
+        <main className="flex flex-1 items-center justify-center p-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
               <svg
@@ -118,7 +119,7 @@ export default function Home() {
     return (
       <div className="flex min-h-screen">
         <AppSidebar />
-        <main className="flex flex-1 items-center justify-center p-6 pt-16 md:pt-6">
+        <main className="flex flex-1 items-center justify-center p-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
               <svg
@@ -151,7 +152,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen">
       <AppSidebar />
-      <main className="flex flex-1 flex-col p-4 pt-16 sm:p-6 md:pt-6">
+      <main className="flex flex-1 flex-col p-6">
         <ContactHeader
           contactName={contact.name}
           company={contact.company}
@@ -171,18 +172,24 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="mt-6 flex flex-col gap-6 lg:flex-row">
-              {/* Left column - Profile card with contact info */}
-              <div className="w-full lg:w-[300px] lg:min-w-[300px]">
+            <div className="mt-6 grid grid-cols-[260px_1fr_1fr] gap-6">
+              {/* Left column - Profile card */}
+              <div>
                 <ContactProfileCard
-                  contact={contact}
+                  name={contact.name}
+                  company={contact.company}
                   onCreatePlan={() => setModalOpen(true)}
                   createPlanDisabled={plans.length > 0}
                 />
               </div>
 
+              {/* Middle column - Contact information */}
+              <div>
+                <ContactInfoCard contact={contact} />
+              </div>
+
               {/* Right column - Plans */}
-              <div className="flex flex-1 flex-col gap-4">
+              <div className="flex flex-col gap-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   Plan Details
                 </h2>

@@ -53,7 +53,7 @@ export function EditContactForm({
             type="text"
             value={formData.name}
             onChange={(e) => handleChange("name", e.target.value)}
-            className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring sm:max-w-[460px]"
+            className="w-full max-w-[460px] rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
           />
         </div>
 
@@ -62,7 +62,7 @@ export function EditContactForm({
           <label className="mb-2 block text-sm font-semibold text-foreground">
             Email
           </label>
-          <div className="relative w-full sm:max-w-[460px]">
+          <div className="relative w-full max-w-[460px]">
             <input
               type="email"
               value={formData.email}
@@ -82,7 +82,7 @@ export function EditContactForm({
             type="tel"
             value={formData.phone}
             onChange={(e) => handleChange("phone", e.target.value)}
-            className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring sm:max-w-[460px]"
+            className="w-full max-w-[460px] rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
           />
         </div>
 
@@ -95,7 +95,7 @@ export function EditContactForm({
             type="text"
             value={formData.company}
             onChange={(e) => handleChange("company", e.target.value)}
-            className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring sm:max-w-[460px]"
+            className="w-full max-w-[460px] rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
           />
         </div>
 
@@ -104,7 +104,7 @@ export function EditContactForm({
           <label className="mb-2 block text-sm font-semibold text-foreground">
             Status
           </label>
-          <div className="relative w-full sm:max-w-[460px]">
+          <div className="relative w-full max-w-[460px]">
             <button
               type="button"
               onClick={() => setStatusOpen(!statusOpen)}
@@ -142,7 +142,7 @@ export function EditContactForm({
             value={formData.website}
             onChange={(e) => handleChange("website", e.target.value)}
             placeholder="Website"
-            className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring sm:max-w-[460px]"
+            className="w-full max-w-[460px] rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground outline-none transition-colors focus:border-ring focus:ring-1 focus:ring-ring"
           />
         </div>
 
@@ -151,7 +151,7 @@ export function EditContactForm({
           <label className="mb-2 block text-sm font-semibold text-foreground">
             Address
           </label>
-          <div className="relative w-full sm:max-w-[460px]">
+          <div className="relative w-full max-w-[460px]">
             <input
               type="text"
               value={formData.address}
