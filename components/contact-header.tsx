@@ -44,19 +44,21 @@ export function ContactHeader({
   return (
     <div className="flex flex-col gap-4">
       {/* Breadcrumb + Public URL Row */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <FileText className="h-4 w-4" />
+          <FileText className="h-4 w-4 shrink-0" />
           <span className="font-medium text-foreground">Contacts</span>
-          <ChevronRight className="h-3 w-3" />
-          <span>{isEditing ? `Edit ${contactName}` : contactName}</span>
+          <ChevronRight className="h-3 w-3 shrink-0" />
+          <span className="truncate">
+            {isEditing ? `Edit ${contactName}` : contactName}
+          </span>
         </div>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <span>
+        <div className="hidden items-center gap-2 text-sm text-muted-foreground sm:flex">
+          <span className="truncate">
             Your public URL: https://app.growbotik.com/8d0d17f3e6/plan
           </span>
           <button
-            className="rounded p-1 hover:bg-accent"
+            className="shrink-0 rounded p-1 hover:bg-accent"
             aria-label="Copy public URL"
           >
             <Copy className="h-4 w-4" />
@@ -65,17 +67,17 @@ export function ContactHeader({
       </div>
 
       {/* Title + Actions */}
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="truncate text-xl font-bold text-foreground sm:text-2xl">
             {isEditing ? `Edit ${contactName}` : contactName}
           </h1>
-          <p className="text-sm text-muted-foreground">{company}</p>
+          <p className="truncate text-sm text-muted-foreground">{company}</p>
         </div>
 
         {/* Three-dot menu - only show in detail view */}
         {!isEditing && (
-          <div className="relative" ref={menuRef}>
+          <div className="relative shrink-0" ref={menuRef}>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="rounded p-1 hover:bg-accent"

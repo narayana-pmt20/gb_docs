@@ -84,7 +84,7 @@ export default function Home() {
     return (
       <div className="flex min-h-screen">
         <AppSidebar />
-        <main className="flex flex-1 items-center justify-center p-6">
+        <main className="flex flex-1 items-center justify-center p-6 pt-16 md:pt-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
               <svg
@@ -118,7 +118,7 @@ export default function Home() {
     return (
       <div className="flex min-h-screen">
         <AppSidebar />
-        <main className="flex flex-1 items-center justify-center p-6">
+        <main className="flex flex-1 items-center justify-center p-6 pt-16 md:pt-6">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-amber-100">
               <svg
@@ -151,7 +151,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen">
       <AppSidebar />
-      <main className="flex flex-1 flex-col p-6">
+      <main className="flex flex-1 flex-col p-4 pt-16 sm:p-6 md:pt-6">
         <ContactHeader
           contactName={contact.name}
           company={contact.company}
@@ -171,9 +171,9 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="mt-6 flex gap-6">
+            <div className="mt-6 flex flex-col gap-6 lg:flex-row">
               {/* Left column - Profile card with contact info */}
-              <div className="w-[300px] min-w-[300px]">
+              <div className="w-full lg:w-[300px] lg:min-w-[300px]">
                 <ContactProfileCard
                   contact={contact}
                   onCreatePlan={() => setModalOpen(true)}

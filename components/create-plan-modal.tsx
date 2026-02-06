@@ -30,7 +30,7 @@ export function CreatePlanModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Overlay */}
       <div
         className="absolute inset-0 bg-foreground/50"
@@ -39,7 +39,7 @@ export function CreatePlanModal({
       />
 
       {/* Modal */}
-      <div className="relative z-10 w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-lg">
+      <div className="relative z-10 w-full max-w-md rounded-lg border border-border bg-card p-5 shadow-lg sm:p-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-card-foreground">
