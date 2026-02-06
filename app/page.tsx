@@ -1,26 +1,12 @@
-import Sidebar from "@/components/sidebar"
 import TipBox from "@/components/tip-box"
 import MetricCard from "@/components/metric-card"
 import { Accessibility, Globe, Star, Zap } from "lucide-react"
 
 export default function MarketingGapAnalysisPage() {
   return (
-    <div className="flex" style={{ minHeight: "100vh" }}>
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <main
-        className="flex-1"
-        style={{
-          backgroundColor: "var(--color-background-white)",
-          padding: "var(--space-12) var(--space-16)",
-          maxWidth: "var(--content-max-width)",
-          overflowY: "auto",
-        }}
-      >
-        {/* Page Title */}
-        <h1
+    <>
+      {/* Page Title */}
+      <h1
           style={{
             fontSize: "var(--text-3xl)",
             fontWeight: "var(--font-bold)",
@@ -105,7 +91,6 @@ export default function MarketingGapAnalysisPage() {
             progressColor="blue"
           />
         </div>
-      </main>
-    </div>
+    </>
   )
 }

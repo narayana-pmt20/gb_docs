@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 import {
   FileText,
   CheckSquare,
@@ -22,13 +24,13 @@ const navItems: NavItem[] = [
   {
     label: "Marketing Plan",
     icon: <FileText size={18} />,
-    href: "#",
+    href: "/",
     hasSubmenu: true,
   },
   {
     label: "Todos",
     icon: <CheckSquare size={18} />,
-    href: "#",
+    href: "/todos",
   },
   {
     label: "Reporting",
@@ -43,6 +45,7 @@ const navItems: NavItem[] = [
 ]
 
 export default function Sidebar() {
+  const pathname = usePathname()
   const [expandedItem, setExpandedItem] = useState<string | null>(
     "Marketing Plan"
   )
@@ -103,49 +106,83 @@ export default function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex flex-col" style={{ gap: "var(--space-1)" }}>
-        {navItems.map((item) => (
-          <div key={item.label}>
-            <a
-              href={item.href}
-              className="flex items-center"
-              style={{
-                gap: "var(--space-4)",
-                padding: "var(--space-3) var(--space-5)",
-                fontSize: "0.9375rem",
-                fontWeight: "var(--font-medium)",
-                color: "var(--color-text-dark)",
-                textDecoration: "none",
-                borderRadius: "var(--radius-md)",
-                cursor: "pointer",
-              }}
-              onClick={(e) => {
-                if (item.hasSubmenu) {
-                  e.preventDefault()
-                  setExpandedItem(
-                    expandedItem === item.label ? null : item.label
-                  )
-                }
-              }}
-            >
-              <span
-                style={{
-                  color: "var(--color-text-muted)",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {item.icon}
-              </span>
-              <span className="flex-1">{item.label}</span>
-              {item.hasSubmenu &&
-                (expandedItem === item.label ? (
-                  <ChevronDown size={16} style={{ color: "var(--color-text-muted)" }} />
-                ) : (
-                  <ChevronRight size={16} style={{ color: "var(--color-text-muted)" }} />
-                ))}
-            </a>
-          </div>
-        ))}
+        {navItems.map((item) => {
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href)
+
+          return (
+            <div key={item.label}>
+              {item.hasSubmenu ? (
+                <button
+                  type="button"
+                  className="flex items-center"
+                  style={{
+                    gap: "var(--space-4)",
+                    padding: "var(--space-3) var(--space-5)",
+                    fontSize: "0.9375rem",
+                    fontWeight: isActive ? "var(--font-semibold)" : "var(--font-medium)",
+                    color: isActive ? "var(--color-primary-blue)" : "var(--color-text-dark)",
+                    textDecoration: "none",
+                    borderRadius: "var(--radius-md)",
+                    cursor: "pointer",
+                    width: "100%",
+                    border: "none",
+                    backgroundColor: "transparent",
+                    borderLeft: isActive ? "3px solid var(--color-primary-blue)" : "3px solid transparent",
+                    fontFamily: "inherit",
+                  }}
+                  onClick={() =>
+                    setExpandedItem(
+                      expandedItem === item.label ? null : item.label
+                    )
+                  }
+                >
+                  <span
+                    style={{
+                      color: isActive ? "var(--color-primary-blue)" : "var(--color-text-muted)",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </span>
+                  <span className="flex-1" style={{ textAlign: "left" }}>{item.label}</span>
+                  {expandedItem === item.label ? (
+                    <ChevronDown size={16} style={{ color: "var(--color-text-muted)" }} />
+                  ) : (
+                    <ChevronRight size={16} style={{ color: "var(--color-text-muted)" }} />
+                  )}
+                </button>
+              ) : (
+                <Link
+                  href={item.href}
+                  className="flex items-center"
+                  style={{
+                    gap: "var(--space-4)",
+                    padding: "var(--space-3) var(--space-5)",
+                    fontSize: "0.9375rem",
+                    fontWeight: isActive ? "var(--font-semibold)" : "var(--font-medium)",
+                    color: isActive ? "var(--color-primary-blue)" : "var(--color-text-dark)",
+                    textDecoration: "none",
+                    borderRadius: "var(--radius-md)",
+                    cursor: "pointer",
+                    borderLeft: isActive ? "3px solid var(--color-primary-blue)" : "3px solid transparent",
+                  }}
+                >
+                  <span
+                    style={{
+                      color: isActive ? "var(--color-primary-blue)" : "var(--color-text-muted)",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    {item.icon}
+                  </span>
+                  <span className="flex-1">{item.label}</span>
+                </Link>
+              )}
+            </div>
+          )
+        })}
       </nav>
 
       {/* Spacer */}
