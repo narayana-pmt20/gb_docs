@@ -4,7 +4,6 @@ import { useState } from "react"
 import { AppSidebar } from "@/components/app-sidebar"
 import { ContactHeader } from "@/components/contact-header"
 import { ContactProfileCard } from "@/components/contact-profile-card"
-import { ContactInfoCard } from "@/components/contact-info-card"
 import { PlanCard } from "@/components/plan-card"
 import { CreatePlanModal } from "@/components/create-plan-modal"
 import { EditContactForm } from "@/components/edit-contact-form"
@@ -172,24 +171,18 @@ export default function Home() {
           </div>
         ) : (
           <>
-            <div className="mt-6 grid grid-cols-[260px_1fr_1fr] gap-6">
-              {/* Left column - Profile card */}
-              <div>
+            <div className="mt-6 flex gap-6">
+              {/* Left column - Profile card with contact info */}
+              <div className="w-[300px] min-w-[300px]">
                 <ContactProfileCard
-                  name={contact.name}
-                  company={contact.company}
+                  contact={contact}
                   onCreatePlan={() => setModalOpen(true)}
                   createPlanDisabled={plans.length > 0}
                 />
               </div>
 
-              {/* Middle column - Contact information */}
-              <div>
-                <ContactInfoCard contact={contact} />
-              </div>
-
               {/* Right column - Plans */}
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-1 flex-col gap-4">
                 <h2 className="text-lg font-semibold text-foreground">
                   Plan Details
                 </h2>
