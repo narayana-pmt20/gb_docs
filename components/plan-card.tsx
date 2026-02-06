@@ -1,12 +1,7 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
 import {
   ArrowUpRight,
-  MoreHorizontal,
-  SquarePen,
-  Pause,
-  Trash2,
   Calendar,
 } from "lucide-react"
 
@@ -20,19 +15,6 @@ interface Plan {
 }
 
 export function PlanCard({ plan }: { plan: Plan }) {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMenuOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
-  }, [])
-
   return (
     <div className="rounded-lg border border-border bg-card p-5">
       {/* Plan title row */}
@@ -45,31 +27,6 @@ export function PlanCard({ plan }: { plan: Plan }) {
             Review plan
             <ArrowUpRight className="h-3.5 w-3.5" />
           </button>
-          <div className="relative" ref={menuRef}>
-            <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="rounded p-1 hover:bg-accent"
-              aria-label="Plan actions"
-            >
-              <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
-            </button>
-            {menuOpen && (
-              <div className="absolute right-0 top-8 z-10 w-40 rounded-lg border border-border bg-popover py-1 shadow-md">
-                <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-accent">
-                  <SquarePen className="h-4 w-4 text-muted-foreground" />
-                  Edit Plan
-                </button>
-                <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-accent">
-                  <Pause className="h-4 w-4 text-muted-foreground" />
-                  Pause plan
-                </button>
-                <button className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-accent">
-                  <Trash2 className="h-4 w-4" />
-                  Delete plan
-                </button>
-              </div>
-            )}
-          </div>
         </div>
       </div>
 

@@ -7,6 +7,7 @@ interface ContactProfileCardProps {
   company: string
   onCreatePlan: () => void
   onViewBusinessAccount?: () => void
+  createPlanDisabled?: boolean
 }
 
 export function ContactProfileCard({
@@ -14,6 +15,7 @@ export function ContactProfileCard({
   company,
   onCreatePlan,
   onViewBusinessAccount,
+  createPlanDisabled = false,
 }: ContactProfileCardProps) {
   const initials = name
     .split(" ")
@@ -51,7 +53,8 @@ export function ContactProfileCard({
       {/* Create Plan button */}
       <button
         onClick={onCreatePlan}
-        className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        disabled={createPlanDisabled}
+        className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <Plus className="h-4 w-4" />
         Create Plan

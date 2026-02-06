@@ -93,6 +93,7 @@ export default function Home() {
                   name={contact.name}
                   company={contact.company}
                   onCreatePlan={() => setModalOpen(true)}
+                  createPlanDisabled={plans.length > 0}
                 />
               </div>
               <div className="flex flex-1 flex-col gap-6">
