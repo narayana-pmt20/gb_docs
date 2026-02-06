@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ---------- Colors: Base ---------- */
+  --color-white: #FFFFFF;
+  --color-text-dark: #1F2937;
+  --color-text-dark-alt: #333333;
+  --color-text-medium: #4B5563;
+  --color-text-muted: #6B7280;
+  --color-text-secondary: #6C757D;
+  --color-text-charcoal: #343A40;
+
+  /* ---------- Colors: Backgrounds ---------- */
+  --color-background-white: #FFFFFF;
+  --color-background-light-grey: #F8F9FA;
+  --color-background-off-white: #F8FAFC;
+  --color-background-active: #F3F4F6;
+  --color-background-light-blue: #E6F0FF;
+  --color-background-light-blue-alt: #E7F0FF;
+  --color-background-light-green: #E6F4EA;
+  --color-background-light-green-alt: #EBF9F1;
+  --color-background-light-orange: #FFF3E6;
+  --color-background-light-pink: #FFEBF5;
+  --color-background-tag: #E5E7EB;
+
+  /* ---------- Colors: Borders ---------- */
+  --color-border-light: #E0E0E0;
+  --color-border-input: #CED4DA;
+  --color-border-divider: #E5E7EB;
+
+  /* ---------- Colors: Primary & Accent ---------- */
+  --color-primary-blue: #007BFF;
+  --color-accent-blue: #3B82F6;
+  --color-accent-blue-muted: #6366F1;
+  --color-accent-blue-light: #818CF8;
+  --color-accent-green: #28A745;
+  --color-accent-green-bright: #10B981;
+  --color-accent-orange: #FFC107;
+  --color-accent-pink: #E83E8C;
+  --color-accent-pink-bright: #F43F5E;
+  --color-accent-cyan: #06B6D4;
+  --color-accent-teal: #14B8A6;
+  --color-accent-purple: #8B5CF6;
+
+  /* ---------- Typography ---------- */
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  /* ---------- Spacing ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 10px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-8: 24px;
+  --space-10: 30px;
+  --space-12: 40px;
+  --space-15: 48px;
+  --space-16: 60px;
+
+  /* ---------- Radii ---------- */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-full: 50%;
+
+  /* ---------- Shadows ---------- */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card-lg: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* ---------- Layout ---------- */
+  --sidebar-width: 220px;
+  --sidebar-width-wide: 250px;
+  --content-max-width: 1200px;
+  --icon-circle-size: 44px;
+  --progress-bar-height: 8px;
+
+  /* shadcn tokens */
+  --background: 0 0% 100%;
+  --foreground: 215 25% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 25% 17%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 25% 17%;
+  --primary: 211 100% 50%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 17% 98%;
+  --secondary-foreground: 215 25% 17%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 220 14% 96%;
+  --accent-foreground: 215 25% 17%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 88%;
+  --input: 210 10% 80%;
+  --ring: 211 100% 50%;
+  --radius: 0.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--text-base);
+  font-weight: var(--font-regular);
+  color: var(--color-text-dark);
+  background-color: var(--color-background-white);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Card Grid */
+.ds-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-8);
+}
+
+@media (max-width: 1024px) {
+  .ds-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .ds-card-grid {
+    grid-template-columns: 1fr;
+  }
+}
