@@ -13,7 +13,6 @@ import {
   CheckCircle2,
   Circle,
   ListTodo,
-  Copy,
   AlertTriangle,
 } from "lucide-react"
 
@@ -131,37 +130,7 @@ export default function TodosPage() {
             Todos
           </span>
         </div>
-        <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-          <span
-            style={{
-              fontSize: "var(--text-xs)",
-              color: "var(--color-text-muted)",
-            }}
-          >
-            Your public URL: https://app.growbotik.com/8d0d17f3e6/todos
-          </span>
-          <button
-            type="button"
-            onClick={() => {
-              navigator.clipboard.writeText(
-                "https://app.growbotik.com/8d0d17f3e6/todos"
-              )
-            }}
-            aria-label="Copy URL"
-            style={{
-              background: "none",
-              border: "1px solid var(--color-border-divider)",
-              borderRadius: "var(--radius-md)",
-              cursor: "pointer",
-              padding: "var(--space-1)",
-              display: "flex",
-              alignItems: "center",
-              color: "var(--color-text-muted)",
-            }}
-          >
-            <Copy size={14} />
-          </button>
-        </div>
+
       </div>
 
       {/* Title row with divider */}

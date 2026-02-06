@@ -623,26 +623,37 @@ export default function TodoDetail({
               gap: "var(--space-3)",
             }}
           >
-            <button
-              type="button"
-              onClick={() => onSnooze(todo.id)}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "var(--space-2) var(--space-5)",
-                fontSize: "var(--text-base-sm)",
-                fontWeight: "var(--font-regular)",
-                borderRadius: "var(--radius-md)",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                backgroundColor: "var(--color-background-light-grey)",
-                color: "var(--color-text-dark)",
-              }}
-            >
-              Snooze
-            </button>
+            <div className="flex flex-col" style={{ gap: "2px" }}>
+              <button
+                type="button"
+                onClick={() => onSnooze(todo.id)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "var(--space-2) var(--space-5)",
+                  fontSize: "var(--text-base-sm)",
+                  fontWeight: "var(--font-regular)",
+                  borderRadius: "var(--radius-md)",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  backgroundColor: "var(--color-background-light-grey)",
+                  color: "var(--color-text-dark)",
+                }}
+              >
+                Snooze
+              </button>
+              <span
+                style={{
+                  fontSize: "11px",
+                  color: "var(--color-text-secondary)",
+                  textAlign: "center",
+                }}
+              >
+                Hides for 24h
+              </span>
+            </div>
             {todo.archetype !== "feedback_request" && (
               <button
                 type="button"
