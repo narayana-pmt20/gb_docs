@@ -8,29 +8,15 @@ import TodoDetail from "@/components/todo-detail"
 import {
   ChevronDown,
   ChevronUp,
-  Filter,
   CheckCircle2,
   Circle,
 } from "lucide-react"
-
-type FilterType = "all" | "information_request" | "integration" | "feedback_request" | "vendor_request" | "payment" | "system_alert"
-
-const FILTER_OPTIONS: { value: FilterType; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "information_request", label: "Information" },
-  { value: "integration", label: "Integrations" },
-  { value: "feedback_request", label: "Feedback" },
-  { value: "vendor_request", label: "Vendor" },
-  { value: "payment", label: "Payments" },
-  { value: "system_alert", label: "Alerts" },
-]
 
 export default function TodosPage() {
   const [todos, setTodos] = useState<Todo[]>(mockTodos)
   const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null)
   const [showAllOpen, setShowAllOpen] = useState(false)
   const [showCompleted, setShowCompleted] = useState(false)
-  const [activeFilter, setActiveFilter] = useState<FilterType>("all")
 
   // Separate open vs completed
   const openTodos = useMemo(() => {
@@ -41,9 +27,8 @@ export default function TodosPage() {
       )
       .sort((a, b) => b.priorityScore - a.priorityScore)
 
-    if (activeFilter === "all") return open
-    return open.filter((t) => t.archetype === activeFilter)
-  }, [todos, activeFilter])
+    return open
+  }, [todos])
 
   const completedTodos = useMemo(
     () =>
@@ -201,54 +186,6 @@ export default function TodosPage() {
         </p>
       </div>
 
-      {/* Filters */}
-      <div
-        className="flex items-center"
-        style={{
-          gap: "var(--space-2)",
-          marginBottom: "var(--space-8)",
-          flexWrap: "wrap",
-        }}
-      >
-        <Filter
-          size={16}
-          style={{
-            color: "var(--color-text-muted)",
-            marginRight: "var(--space-1)",
-          }}
-        />
-        {FILTER_OPTIONS.map((opt) => (
-          <button
-            key={opt.value}
-            type="button"
-            onClick={() => setActiveFilter(opt.value)}
-            style={{
-              padding: "var(--space-1) var(--space-4)",
-              fontSize: "var(--text-xs)",
-              fontWeight:
-                activeFilter === opt.value
-                  ? "var(--font-semibold)"
-                  : "var(--font-regular)",
-              color:
-                activeFilter === opt.value
-                  ? "var(--color-white)"
-                  : "var(--color-text-muted)",
-              backgroundColor:
-                activeFilter === opt.value
-                  ? "var(--color-primary-blue)"
-                  : "var(--color-background-light-grey)",
-              border: "none",
-              borderRadius: "var(--radius-md)",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              transition: "all 0.15s ease",
-            }}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-
       {/* Open Todos Section */}
       <h2
         style={{
@@ -289,9 +226,7 @@ export default function TodosPage() {
                 marginBottom: "var(--space-2)",
               }}
             >
-              {activeFilter !== "all"
-                ? "No matching tasks"
-                : "All caught up!"}
+              All caught up!
             </p>
             <p
               style={{
@@ -299,9 +234,7 @@ export default function TodosPage() {
                 color: "var(--color-text-muted)",
               }}
             >
-              {activeFilter !== "all"
-                ? "Try a different filter to see more tasks."
-                : "You have no open tasks right now."}
+              You have no open tasks right now.
             </p>
           </div>
         ) : (

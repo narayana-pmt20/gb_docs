@@ -214,7 +214,7 @@ export default function TodoCard({
               fontSize: "var(--text-base)",
               fontWeight: "var(--font-semibold)",
               color: "var(--color-text-dark)",
-              textDecoration: isCompleted ? "line-through" : "none",
+              textDecoration: "none",
             }}
           >
             {todo.title}
