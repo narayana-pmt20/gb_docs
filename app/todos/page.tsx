@@ -127,48 +127,52 @@ export default function TodosPage() {
                 {openTodos.length} Open
               </span>
             </div>
-            <div
-              className="flex items-center"
-              style={{
-                gap: "var(--space-2)",
-                padding: "var(--space-1) var(--space-4)",
-                backgroundColor: "var(--color-background-light-pink)",
-                borderRadius: "var(--radius-md)",
-              }}
-            >
-              <span
+            {criticalCount > 0 && (
+              <div
+                className="flex items-center"
                 style={{
-                  fontSize: "var(--text-xs)",
-                  fontWeight: "var(--font-semibold)",
-                  color: "var(--color-accent-pink-bright)",
+                  gap: "var(--space-2)",
+                  padding: "var(--space-1) var(--space-4)",
+                  backgroundColor: "var(--color-background-light-pink)",
+                  borderRadius: "var(--radius-md)",
                 }}
               >
-                {criticalCount} Critical
-              </span>
-            </div>
-            <div
-              className="flex items-center"
-              style={{
-                gap: "var(--space-2)",
-                padding: "var(--space-1) var(--space-4)",
-                backgroundColor: "var(--color-background-light-green-alt)",
-                borderRadius: "var(--radius-md)",
-              }}
-            >
-              <CheckCircle2
-                size={13}
-                style={{ color: "var(--color-accent-green)" }}
-              />
-              <span
+                <span
+                  style={{
+                    fontSize: "var(--text-xs)",
+                    fontWeight: "var(--font-semibold)",
+                    color: "var(--color-accent-pink-bright)",
+                  }}
+                >
+                  {criticalCount} Critical
+                </span>
+              </div>
+            )}
+            {completedTodos.length > 0 && (
+              <div
+                className="flex items-center"
                 style={{
-                  fontSize: "var(--text-xs)",
-                  fontWeight: "var(--font-semibold)",
-                  color: "var(--color-accent-green)",
+                  gap: "var(--space-2)",
+                  padding: "var(--space-1) var(--space-4)",
+                  backgroundColor: "var(--color-background-light-green-alt)",
+                  borderRadius: "var(--radius-md)",
                 }}
               >
-                {completedTodos.length} Completed
-              </span>
-            </div>
+                <CheckCircle2
+                  size={13}
+                  style={{ color: "var(--color-accent-green)" }}
+                />
+                <span
+                  style={{
+                    fontSize: "var(--text-xs)",
+                    fontWeight: "var(--font-semibold)",
+                    color: "var(--color-accent-green)",
+                  }}
+                >
+                  {completedTodos.length} Completed
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -349,14 +353,43 @@ export default function TodosPage() {
             className="flex flex-col"
             style={{ gap: "var(--space-4)" }}
           >
-            {completedTodos.map((todo) => (
-              <TodoCard
-                key={todo.id}
-                todo={todo}
-                onClick={setSelectedTodo}
-                isCompleted
-              />
-            ))}
+            {completedTodos.length === 0 ? (
+              <div
+                className="flex flex-col items-center justify-center"
+                style={{
+                  padding: "var(--space-10)",
+                  backgroundColor: "var(--color-background-light-grey)",
+                  borderRadius: "var(--radius-xl)",
+                }}
+              >
+                <Circle
+                  size={32}
+                  style={{
+                    color: "var(--color-text-muted)",
+                    marginBottom: "var(--space-3)",
+                    opacity: 0.4,
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: "var(--text-base-sm)",
+                    color: "var(--color-text-muted)",
+                    margin: 0,
+                  }}
+                >
+                  Completed tasks will appear here as you work through your todos.
+                </p>
+              </div>
+            ) : (
+              completedTodos.map((todo) => (
+                <TodoCard
+                  key={todo.id}
+                  todo={todo}
+                  onClick={setSelectedTodo}
+                  isCompleted
+                />
+              ))
+            )}
           </div>
         )}
       </div>
