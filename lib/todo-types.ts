@@ -19,6 +19,15 @@ export type TodoArchetype =
 export type TargetActor = "business" | "agency" | "internal_team"
 export type SourceActor = "system" | "vendor" | "agency" | "plan_executor"
 
+export interface ChatMessage {
+  id: string
+  sender: "vendor" | "business" | "system"
+  senderName: string
+  message: string
+  timestamp: string // ISO date string
+  attachments?: string[]
+}
+
 export interface TodoField {
   id: string
   label: string
@@ -51,6 +60,7 @@ export interface Todo {
   vendorMessage?: string
   vendorFiles?: string[]
   integrationFlow?: string // e.g. "google_business_profile"
+  chatMessages?: ChatMessage[] // threaded conversation for feedback/vendor todos
   completedData?: Record<string, string> // read-only submitted values for completed todos
   paymentDetails?: {
     // Invoice-type

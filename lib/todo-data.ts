@@ -126,6 +126,23 @@ export const mockTodos: Todo[] = [
     vendorMessage:
       "Hi! We have completed the initial draft of your website. Please review the homepage, about page, and service pages. Let us know if you'd like any changes to the layout, colors, or content.",
     vendorFiles: ["website-draft-preview.pdf"],
+    chatMessages: [
+      {
+        id: "msg-4-1",
+        sender: "vendor",
+        senderName: "Sarah (Web Designer)",
+        message: "Hi! We've completed the initial draft of your website. I've attached the preview PDF with all pages. Please review the homepage, about page, and service pages. Let us know if you'd like any changes to the layout, colors, or content.",
+        timestamp: "2026-02-05T11:00:00Z",
+        attachments: ["website-draft-preview.pdf"],
+      },
+      {
+        id: "msg-4-2",
+        sender: "vendor",
+        senderName: "Sarah (Web Designer)",
+        message: "A few things to pay attention to: the hero image on the homepage, the service descriptions, and the contact form placement. We tried to match the brand colors from your logo.",
+        timestamp: "2026-02-05T11:02:00Z",
+      },
+    ],
   },
   {
     id: "todo-4b",
@@ -146,6 +163,23 @@ export const mockTodos: Todo[] = [
     vendorMessage:
       "We've drafted a press release highlighting your latest service expansion. Please review the article for accuracy and tone, and let us know if any changes are needed.",
     vendorFiles: ["pr-article-draft-v1.docx"],
+    chatMessages: [
+      {
+        id: "msg-4b-1",
+        sender: "vendor",
+        senderName: "Mike (Content Writer)",
+        message: "Hi! I've finished the first draft of your PR article. It highlights your expansion into commercial plumbing services. Please review it for accuracy -- especially the quotes and service details.",
+        timestamp: "2026-02-06T09:00:00Z",
+        attachments: ["pr-article-draft-v1.docx"],
+      },
+      {
+        id: "msg-4b-2",
+        sender: "vendor",
+        senderName: "Mike (Content Writer)",
+        message: "Let me know if you'd like to change the headline or adjust the tone. We can also add any customer quotes if you have them.",
+        timestamp: "2026-02-06T09:05:00Z",
+      },
+    ],
   },
   {
     id: "todo-4c",
@@ -166,6 +200,23 @@ export const mockTodos: Todo[] = [
     vendorMessage:
       "Here is the campaign brief for your Google Ads campaign. It includes target keywords, audience segments, daily budget recommendation, and sample ad copy. Please review and confirm so we can proceed with setup.",
     vendorFiles: ["campaign-brief.pdf"],
+    chatMessages: [
+      {
+        id: "msg-4c-1",
+        sender: "vendor",
+        senderName: "Alex (PPC Specialist)",
+        message: "Hi! Here's the campaign brief for your Google Ads account. I've outlined 3 ad groups targeting your primary services with a recommended daily budget of $50.",
+        timestamp: "2026-02-06T14:00:00Z",
+        attachments: ["campaign-brief.pdf"],
+      },
+      {
+        id: "msg-4c-2",
+        sender: "vendor",
+        senderName: "Alex (PPC Specialist)",
+        message: "If you'd like to adjust the budget split between brand keywords vs. local keywords, just let me know. We can also tweak the ad copy before launch.",
+        timestamp: "2026-02-06T14:03:00Z",
+      },
+    ],
   },
 
   // --- INFORMATION REQUESTS (continued) ---
@@ -538,6 +589,23 @@ export const mockTodos: Todo[] = [
     vendorMessage:
       "The website design is complete and ready for your review. Please check the homepage layout, service pages, contact form, and mobile responsiveness. Let us know your feedback.",
     vendorFiles: ["website-design-preview-v2.pdf", "mobile-mockups.pdf"],
+    chatMessages: [
+      {
+        id: "msg-10b-1",
+        sender: "vendor",
+        senderName: "Sarah (Web Designer)",
+        message: "The final website design is ready! I've attached the full preview and mobile mockups. Please check the homepage layout, service pages, contact form, and how it looks on mobile.",
+        timestamp: "2026-02-07T11:00:00Z",
+        attachments: ["website-design-preview-v2.pdf", "mobile-mockups.pdf"],
+      },
+      {
+        id: "msg-10b-2",
+        sender: "vendor",
+        senderName: "Sarah (Web Designer)",
+        message: "We incorporated the brand colors from your logo and added the testimonials you provided earlier. The contact form now includes a service dropdown and appointment request option.",
+        timestamp: "2026-02-07T11:05:00Z",
+      },
+    ],
   },
   {
     id: "todo-10c",
@@ -558,6 +626,23 @@ export const mockTodos: Todo[] = [
     vendorMessage:
       "Your Google Ads campaign is ready! Here's a summary:\n- 3 ad groups targeting your primary services\n- 25 keywords selected\n- Daily budget: $50\n- Estimated impressions: 1,500-2,000/day\n\nPlease review and approve to launch.",
     vendorFiles: ["campaign-setup-summary.pdf"],
+    chatMessages: [
+      {
+        id: "msg-10c-1",
+        sender: "vendor",
+        senderName: "Alex (PPC Specialist)",
+        message: "Your Google Ads campaign is fully set up and ready to go. Here's a quick summary:\n- 3 ad groups targeting your primary services\n- 25 keywords selected\n- Daily budget: $50\n- Estimated impressions: 1,500-2,000/day",
+        timestamp: "2026-02-08T09:00:00Z",
+        attachments: ["campaign-setup-summary.pdf"],
+      },
+      {
+        id: "msg-10c-2",
+        sender: "vendor",
+        senderName: "Alex (PPC Specialist)",
+        message: "Once you approve, the campaign will go live within 24 hours. Let me know if you'd like to adjust the budget or keywords before we launch.",
+        timestamp: "2026-02-08T09:05:00Z",
+      },
+    ],
   },
   {
     id: "todo-10d",

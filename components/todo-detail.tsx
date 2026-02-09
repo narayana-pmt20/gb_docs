@@ -6,7 +6,6 @@ import {
   Clock,
   Calendar,
   FileText,
-  MessageSquare,
   CreditCard,
   AlertTriangle,
   Upload,
@@ -17,9 +16,10 @@ import {
   Globe,
   User,
 } from "lucide-react"
-import type { Todo, TodoField } from "@/lib/todo-types"
+import type { Todo, TodoField, ChatMessage } from "@/lib/todo-types"
 import GbpConnectFlow from "@/components/gbp-connect-flow"
 import GoogleAdsConnectFlow from "@/components/google-ads-connect-flow"
+import TodoChatThread from "@/components/todo-chat-thread"
 import { productIconMap, productColorMap } from "@/components/todo-card"
 import {
   ARCHETYPE_LABELS,
@@ -229,9 +229,26 @@ export default function TodoDetail({
     return initial
   })
 
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>(
+    () => todo.chatMessages || []
+  )
+
   const product = todo.productName || ""
   const iconColors = productColorMap[product] || defaultColors
   const isCompleted = todo.status === "completed"
+
+  const hasChatFlow = chatMessages.length > 0 && !isCompleted
+
+  const handleSendMessage = (message: string) => {
+    const newMsg: ChatMessage = {
+      id: `msg-user-${Date.now()}`,
+      sender: "business",
+      senderName: "You",
+      message,
+      timestamp: new Date().toISOString(),
+    }
+    setChatMessages((prev) => [...prev, newMsg])
+  }
   const totalFields = todo.fields?.filter((f) => f.required).length || 0
   const filledFields =
     todo.fields?.filter((f) => f.required && fieldValues[f.id]?.trim()).length ||
@@ -388,8 +405,8 @@ export default function TodoDetail({
 
           </div>
 
-          {/* Vendor message (for feedback/vendor request) */}
-          {todo.vendorMessage && (
+          {/* Vendor message (only shown when no chat thread exists) */}
+          {todo.vendorMessage && !hasChatFlow && (
             <div
               style={{
                 backgroundColor: "var(--color-background-light-blue)",
@@ -971,63 +988,19 @@ export default function TodoDetail({
             </div>
           )}
 
-          {/* Feedback request special actions */}
-          {todo.archetype === "feedback_request" && !isCompleted && (
-            <div
-              className="flex items-center"
-              style={{ gap: "var(--space-3)", marginBottom: "var(--space-6)" }}
-            >
-              <button
-                type="button"
-                onClick={() => onComplete(todo.id)}
-                style={{
-                  flex: 1,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "var(--space-2)",
-                  padding: "var(--space-3) var(--space-5)",
-                  fontSize: "var(--text-base-sm)",
-                  fontWeight: "var(--font-medium)",
-                  borderRadius: "var(--radius-md)",
-                  border: "none",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  backgroundColor: "var(--color-accent-green)",
-                  color: "var(--color-white)",
-                }}
-              >
-                <CheckCircle2 size={16} />
-                Approve
-              </button>
-              <button
-                type="button"
-                style={{
-                  flex: 1,
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "var(--space-2)",
-                  padding: "var(--space-3) var(--space-5)",
-                  fontSize: "var(--text-base-sm)",
-                  fontWeight: "var(--font-medium)",
-                  borderRadius: "var(--radius-md)",
-                  border: "1px solid var(--color-accent-orange)",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  backgroundColor: "var(--color-background-white)",
-                  color: "var(--color-accent-orange)",
-                }}
-              >
-                <MessageSquare size={16} />
-                Needs Changes
-              </button>
-            </div>
+          {/* Chat thread for feedback/vendor review todos */}
+          {hasChatFlow && (
+            <TodoChatThread
+              messages={chatMessages}
+              onSendMessage={handleSendMessage}
+              onApprove={() => onComplete(todo.id)}
+              todoTitle={todo.title}
+            />
           )}
         </div>
 
-        {/* Footer actions */}
-        {!isCompleted && !todo.integrationFlow && (
+        {/* Footer actions (hidden for chat-based todos) */}
+        {!isCompleted && !todo.integrationFlow && !hasChatFlow && (
           <div
             className="flex items-center justify-between"
             style={{
