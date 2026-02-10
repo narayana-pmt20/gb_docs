@@ -10,6 +10,7 @@ import {
   ChevronUp,
   CheckCircle2,
   Circle,
+  ArrowLeft,
 } from "lucide-react"
 
 export default function TodosPage() {
@@ -82,7 +83,49 @@ export default function TodosPage() {
 
   return (
     <>
-      {/* Title row with counts */}
+      {/* Detail View - Full Page */}
+      {selectedTodo ? (
+        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          {/* Back button header */}
+          <div
+            style={{
+              paddingBottom: "var(--space-5)",
+              marginBottom: "var(--space-8)",
+              borderBottom: "1px solid var(--color-border-divider)",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedTodo(null)}
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                fontSize: "var(--text-base-sm)",
+                fontWeight: "var(--font-medium)",
+                color: "var(--color-primary-blue)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: "var(--space-2) 0",
+                fontFamily: "inherit",
+              }}
+            >
+              <ArrowLeft size={16} />
+              Back to todos
+            </button>
+          </div>
+
+          {/* Detail Content */}
+          <TodoDetail
+            todo={selectedTodo}
+            onClose={() => setSelectedTodo(null)}
+            onComplete={handleComplete}
+            onSnooze={handleSnooze}
+          />
+        </div>
+      ) : (
+        // List View - Default
+        <>
       <div
         style={{
           paddingBottom: "var(--space-5)",
@@ -402,6 +445,8 @@ export default function TodosPage() {
           onComplete={handleComplete}
           onSnooze={handleSnooze}
         />
+      )}
+        </>
       )}
     </>
   )
