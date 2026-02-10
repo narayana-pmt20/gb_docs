@@ -505,6 +505,38 @@ export default function TodoDetail({
 
           </div>
 
+          {/* Completed timestamp */}
+          {isCompleted && todo.completedDate && (
+            <div
+              className="flex items-center"
+              style={{
+                gap: "var(--space-2)",
+                marginBottom: "var(--space-8)",
+                padding: "var(--space-4) var(--space-5)",
+                backgroundColor: "var(--color-background-light-green-alt)",
+                borderRadius: "var(--radius-md)",
+              }}
+            >
+              <CheckCircle2 size={18} style={{ color: "var(--color-accent-green)" }} />
+              <span
+                style={{
+                  fontSize: "var(--text-lg)",
+                  color: "var(--color-accent-green)",
+                  fontWeight: "var(--font-medium)",
+                }}
+              >
+                Completed on{" "}
+                {new Date(todo.completedDate).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "2-digit",
+                })}
+              </span>
+            </div>
+          )}
+
           {/* Vendor message (only shown when no chat thread exists) */}
           {todo.vendorMessage && !hasChatFlow && (
             <div
@@ -1156,16 +1188,14 @@ export default function TodoDetail({
                 // Editable form
                 <div>
                   {todo.fields.map((field) => (
-                    <TodoFormField
-                      key={field.id}
-                      field={field}
-                      value={fieldValues[field.id] || ""}
-                      onChange={(val) =>
-                        setFieldValues((prev) => ({ ...prev, [field.id]: val }))
-                      }
-                      isReadOnly={false}
-                      error={fieldErrors[field.id]}
-                    />
+                  <TodoFormField
+                    key={field.id}
+                    field={field}
+                    value={fieldValues[field.id] || ""}
+                    onChange={(val) => handleFieldChange(field.id, val)}
+                    isReadOnly={isCompleted}
+                    error={fieldErrors[field.id]}
+                  />
                   ))}
                 </div>
               )}
@@ -1224,38 +1254,6 @@ export default function TodoDetail({
                   </div>
                 ))}
               </div>
-            </div>
-          )}
-
-          {/* Completed timestamp */}
-          {isCompleted && todo.completedDate && (
-            <div
-              className="flex items-center"
-              style={{
-                gap: "var(--space-2)",
-                marginBottom: "var(--space-6)",
-                padding: "var(--space-3) var(--space-4)",
-                backgroundColor: "var(--color-background-light-green-alt)",
-                borderRadius: "var(--radius-md)",
-              }}
-            >
-              <CheckCircle2 size={14} style={{ color: "var(--color-accent-green)" }} />
-              <span
-                style={{
-                  fontSize: "var(--text-xs)",
-                  color: "var(--color-accent-green)",
-                  fontWeight: "var(--font-medium)",
-                }}
-              >
-                Completed on{" "}
-                {new Date(todo.completedDate).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "2-digit",
-                })}
-              </span>
             </div>
           )}
 
