@@ -514,9 +514,8 @@ export default function CalendarBooking({
             style={{
               backgroundColor: "var(--color-background-light-grey)",
               padding: "var(--space-4)",
-              borderRadius: "var(--radius-md)",
+              borderRadius: "var(--space-4)",
               marginTop: "var(--space-4)",
-              marginBottom: "var(--space-4)",
             }}
           >
             <div
@@ -530,25 +529,6 @@ export default function CalendarBooking({
               </div>
             </div>
           </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "var(--space-3) var(--space-4)",
-              fontSize: "var(--text-base)",
-              fontWeight: "var(--font-semibold)",
-              borderRadius: "var(--radius-md)",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              backgroundColor: "var(--color-primary-blue)",
-              color: "white",
-            }}
-          >
-            Submit
-          </button>
         </form>
       </div>
     </div>

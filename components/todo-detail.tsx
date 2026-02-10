@@ -1314,8 +1314,6 @@ export default function TodoDetail({
               </div>
             )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
-              // For calendar booking, only show submit after booking is confirmed
-              (todo.id === "todo-calendar-booking" ? isCalendarBooked : true) && (
               <button
                 type="button"
                 onClick={() => {
@@ -1386,8 +1384,7 @@ export default function TodoDetail({
                   </>
                 )}
               </button>
-            ))}
-          </div>
+            )}
         )}
       </div>
     </>
