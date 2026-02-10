@@ -529,7 +529,6 @@ export default function CalendarBooking({
   )
 }
 
-  // Confirmation step
   if (step === "confirmation") {
     return (
       <div
