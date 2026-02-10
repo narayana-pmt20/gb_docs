@@ -1010,16 +1010,63 @@ export default function TodoDetail({
                     })}
                   </div>
                   {timeLeft > 0 && (
-                    <p
+                    <div
                       style={{
-                        fontSize: "var(--text-xs)",
-                        color: "var(--color-text-muted)",
-                        marginTop: "var(--space-4)",
-                        marginBottom: 0,
+                        marginTop: "var(--space-6)",
+                        padding: "var(--space-4)",
+                        backgroundColor: "var(--color-background-light-blue)",
+                        borderRadius: "var(--radius-md)",
+                        border: "1px solid var(--color-primary-blue)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: "var(--space-4)",
                       }}
                     >
-                      Closing in {timeLeft} second{timeLeft !== 1 ? 's' : ''}...
-                    </p>
+                      <div>
+                        <p
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            fontWeight: "var(--font-semibold)",
+                            color: "var(--color-primary-blue)",
+                            margin: 0,
+                            marginBottom: "var(--space-1)",
+                          }}
+                        >
+                          Closing in {timeLeft} second{timeLeft !== 1 ? 's' : ''}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "var(--text-xs)",
+                            color: "var(--color-text-secondary)",
+                            margin: 0,
+                          }}
+                        >
+                          This form will automatically close and move to the next task.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onComplete(todo.id)
+                          onClose()
+                        }}
+                        style={{
+                          padding: "var(--space-2) var(--space-4)",
+                          fontSize: "var(--text-xs)",
+                          fontWeight: "var(--font-medium)",
+                          backgroundColor: "var(--color-primary-blue)",
+                          color: "var(--color-white)",
+                          border: "none",
+                          borderRadius: "var(--radius-md)",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        Close Now
+                      </button>
+                    </div>
                   )}
                 </div>
               ) : (
