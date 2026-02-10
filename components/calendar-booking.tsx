@@ -185,8 +185,9 @@ export default function CalendarBooking({
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(7, 1fr)",
-              gap: "var(--space-2)",
+              gap: "var(--space-1)",
               marginBottom: "var(--space-4)",
+              minWidth: 0,
             }}
           >
             {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((day) => (
@@ -197,7 +198,8 @@ export default function CalendarBooking({
                   fontSize: "var(--text-xs)",
                   fontWeight: "var(--font-semibold)",
                   color: "var(--color-text-secondary)",
-                  padding: "var(--space-2)",
+                  padding: "var(--space-1)",
+                  minWidth: 0,
                 }}
               >
                 {day}
@@ -210,7 +212,7 @@ export default function CalendarBooking({
                 onClick={() => day && setSelectedDate(day)}
                 style={{
                   padding: "var(--space-2)",
-                  fontSize: "var(--text-base)",
+                  fontSize: "var(--text-sm)",
                   backgroundColor:
                     day && day.toDateString() === selectedDate.toDateString()
                       ? "var(--color-primary-blue)"
@@ -230,6 +232,11 @@ export default function CalendarBooking({
                     day && day.toDateString() === selectedDate.toDateString()
                       ? "var(--font-semibold)"
                       : "var(--font-regular)",
+                  aspectRatio: "1 / 1",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  minWidth: 0,
                 }}
               >
                 {day ? day.getDate() : ""}
