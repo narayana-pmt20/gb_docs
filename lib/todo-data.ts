@@ -272,22 +272,7 @@ export const mockTodos: Todo[] = [
     dueDate: "2026-02-15T00:00:00Z",
     requestedDate: "2026-02-04T16:00:00Z",
     productName: "Calendar Booking",
-    fields: [
-      {
-        id: "full_name",
-        label: "Full Name",
-        type: "text",
-        value: "Narayana",
-        required: true,
-      },
-      {
-        id: "email_address",
-        label: "Email Address",
-        type: "email",
-        value: "narayana@umbrellaus.com",
-        required: true,
-      },
-    ],
+    fields: [],
   },
 
   // --- PAYMENTS ---
