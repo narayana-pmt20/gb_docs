@@ -950,10 +950,6 @@ export default function TodoDetail({
                 }))
                 setIsCalendarBooked(true)
               }}
-              onSubmitClick={() => {
-                // This will be called when Submit button is clicked
-                // Just trigger the booking completion
-              }}
             />
           )}
 

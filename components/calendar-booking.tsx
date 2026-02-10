@@ -11,14 +11,12 @@ interface CalendarBookingProps {
     email: string
     questions: string
   }) => void
-  onSubmitClick?: () => void
   name: string
   email: string
 }
 
 export default function CalendarBooking({
   onBookingComplete,
-  onSubmitClick,
   name,
   email,
 }: CalendarBookingProps) {
@@ -350,7 +348,7 @@ export default function CalendarBooking({
         padding: "var(--space-6)",
         fontFamily: '"Jost", sans-serif',
         maxWidth: "100%",
-        overflow: "visible",
+        overflow: "hidden",
       }}
     >
       <div>
@@ -386,7 +384,11 @@ export default function CalendarBooking({
           Enter Details
         </h2>
 
-        <div
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleBooking()
+          }}
           style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
         >
           <div>
@@ -527,7 +529,7 @@ export default function CalendarBooking({
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   )
