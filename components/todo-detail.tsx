@@ -401,7 +401,7 @@ export default function TodoDetail({
             <div>
               <span
                 style={{
-                  fontSize: "var(--text-xs)",
+                  fontSize: "var(--text-base)",
                   fontWeight: "var(--font-medium)",
                   color: iconColors.color,
                   backgroundColor: iconColors.bg,
@@ -455,7 +455,7 @@ export default function TodoDetail({
           {/* Description */}
           <p
             style={{
-              fontSize: "var(--text-base-sm)",
+              fontSize: "var(--text-lg)",
               color: "var(--color-text-muted)",
               lineHeight: "var(--leading-relaxed)",
               marginBottom: "var(--space-6)",
@@ -479,24 +479,24 @@ export default function TodoDetail({
           >
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
               <Clock size={14} style={{ color: "var(--color-text-muted)" }} />
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+              <span style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
                 ~{todo.estimatedMinutes} min
               </span>
             </div>
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
               <Calendar size={14} style={{ color: "var(--color-text-muted)" }} />
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+              <span style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
                 {todo.dueDate ? `Due: ${formatDate(todo.dueDate)}` : "No due date"}
               </span>
             </div>
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
               <User size={14} style={{ color: "var(--color-text-muted)" }} />
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+              <span style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
                 Priority: {PRIORITY_LABELS[todo.priority]}
               </span>
             </div>
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
-              <span style={{ fontSize: "var(--text-xs)", color: "var(--color-text-secondary)" }}>
+              <span style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
                 Status: {STATUS_LABELS[todo.status]}
               </span>
             </div>
@@ -1223,39 +1223,6 @@ export default function TodoDetail({
               gap: "var(--space-3)",
             }}
           >
-            {!isSubmitted && (
-              <div className="flex flex-col" style={{ gap: "2px" }}>
-                <button
-                  type="button"
-                  onClick={() => onSnooze(todo.id)}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "var(--space-2) var(--space-5)",
-                    fontSize: "var(--text-base-sm)",
-                    fontWeight: "var(--font-regular)",
-                    borderRadius: "var(--radius-md)",
-                    border: "none",
-                    cursor: "pointer",
-                    fontFamily: "inherit",
-                    backgroundColor: "var(--color-background-light-grey)",
-                    color: "var(--color-text-dark)",
-                  }}
-                >
-                  Snooze
-                </button>
-                <span
-                  style={{
-                    fontSize: "11px",
-                    color: "var(--color-text-secondary)",
-                    textAlign: "center",
-                  }}
-                >
-                  Hides for 24h
-                </span>
-              </div>
-            )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
               <button
                 type="button"
