@@ -71,7 +71,6 @@ export const mockTodos: Todo[] = [
         id: "enable_auto_followup",
         label: "Enable Auto Follow-up for New Leads",
         type: "radio",
-        value: "yes",
         required: true,
         options: [
           { key: "yes", label: "Yes" },
@@ -82,7 +81,6 @@ export const mockTodos: Todo[] = [
         id: "preferred_followup_channel",
         label: "What is Your Preferred Follow-up Channel",
         type: "checkbox",
-        value: ["email", "phone"],
         required: true,
         options: [
           { key: "email", label: "Email" },
