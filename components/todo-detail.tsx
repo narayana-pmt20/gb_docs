@@ -117,7 +117,7 @@ function TodoFormField({
           disabled={isReadOnly}
         />
       ) : field.type === "radio" ? (
-        <div style={{ display: "flex", gap: "var(--space-4)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
           {field.options?.map((opt) => (
             <label
               key={opt.key}
@@ -171,6 +171,26 @@ function TodoFormField({
               <span>{opt.label}</span>
             </label>
           ))}
+        </div>
+      ) : field.type === "file" ? (
+        <div>
+          <input
+            type="file"
+            onChange={(e) => {
+              const file = e.target.files?.[0]
+              if (file) {
+                onChange(file.name)
+              }
+            }}
+            disabled={isReadOnly}
+            style={{
+              ...inputStyle,
+              height: "auto",
+              padding: "var(--space-2) var(--space-4)",
+              cursor: isReadOnly ? "not-allowed" : "pointer",
+            }}
+          />
+          {field.helpText && <p style={helpStyle}>{field.helpText}</p>}
         </div>
       ) : field.type === "dropdown" ? (
         <div style={{ position: "relative" }}>
@@ -1255,9 +1275,22 @@ export default function TodoDetail({
               <button
                 type="button"
                 onClick={() => {
-                  // For form fields, mark as submitted
+                  // For form fields, validate required fields before submission
                   if (todo.fields) {
-                    setIsSubmitted(true)
+                    const isValid = todo.fields.every((f) => {
+                      if (!f.required) return true
+                      const val = fieldValues[f.id]
+                      if (Array.isArray(val)) {
+                        return val.length > 0
+                      }
+                      return typeof val === "string" && val.trim().length > 0
+                    })
+
+                    if (isValid) {
+                      setIsSubmitted(true)
+                    } else {
+                      alert("Please fill in all required fields before submitting.")
+                    }
                   } else {
                     // For other archetypes, complete directly
                     onComplete(todo.id)
