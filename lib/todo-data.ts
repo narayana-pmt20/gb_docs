@@ -257,6 +257,39 @@ export const mockTodos: Todo[] = [
     ],
   },
 
+  {
+    id: "todo-calendar-booking",
+    title: "Schedule Setup Call",
+    description: "Please book time with our support team to complete setup for your CRM integration",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.97,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-15T00:00:00Z",
+    requestedDate: "2026-02-04T16:00:00Z",
+    productName: "Calendar Booking",
+    fields: [
+      {
+        id: "full_name",
+        label: "Full Name",
+        type: "text",
+        value: "Narayana",
+        required: true,
+      },
+      {
+        id: "email_address",
+        label: "Email Address",
+        type: "email",
+        value: "narayana@umbrellaus.com",
+        required: true,
+      },
+    ],
+  },
+
   // --- PAYMENTS ---
   {
     id: "todo-1",

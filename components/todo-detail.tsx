@@ -20,6 +20,7 @@ import type { Todo, TodoField, ChatMessage } from "@/lib/todo-types"
 import GbpConnectFlow from "@/components/gbp-connect-flow"
 import GoogleAdsConnectFlow from "@/components/google-ads-connect-flow"
 import TodoChatThread from "@/components/todo-chat-thread"
+import CalendarBooking from "@/components/calendar-booking"
 import { productIconMap, productColorMap } from "@/components/todo-card"
 import {
   ARCHETYPE_LABELS,
@@ -931,6 +932,22 @@ export default function TodoDetail({
           )}
           {todo.integrationFlow === "google_ads" && !isCompleted && (
             <GoogleAdsConnectFlow onConnected={() => onComplete(todo.id)} />
+          )}
+
+          {/* Calendar Booking Flow */}
+          {todo.id === "todo-calendar-booking" && !isCompleted && (
+            <CalendarBooking
+              name={fieldValues["full_name"] as string || ""}
+              email={fieldValues["email_address"] as string || ""}
+              onBookingComplete={(data) => {
+                setFieldValues((prev) => ({
+                  ...prev,
+                  full_name: data.name,
+                  email_address: data.email,
+                }))
+                setIsSubmitted(true)
+              }}
+            />
           )}
 
           {/* Progress indicator for multi-field forms */}
