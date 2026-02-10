@@ -455,7 +455,7 @@ export default function TodoDetail({
           {/* Description */}
           <p
             style={{
-              fontSize: "var(--text-lg)",
+              fontSize: "var(--text-base)",
               color: "var(--color-text-muted)",
               lineHeight: "var(--leading-relaxed)",
               marginBottom: "var(--space-6)",
