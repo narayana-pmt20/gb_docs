@@ -20,7 +20,7 @@ export default function CalendarBooking({
   name,
   email,
 }: CalendarBookingProps) {
-  const [step, setStep] = useState<"calendar" | "details">("calendar")
+  const [step, setStep] = useState<"calendar" | "details" | "confirmation">("calendar")
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
   const [displayName, setDisplayName] = useState(name)
@@ -77,6 +77,7 @@ export default function CalendarBooking({
       email: displayEmail,
       questions: questions,
     })
+    setStep("confirmation")
   }
 
   const formatAppointmentDate = (date: Date, time: string) => {
@@ -340,190 +341,338 @@ export default function CalendarBooking({
   }
 
   // Details step
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "var(--space-6)",
-        padding: "var(--space-6)",
-        fontFamily: '"Jost", sans-serif',
-        maxWidth: "100%",
-        overflow: "hidden",
-      }}
-    >
-      <div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-            marginBottom: "var(--space-6)",
-            cursor: "pointer",
-          }}
-          onClick={() => setStep("calendar")}
-        >
-          <ChevronLeft size={20} style={{ color: "var(--color-primary-blue)" }} />
-          <span
+  if (step === "details") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-6)",
+          padding: "var(--space-6)",
+          fontFamily: '"Jost", sans-serif',
+          maxWidth: "100%",
+          overflow: "hidden",
+        }}
+      >
+        <div>
+          <div
             style={{
-              color: "var(--color-primary-blue)",
-              fontWeight: "var(--font-medium)",
+              display: "flex",
+              alignItems: "center",
+              gap: "var(--space-2)",
+              marginBottom: "var(--space-6)",
+              cursor: "pointer",
+            }}
+            onClick={() => setStep("calendar")}
+          >
+            <ChevronLeft size={20} style={{ color: "var(--color-primary-blue)" }} />
+            <span
+              style={{
+                color: "var(--color-primary-blue)",
+                fontWeight: "var(--font-medium)",
+              }}
+            >
+              Back
+            </span>
+          </div>
+
+          <h2
+            style={{
+              fontSize: "var(--text-2xl)",
+              fontWeight: "var(--font-semibold)",
+              marginBottom: "var(--space-6)",
+              color: "var(--color-text-dark)",
             }}
           >
-            Back
-          </span>
+            Enter Details
+          </h2>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleBooking()
+            }}
+            style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
+          >
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "var(--text-base)",
+                  fontWeight: "var(--font-medium)",
+                  marginBottom: "var(--space-2)",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Name
+              </label>
+              <input
+                type="text"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "var(--space-3)",
+                  fontSize: "var(--text-base)",
+                  border: "1px solid var(--color-border-input)",
+                  borderRadius: "var(--radius-md)",
+                  fontFamily: '"Jost", sans-serif',
+                  boxSizing: "border-box",
+                  color: "var(--color-text-dark)",
+                }}
+              />
+            </div>
+
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "var(--text-base)",
+                  fontWeight: "var(--font-medium)",
+                  marginBottom: "var(--space-2)",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                value={displayEmail}
+                onChange={(e) => setDisplayEmail(e.target.value)}
+                style={{
+                  width: "100%",
+                  padding: "var(--space-3)",
+                  fontSize: "var(--text-base)",
+                  border: "1px solid var(--color-border-input)",
+                  borderRadius: "var(--radius-md)",
+                  fontFamily: '"Jost", sans-serif',
+                  boxSizing: "border-box",
+                  color: "var(--color-text-dark)",
+                }}
+              />
+            </div>
+
+            <div>
+              <label
+                style={{
+                  display: "block",
+                  fontSize: "var(--text-base)",
+                  fontWeight: "var(--font-medium)",
+                  marginBottom: "var(--space-2)",
+                  color: "var(--color-text-dark)",
+                }}
+              >
+                Questions (Optional)
+              </label>
+              <textarea
+                value={questions}
+                onChange={(e) => setQuestions(e.target.value)}
+                placeholder="Enter any questions you have for the support team..."
+                style={{
+                  width: "100%",
+                  minHeight: "120px",
+                  padding: "var(--space-3)",
+                  fontSize: "var(--text-base)",
+                  border: "1px solid var(--color-border-input)",
+                  borderRadius: "var(--radius-md)",
+                  fontFamily: '"Jost", sans-serif',
+                  resize: "vertical",
+                  boxSizing: "border-box",
+                }}
+              />
+            </div>
+
+            {/* Appointment Summary */}
+            <div
+              style={{
+                backgroundColor: "var(--color-background-light-grey)",
+                padding: "var(--space-4)",
+                borderRadius: "var(--radius-md)",
+                marginTop: "var(--space-4)",
+                marginBottom: "var(--space-4)",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "var(--text-sm)",
+                  color: "var(--color-text-secondary)",
+                }}
+              >
+                <div>
+                  <strong>{formatAppointmentDate(selectedDate, selectedTime)}</strong>
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                padding: "var(--space-3) var(--space-4)",
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--font-semibold)",
+                borderRadius: "var(--radius-md)",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "inherit",
+                backgroundColor: "var(--color-primary-blue)",
+                color: "white",
+              }}
+            >
+              Book appointment
+            </button>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  // Confirmation step - Read-only appointment details
+  if (step === "confirmation") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-6)",
+          padding: "var(--space-6)",
+          fontFamily: '"Jost", sans-serif',
+        }}
+      >
+        <div>
+          <h2
+            style={{
+              fontSize: "var(--text-2xl)",
+              fontWeight: "var(--font-semibold)",
+              marginBottom: "var(--space-2)",
+              color: "var(--color-text-dark)",
+            }}
+          >
+            Appointment Confirmed
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+              margin: 0,
+            }}
+          >
+            Your appointment has been successfully scheduled.
+          </p>
         </div>
 
-        <h2
+        <div
           style={{
-            fontSize: "var(--text-2xl)",
-            fontWeight: "var(--font-semibold)",
-            marginBottom: "var(--space-6)",
-            color: "var(--color-text-dark)",
+            display: "grid",
+            gap: "var(--space-4)",
           }}
-        >
-          Enter Details
-        </h2>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleBooking()
-          }}
-          style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
         >
           <div>
-            <label
+            <p
               style={{
-                display: "block",
-                fontSize: "var(--text-base)",
-                fontWeight: "var(--font-medium)",
-                marginBottom: "var(--space-2)",
-                color: "var(--color-text-secondary)",
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
               }}
             >
               Name
-            </label>
-            <input
-              type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+            </p>
+            <p
               style={{
-                width: "100%",
-                padding: "var(--space-3)",
                 fontSize: "var(--text-base)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                fontFamily: '"Jost", sans-serif',
-                boxSizing: "border-box",
+                fontWeight: "var(--font-medium)",
                 color: "var(--color-text-dark)",
+                margin: 0,
               }}
-            />
+            >
+              {displayName}
+            </p>
           </div>
 
           <div>
-            <label
+            <p
               style={{
-                display: "block",
-                fontSize: "var(--text-base)",
-                fontWeight: "var(--font-medium)",
-                marginBottom: "var(--space-2)",
-                color: "var(--color-text-secondary)",
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
               }}
             >
               Email
-            </label>
-            <input
-              type="email"
-              value={displayEmail}
-              onChange={(e) => setDisplayEmail(e.target.value)}
+            </p>
+            <p
               style={{
-                width: "100%",
-                padding: "var(--space-3)",
                 fontSize: "var(--text-base)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                fontFamily: '"Jost", sans-serif',
-                boxSizing: "border-box",
+                fontWeight: "var(--font-medium)",
                 color: "var(--color-text-dark)",
+                margin: 0,
               }}
-            />
+            >
+              {displayEmail}
+            </p>
           </div>
 
           <div>
-            <label
+            <p
               style={{
-                display: "block",
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Date & Time
+            </p>
+            <p
+              style={{
                 fontSize: "var(--text-base)",
                 fontWeight: "var(--font-medium)",
-                marginBottom: "var(--space-2)",
-                color: "var(--color-text-dark)",
+                color: "var(--color-accent-green)",
+                margin: 0,
               }}
             >
-              Questions (Optional)
-            </label>
-            <textarea
-              value={questions}
-              onChange={(e) => setQuestions(e.target.value)}
-              placeholder="Enter any questions you have for the support team..."
-              style={{
-                width: "100%",
-                minHeight: "120px",
-                padding: "var(--space-3)",
-                fontSize: "var(--text-base)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                fontFamily: '"Jost", sans-serif',
-                resize: "vertical",
-                boxSizing: "border-box",
-              }}
-            />
+              {formatAppointmentDate(selectedDate, selectedTime)}
+            </p>
           </div>
 
-
-
-          {/* Appointment Summary */}
-          <div
-            style={{
-              backgroundColor: "var(--color-background-light-grey)",
-              padding: "var(--space-4)",
-              borderRadius: "var(--radius-md)",
-              marginTop: "var(--space-4)",
-              marginBottom: "var(--space-4)",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "var(--text-sm)",
-                color: "var(--color-text-secondary)",
-              }}
-            >
-              <div>
-                <strong>{formatAppointmentDate(selectedDate, selectedTime)}</strong>
-              </div>
+          {questions && (
+            <div>
+              <p
+                style={{
+                  fontSize: "var(--text-xs)",
+                  color: "var(--color-text-muted)",
+                  margin: 0,
+                  marginBottom: "var(--space-1)",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                }}
+              >
+                Questions
+              </p>
+              <p
+                style={{
+                  fontSize: "var(--text-base)",
+                  color: "var(--color-text-dark)",
+                  margin: 0,
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                {questions}
+              </p>
             </div>
-          </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "var(--space-3) var(--space-4)",
-              fontSize: "var(--text-base)",
-              fontWeight: "var(--font-semibold)",
-              borderRadius: "var(--radius-md)",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              backgroundColor: "var(--color-primary-blue)",
-              color: "white",
-            }}
-          >
-            Book appointment
-          </button>
-        </form>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  return null
 }
