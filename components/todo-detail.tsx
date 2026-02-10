@@ -948,7 +948,7 @@ export default function TodoDetail({
                   appointment_date: data.date,
                   appointment_time: data.time,
                 }))
-                setIsCalendarBooked(true)
+                setIsSubmitted(true)
               }}
             />
           )}
@@ -1313,9 +1313,7 @@ export default function TodoDetail({
                 </span>
               </div>
             )}
-            {todo.archetype !== "feedback_request" && !isSubmitted && (
-              // For calendar booking, only show submit after booking is confirmed
-              (todo.id === "todo-calendar-booking" ? isCalendarBooked : true) && (
+            {todo.archetype !== "feedback_request" && !isSubmitted && todo.id !== "todo-calendar-booking" && (
               <button
                 type="button"
                 onClick={() => {
@@ -1386,8 +1384,7 @@ export default function TodoDetail({
                   </>
                 )}
               </button>
-            ))}
-          </div>
+            )}
         )}
       </div>
     </>
