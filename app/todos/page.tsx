@@ -10,7 +10,6 @@ import {
   ChevronUp,
   CheckCircle2,
   Circle,
-  ArrowLeft,
 } from "lucide-react"
 
 export default function TodosPage() {
@@ -83,42 +82,7 @@ export default function TodosPage() {
 
   return (
     <>
-      {selectedTodo ? (
-        // Detail View - Full Page Replacement
-        <div>
-          {/* Back button */}
-          <button
-            type="button"
-            onClick={() => setSelectedTodo(null)}
-            className="flex items-center"
-            style={{
-              gap: "var(--space-2)",
-              fontSize: "var(--text-base-sm)",
-              fontWeight: "var(--font-medium)",
-              color: "var(--color-primary-blue)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              padding: "var(--space-2) 0",
-              marginBottom: "var(--space-6)",
-              fontFamily: "inherit",
-            }}
-          >
-            <ArrowLeft size={16} />
-            Back to todos
-          </button>
-
-          {/* Detail Panel */}
-          <TodoDetail
-            todo={selectedTodo}
-            onClose={() => setSelectedTodo(null)}
-            onComplete={handleComplete}
-            onSnooze={handleSnooze}
-          />
-        </div>
-      ) : (
-        // List View - Default
-        <>
+      {/* Title row with counts */}
       <div
         style={{
           paddingBottom: "var(--space-5)",
@@ -430,7 +394,14 @@ export default function TodosPage() {
         )}
       </div>
 
-        </>
+      {/* Detail Panel */}
+      {selectedTodo && (
+        <TodoDetail
+          todo={selectedTodo}
+          onClose={() => setSelectedTodo(null)}
+          onComplete={handleComplete}
+          onSnooze={handleSnooze}
+        />
       )}
     </>
   )
