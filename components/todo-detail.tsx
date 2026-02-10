@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import {
+  X,
   Clock,
   Calendar,
   FileText,
@@ -255,10 +256,28 @@ export default function TodoDetail({
 
   return (
     <>
-      {/* Full Page Detail View */}
+      {/* Overlay */}
       <div
-        role="region"
-        aria-label={`Todo details: ${todo.title}`}
+        style={{
+          position: "fixed",
+          inset: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.3)",
+          zIndex: 40,
+        }}
+        onClick={onClose}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") onClose()
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label="Close detail panel"
+      />
+
+      {/* Panel */}
+      <div
+        role="dialog"
+        aria-label={`Todo: ${todo.title}`}
+        className="ds-detail-panel"
       >
         {/* Header */}
         <div
@@ -296,6 +315,23 @@ export default function TodoDetail({
               </span>
             </div>
           </div>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--color-text-muted)",
+              display: "flex",
+              alignItems: "center",
+              padding: "var(--space-2)",
+              borderRadius: "var(--radius-md)",
+            }}
+            aria-label="Close"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         {/* Scrollable body */}
@@ -1049,7 +1085,6 @@ export default function TodoDetail({
             )}
           </div>
         )}
-      </div>
       </div>
     </>
   )
