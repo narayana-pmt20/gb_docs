@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   X,
   Clock,
@@ -298,7 +298,7 @@ export default function TodoDetail({
   )
 
   // Auto-close and open next todo after 7 seconds
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isSubmitted) return
 
     const interval = setInterval(() => {
