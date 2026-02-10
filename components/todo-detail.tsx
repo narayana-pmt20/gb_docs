@@ -54,10 +54,12 @@ function TodoFormField({
   field,
   value,
   onChange,
+  isReadOnly,
 }: {
   field: TodoField
-  value: string
-  onChange: (val: string) => void
+  value: string | string[]
+  onChange: (val: string | string[]) => void
+  isReadOnly?: boolean
 }) {
   const [showPassword, setShowPassword] = useState(false)
 
@@ -76,10 +78,11 @@ function TodoFormField({
     fontSize: "0.9375rem",
     fontWeight: "var(--font-regular)",
     color: "var(--color-text-dark)",
-    backgroundColor: "var(--color-background-white)",
+    backgroundColor: isReadOnly ? "var(--color-background-light-grey)" : "var(--color-background-white)",
     border: "1px solid var(--color-border-input)",
     borderRadius: "var(--radius-md)",
     fontFamily: "inherit",
+    cursor: isReadOnly ? "not-allowed" : "auto",
   }
 
   const helpStyle: React.CSSProperties = {
@@ -109,9 +112,66 @@ function TodoFormField({
             padding: "var(--space-3) var(--space-4)",
           }}
           placeholder={field.placeholder}
-          value={value}
+          value={value as string}
           onChange={(e) => onChange(e.target.value)}
+          disabled={isReadOnly}
         />
+      ) : field.type === "radio" ? (
+        <div style={{ display: "flex", gap: "var(--space-4)" }}>
+          {field.options?.map((opt) => (
+            <label
+              key={opt.key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "var(--space-2)",
+                cursor: isReadOnly ? "not-allowed" : "pointer",
+              }}
+            >
+              <input
+                type="radio"
+                name={field.id}
+                value={opt.key}
+                checked={value === opt.key}
+                onChange={(e) => onChange(e.target.value)}
+                disabled={isReadOnly}
+                style={{ cursor: isReadOnly ? "not-allowed" : "pointer" }}
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
+      ) : field.type === "checkbox" ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+          {field.options?.map((opt) => (
+            <label
+              key={opt.key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "var(--space-2)",
+                cursor: isReadOnly ? "not-allowed" : "pointer",
+              }}
+            >
+              <input
+                type="checkbox"
+                value={opt.key}
+                checked={(value as string[])?.includes(opt.key)}
+                onChange={(e) => {
+                  const checked = e.target.checked
+                  const currentValues = (value as string[]) || []
+                  const newValues = checked
+                    ? [...currentValues, opt.key]
+                    : currentValues.filter((v) => v !== opt.key)
+                  onChange(newValues)
+                }}
+                disabled={isReadOnly}
+                style={{ cursor: isReadOnly ? "not-allowed" : "pointer" }}
+              />
+              <span>{opt.label}</span>
+            </label>
+          ))}
+        </div>
       ) : field.type === "dropdown" ? (
         <div style={{ position: "relative" }}>
           <select
@@ -119,10 +179,11 @@ function TodoFormField({
               ...inputStyle,
               appearance: "none",
               paddingRight: "var(--space-10)",
-              cursor: "pointer",
+              cursor: isReadOnly ? "not-allowed" : "pointer",
             }}
-            value={value}
+            value={value as string}
             onChange={(e) => onChange(e.target.value)}
+            disabled={isReadOnly}
           >
             <option value="">Select an option...</option>
             {field.options?.map((opt) => (
@@ -221,17 +282,40 @@ export default function TodoDetail({
   onComplete,
   onSnooze,
 }: TodoDetailProps) {
-  const [fieldValues, setFieldValues] = useState<Record<string, string>>(() => {
-    const initial: Record<string, string> = {}
+  const [fieldValues, setFieldValues] = useState<Record<string, string | string[]>>(() => {
+    const initial: Record<string, string | string[]> = {}
     todo.fields?.forEach((f) => {
-      initial[f.id] = f.value || ""
+      initial[f.id] = f.value || (f.type === "checkbox" ? [] : "")
     })
     return initial
   })
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(7)
+
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(
     () => todo.chatMessages || []
   )
+
+  // Auto-close and open next todo after 7 seconds
+  React.useEffect(() => {
+    if (!isSubmitted) return
+
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval)
+          // Close this todo and open next one
+          onComplete(todo.id)
+          onClose()
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(interval)
+  }, [isSubmitted, todo.id, onComplete, onClose])
 
   const product = todo.productName || ""
   const iconColors = productColorMap[product] || defaultColors
@@ -885,19 +969,87 @@ export default function TodoDetail({
             </div>
           )}
 
-          {/* Form Fields */}
-          {todo.fields && !isCompleted && !todo.integrationFlow && (
+          {/* Form Fields / Submitted Data */}
+          {todo.fields && !todo.integrationFlow && (
             <div style={{ marginBottom: "var(--space-6)" }}>
-              {todo.fields.map((field) => (
-                <TodoFormField
-                  key={field.id}
-                  field={field}
-                  value={fieldValues[field.id] || ""}
-                  onChange={(val) =>
-                    setFieldValues((prev) => ({ ...prev, [field.id]: val }))
-                  }
-                />
-              ))}
+              {isSubmitted ? (
+                // Read-only display after submission
+                <div
+                  style={{
+                    padding: "var(--space-5)",
+                    backgroundColor: "var(--color-background-light-green-alt)",
+                    borderRadius: "var(--radius-lg)",
+                    border: "1px solid var(--color-accent-green)",
+                  }}
+                >
+                  <h4
+                    style={{
+                      fontSize: "var(--text-base-sm)",
+                      fontWeight: "var(--font-semibold)",
+                      color: "var(--color-accent-green)",
+                      marginBottom: "var(--space-4)",
+                      paddingBottom: "var(--space-3)",
+                      borderBottom: "1px solid var(--color-accent-green)",
+                    }}
+                  >
+                    ✓ Information Submitted
+                  </h4>
+                  <div style={{ display: "grid", gap: "var(--space-3)" }}>
+                    {todo.fields.map((field) => {
+                      const val = fieldValues[field.id]
+                      const displayValue = Array.isArray(val)
+                        ? val.map((v) => field.options?.find((o) => o.key === v)?.label || v).join(", ")
+                        : field.options?.find((o) => o.key === val)?.label || val || "Not provided"
+                      
+                      return (
+                        <div key={field.id}>
+                          <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", margin: 0 }}>
+                            {field.label}
+                          </p>
+                          <p
+                            style={{
+                              fontSize: "var(--text-base-sm)",
+                              fontWeight: "var(--font-medium)",
+                              color: "var(--color-text-dark)",
+                              margin: 0,
+                              marginTop: "var(--space-1)",
+                            }}
+                          >
+                            {displayValue}
+                          </p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  {timeLeft > 0 && (
+                    <p
+                      style={{
+                        fontSize: "var(--text-xs)",
+                        color: "var(--color-text-muted)",
+                        marginTop: "var(--space-4)",
+                        marginBottom: 0,
+                      }}
+                    >
+                      Closing in {timeLeft} second{timeLeft !== 1 ? 's' : ''}...
+                    </p>
+                  )}
+                </div>
+              ) : (
+                // Editable form
+                <div>
+                  {todo.fields.map((field) => (
+                    <TodoFormField
+                      key={field.id}
+                      field={field}
+                      value={fieldValues[field.id] || ""}
+                      onChange={(val) =>
+                        setFieldValues((prev) => ({ ...prev, [field.id]: val }))
+                      }
+                      isReadOnly={false}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -1040,10 +1192,18 @@ export default function TodoDetail({
                 Hides for 24h
               </span>
             </div>
-            {todo.archetype !== "feedback_request" && (
+            {todo.archetype !== "feedback_request" && !isSubmitted && (
               <button
                 type="button"
-                onClick={() => onComplete(todo.id)}
+                onClick={() => {
+                  // For form fields, mark as submitted
+                  if (todo.fields) {
+                    setIsSubmitted(true)
+                  } else {
+                    // For other archetypes, complete directly
+                    onComplete(todo.id)
+                  }
+                }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

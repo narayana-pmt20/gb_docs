@@ -36,12 +36,12 @@ export interface TodoFieldOption {
 export interface TodoField {
   id: string
   label: string
-  type: "text" | "textarea" | "file" | "dropdown" | "credentials" | "url" | "email"
+  type: "text" | "textarea" | "file" | "dropdown" | "radio" | "checkbox" | "credentials" | "url" | "email"
   placeholder?: string
   helpText?: string
   required: boolean
-  value?: string
-  options?: TodoFieldOption[] // for dropdown type - now supports key/label pairs
+  value?: string | string[] // string for single values, string[] for radio/checkbox
+  options?: TodoFieldOption[] // for dropdown/radio/checkbox types
   prefill_key?: string // dot-notation path to prefill from account context (e.g. "account.company_name")
 }
 
