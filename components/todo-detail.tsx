@@ -1386,7 +1386,6 @@ export default function TodoDetail({
               </button>
             )}
           </div>
-        </div>
         )}
       </div>
       </>
