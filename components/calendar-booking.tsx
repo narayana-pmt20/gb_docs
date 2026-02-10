@@ -20,7 +20,7 @@ export default function CalendarBooking({
   name,
   email,
 }: CalendarBookingProps) {
-  const [step, setStep] = useState<"calendar" | "details">("calendar")
+  const [step, setStep] = useState<"calendar" | "details" | "confirmation">("calendar")
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
   const [displayName, setDisplayName] = useState(name)
@@ -77,6 +77,7 @@ export default function CalendarBooking({
       email: displayEmail,
       questions: questions,
     })
+    setStep("confirmation")
   }
 
   const formatAppointmentDate = (date: Date, time: string) => {
@@ -526,4 +527,142 @@ export default function CalendarBooking({
       </div>
     </div>
   )
+}
+
+  // Confirmation step
+  if (step === "confirmation") {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--space-6)",
+          padding: "var(--space-6)",
+          fontFamily: '"Jost", sans-serif',
+        }}
+      >
+        <div>
+          <h2
+            style={{
+              fontSize: "var(--text-2xl)",
+              fontWeight: "var(--font-semibold)",
+              marginBottom: "var(--space-4)",
+              color: "var(--color-text-dark)",
+            }}
+          >
+            Appointment Confirmed
+          </h2>
+          <p
+            style={{
+              fontSize: "var(--text-base)",
+              color: "var(--color-text-secondary)",
+              marginBottom: "var(--space-6)",
+            }}
+          >
+            Your appointment has been successfully scheduled.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gap: "var(--space-4)",
+          }}
+        >
+          <div>
+            <p
+              style={{
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+              }}
+            >
+              Name
+            </p>
+            <p
+              style={{
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--font-medium)",
+                color: "var(--color-text-dark)",
+                margin: 0,
+              }}
+            >
+              {displayName}
+            </p>
+          </div>
+
+          <div>
+            <p
+              style={{
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+              }}
+            >
+              Email
+            </p>
+            <p
+              style={{
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--font-medium)",
+                color: "var(--color-text-dark)",
+                margin: 0,
+              }}
+            >
+              {displayEmail}
+            </p>
+          </div>
+
+          <div>
+            <p
+              style={{
+                fontSize: "var(--text-xs)",
+                color: "var(--color-text-muted)",
+                margin: 0,
+                marginBottom: "var(--space-1)",
+              }}
+            >
+              Date & Time
+            </p>
+            <p
+              style={{
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--font-medium)",
+                color: "var(--color-accent-green)",
+                margin: 0,
+              }}
+            >
+              {formatAppointmentDate(selectedDate, selectedTime)}
+            </p>
+          </div>
+
+          {questions && (
+            <div>
+              <p
+                style={{
+                  fontSize: "var(--text-xs)",
+                  color: "var(--color-text-muted)",
+                  margin: 0,
+                  marginBottom: "var(--space-1)",
+                }}
+              >
+                Questions
+              </p>
+              <p
+                style={{
+                  fontSize: "var(--text-base)",
+                  color: "var(--color-text-dark)",
+                  margin: 0,
+                }}
+              >
+                {questions}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    )
+  }
 }
