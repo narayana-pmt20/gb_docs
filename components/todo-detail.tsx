@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import {
   X,
   Clock,
@@ -17,7 +17,6 @@ import {
   User,
 } from "lucide-react"
 import type { Todo, TodoField, ChatMessage } from "@/lib/todo-types"
-import type { CalendarBookingHandle } from "@/components/calendar-booking"
 import GbpConnectFlow from "@/components/gbp-connect-flow"
 import GoogleAdsConnectFlow from "@/components/google-ads-connect-flow"
 import TodoChatThread from "@/components/todo-chat-thread"
@@ -321,7 +320,6 @@ export default function TodoDetail({
   const [timeLeft, setTimeLeft] = useState(7)
   const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
   const [isCalendarBooked, setIsCalendarBooked] = useState(false)
-  const calendarBookingRef = useRef<CalendarBookingHandle>(null)
 
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(
     () => todo.chatMessages || []
@@ -940,7 +938,6 @@ export default function TodoDetail({
           {/* Calendar Booking Flow */}
           {todo.id === "todo-calendar-booking" && !isCompleted && (
             <CalendarBooking
-              ref={calendarBookingRef}
               name="Narayana sami"
               email="narayana@umbrellaus.com"
               onBookingComplete={(data) => {
@@ -951,6 +948,7 @@ export default function TodoDetail({
                   appointment_date: data.date,
                   appointment_time: data.time,
                 }))
+                setIsCalendarBooked(true)
               }}
             />
           )}
@@ -1316,16 +1314,11 @@ export default function TodoDetail({
               </div>
             )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
+              // For calendar booking, only show submit after booking is confirmed
+              (todo.id === "todo-calendar-booking" ? isCalendarBooked : true) && (
               <button
                 type="button"
                 onClick={() => {
-                  // For calendar booking, submit the booking form
-                  if (todo.id === "todo-calendar-booking") {
-                    calendarBookingRef.current?.submitBooking()
-                    setIsSubmitted(true)
-                    return
-                  }
-
                   // For form fields, validate required fields before submission
                   if (todo.fields) {
                     const errors: Record<string, boolean> = {}
@@ -1393,11 +1386,10 @@ export default function TodoDetail({
                   </>
                 )}
               </button>
-            )}
+            ))}
           </div>
         )}
       </div>
-        </>
-      )
-    }
+    </>
+  )
 }
