@@ -104,7 +104,7 @@ export const mockTodos: Todo[] = [
     blocking: true,
     targetActor: "business",
     sourceActor: "plan_executor",
-    estimatedMinutes: 15,
+    estimatedMinutes: 5,
     dueDate: "2026-02-09T00:00:00Z",
     requestedDate: "2026-02-04T16:00:00Z",
     productName: "AI Voice Agent",
@@ -144,9 +144,18 @@ export const mockTodos: Todo[] = [
       {
         id: "target_languages",
         label: "Target Language(s)",
-        type: "text",
-        value: "English, Spanish, French",
+        type: "dropdown",
+        value: "english_spanish_french",
         required: true,
+        options: [
+          { key: "english", label: "English" },
+          { key: "spanish", label: "Spanish" },
+          { key: "french", label: "French" },
+          { key: "german", label: "German" },
+          { key: "portuguese", label: "Portuguese" },
+          { key: "english_spanish", label: "English & Spanish" },
+          { key: "english_spanish_french", label: "English, Spanish & French" },
+        ],
       },
       {
         id: "minutes_per_month",
@@ -166,8 +175,8 @@ export const mockTodos: Todo[] = [
         type: "checkbox",
         required: true,
         options: [
-          { key: "inbound", label: "Inbound Only" },
-          { key: "outbound", label: "Outbound Only" },
+          { key: "inbound", label: "Inbound Calls" },
+          { key: "outbound", label: "Outbound Calls" },
           { key: "website_widget", label: "Website Widget" },
         ],
       },
@@ -188,7 +197,7 @@ export const mockTodos: Todo[] = [
       },
       {
         id: "voice_agent_features",
-        label: "Features That I Will Need from the AI Voice Agent",
+        label: "AI Voice Agent Should Do the Following",
         type: "checkbox",
         required: true,
         options: [
@@ -211,16 +220,6 @@ export const mockTodos: Todo[] = [
         ],
       },
       {
-        id: "automated_sms",
-        label: "Send Automated SMS After a Call?",
-        type: "radio",
-        required: true,
-        options: [
-          { key: "yes", label: "Yes" },
-          { key: "no", label: "No" },
-        ],
-      },
-      {
         id: "webhooks",
         label: "Send Call Summaries to Email?",
         type: "radio",
@@ -232,9 +231,9 @@ export const mockTodos: Todo[] = [
       },
       {
         id: "knowledge_source",
-        label: "Knowledge Source (Link or Document for AI to Answer Questions)",
+        label: "Knowledge Source for AI to Answer Questions",
         type: "file",
-        helpText: "Website will be added to knowledge base automatically",
+        helpText: "PDF and Word documents are allowed. Website will be added automatically.",
         required: false,
       },
       {

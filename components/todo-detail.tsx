@@ -55,20 +55,22 @@ function TodoFormField({
   value,
   onChange,
   isReadOnly,
+  error,
 }: {
   field: TodoField
   value: string | string[]
   onChange: (val: string | string[]) => void
   isReadOnly?: boolean
+  error?: boolean
 }) {
   const [showPassword, setShowPassword] = useState(false)
 
   const labelStyle: React.CSSProperties = {
     display: "block",
-    fontSize: "var(--text-base-sm)",
-    fontWeight: "var(--font-medium)",
+    fontSize: "var(--text-base)",
+    fontWeight: "var(--font-semibold)",
     color: "var(--color-text-dark)",
-    marginBottom: "var(--space-1)",
+    marginBottom: "var(--space-2)",
   }
 
   const inputStyle: React.CSSProperties = {
@@ -79,7 +81,7 @@ function TodoFormField({
     fontWeight: "var(--font-regular)",
     color: "var(--color-text-dark)",
     backgroundColor: isReadOnly ? "var(--color-background-light-grey)" : "var(--color-background-white)",
-    border: "1px solid var(--color-border-input)",
+    border: error ? "2px solid #dc2626" : "1px solid var(--color-border-input)",
     borderRadius: "var(--radius-md)",
     fontFamily: "inherit",
     cursor: isReadOnly ? "not-allowed" : "auto",
@@ -87,7 +89,7 @@ function TodoFormField({
 
   const helpStyle: React.CSSProperties = {
     fontSize: "var(--text-xs)",
-    color: "var(--color-text-secondary)",
+    color: error ? "#dc2626" : "var(--color-text-secondary)",
     marginTop: "var(--space-1)",
     lineHeight: "var(--leading-normal)",
   }
@@ -291,7 +293,10 @@ function TodoFormField({
         />
       )}
 
-      {field.helpText && <p style={helpStyle}>{field.helpText}</p>}
+      {field.helpText && !error && <p style={helpStyle}>{field.helpText}</p>}
+      {error && (
+        <p style={helpStyle}>This field is required</p>
+      )}
     </div>
   )
 }
@@ -312,6 +317,7 @@ export default function TodoDetail({
 
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(7)
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
 
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(
     () => todo.chatMessages || []
@@ -1101,6 +1107,7 @@ export default function TodoDetail({
                         setFieldValues((prev) => ({ ...prev, [field.id]: val }))
                       }
                       isReadOnly={false}
+                      error={fieldErrors[field.id]}
                     />
                   ))}
                 </div>
@@ -1277,19 +1284,27 @@ export default function TodoDetail({
                 onClick={() => {
                   // For form fields, validate required fields before submission
                   if (todo.fields) {
-                    const isValid = todo.fields.every((f) => {
-                      if (!f.required) return true
+                    const errors: Record<string, boolean> = {}
+                    let isValid = true
+                    
+                    todo.fields.forEach((f) => {
+                      if (!f.required) return
                       const val = fieldValues[f.id]
-                      if (Array.isArray(val)) {
-                        return val.length > 0
+                      const hasValue = Array.isArray(val)
+                        ? val.length > 0
+                        : typeof val === "string" && val.trim().length > 0
+                      
+                      if (!hasValue) {
+                        errors[f.id] = true
+                        isValid = false
                       }
-                      return typeof val === "string" && val.trim().length > 0
                     })
 
                     if (isValid) {
+                      setFieldErrors({})
                       setIsSubmitted(true)
                     } else {
-                      alert("Please fill in all required fields before submitting.")
+                      setFieldErrors(errors)
                     }
                   } else {
                     // For other archetypes, complete directly
