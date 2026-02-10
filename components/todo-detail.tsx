@@ -942,16 +942,16 @@ export default function TodoDetail({
               >
                 <span
                   style={{
-                    fontSize: "var(--text-xs)",
-                    fontWeight: "var(--font-medium)",
-                    color: "var(--color-text-muted)",
+                    fontSize: "var(--text-base)",
+                    fontWeight: "var(--font-semibold)",
+                    color: "var(--color-text-dark)",
                   }}
                 >
                   Progress
                 </span>
                 <span
                   style={{
-                    fontSize: "var(--text-xs)",
+                    fontSize: "var(--text-base)",
                     fontWeight: "var(--font-medium)",
                     color: "var(--color-text-dark)",
                   }}
@@ -1255,28 +1255,6 @@ export default function TodoDetail({
                   Hides for 24h
                 </span>
               </div>
-            )}
-            {!isSubmitted && (
-              <button
-                type="button"
-                onClick={() => onSnooze(todo.id)}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "var(--space-2) var(--space-6)",
-                  fontSize: "var(--text-base-sm)",
-                  fontWeight: "var(--font-regular)",
-                  borderRadius: "var(--radius-md)",
-                  border: "1px solid var(--color-border-input)",
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  backgroundColor: "var(--color-background-white)",
-                  color: "var(--color-text-dark)",
-                }}
-              >
-                Do It Later
-              </button>
             )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
               <button
