@@ -1388,7 +1388,7 @@ export default function TodoDetail({
           </div>
         )}
       </div>
-        </>
-      )
-    }
+      </>
+    )
+  }
 }
