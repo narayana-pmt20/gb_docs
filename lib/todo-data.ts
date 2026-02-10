@@ -93,6 +93,24 @@ export const mockTodos: Todo[] = [
   },
 
   {
+    id: "todo-calendar-booking",
+    title: "Schedule Setup Call for CRM Integration",
+    description: "Please book time with our support team to complete setup for your CRM integration",
+    archetype: "vendor_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.97,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-15T00:00:00Z",
+    requestedDate: "2026-02-04T16:00:00Z",
+    productName: "Calendar Booking",
+    fields: [],
+  },
+
+  {
     id: "todo-ai-voice-agent",
     title: "Setup AI Voice Agent - Provide Configuration Details",
     description:
@@ -255,24 +273,6 @@ export const mockTodos: Todo[] = [
         ],
       },
     ],
-  },
-
-  {
-    id: "todo-calendar-booking",
-    title: "Schedule Setup Call for CRM Integration",
-    description: "Please book time with our support team to complete setup for your CRM integration",
-    archetype: "vendor_request",
-    status: "not_started",
-    priority: "high",
-    priorityScore: 0.97,
-    blocking: false,
-    targetActor: "business",
-    sourceActor: "plan_executor",
-    estimatedMinutes: 5,
-    dueDate: "2026-02-15T00:00:00Z",
-    requestedDate: "2026-02-04T16:00:00Z",
-    productName: "Calendar Booking",
-    fields: [],
   },
 
   // --- PAYMENTS ---
