@@ -1196,7 +1196,40 @@ export default function TodoDetail({
               gap: "var(--space-3)",
             }}
           >
-            <div className="flex flex-col" style={{ gap: "2px" }}>
+            {!isSubmitted && (
+              <div className="flex flex-col" style={{ gap: "2px" }}>
+                <button
+                  type="button"
+                  onClick={() => onSnooze(todo.id)}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "var(--space-2) var(--space-5)",
+                    fontSize: "var(--text-base-sm)",
+                    fontWeight: "var(--font-regular)",
+                    borderRadius: "var(--radius-md)",
+                    border: "none",
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                    backgroundColor: "var(--color-background-light-grey)",
+                    color: "var(--color-text-dark)",
+                  }}
+                >
+                  Snooze
+                </button>
+                <span
+                  style={{
+                    fontSize: "11px",
+                    color: "var(--color-text-secondary)",
+                    textAlign: "center",
+                  }}
+                >
+                  Hides for 24h
+                </span>
+              </div>
+            )}
+            {!isSubmitted && (
               <button
                 type="button"
                 onClick={() => onSnooze(todo.id)}
@@ -1204,29 +1237,20 @@ export default function TodoDetail({
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "var(--space-2) var(--space-5)",
+                  padding: "var(--space-2) var(--space-6)",
                   fontSize: "var(--text-base-sm)",
                   fontWeight: "var(--font-regular)",
                   borderRadius: "var(--radius-md)",
-                  border: "none",
+                  border: "1px solid var(--color-border-input)",
                   cursor: "pointer",
                   fontFamily: "inherit",
-                  backgroundColor: "var(--color-background-light-grey)",
+                  backgroundColor: "var(--color-background-white)",
                   color: "var(--color-text-dark)",
                 }}
               >
                 Do It Later
               </button>
-              <span
-                style={{
-                  fontSize: "11px",
-                  color: "var(--color-text-secondary)",
-                  textAlign: "center",
-                }}
-              >
-                Hides for 24h
-              </span>
-            </div>
+            )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
               <button
                 type="button"
