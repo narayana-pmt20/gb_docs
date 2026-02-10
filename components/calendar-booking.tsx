@@ -9,6 +9,7 @@ interface CalendarBookingProps {
     time: string
     name: string
     email: string
+    questions: string
   }) => void
   name: string
   email: string
@@ -24,6 +25,7 @@ export default function CalendarBooking({
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
   const [displayName, setDisplayName] = useState(name)
   const [displayEmail, setDisplayEmail] = useState(email)
+  const [questions, setQuestions] = useState("")
   const [currentMonth, setCurrentMonth] = useState(new Date(2026, 1))
 
   const timeSlots = [
@@ -67,23 +69,27 @@ export default function CalendarBooking({
     year: "numeric",
   })
 
-  const handleNext = () => {
-    if (step === "calendar") {
-      setStep("details")
-    } else {
-      onBookingComplete({
-        date: selectedDate.toISOString().split("T")[0],
-        time: selectedTime,
-        name: displayName,
-        email: displayEmail,
-      })
-    }
+  const handleBooking = () => {
+    onBookingComplete({
+      date: selectedDate.toISOString().split("T")[0],
+      time: selectedTime,
+      name: displayName,
+      email: displayEmail,
+      questions: questions,
+    })
   }
 
   const dayOfWeek = selectedDate.toLocaleDateString("en-US", {
     weekday: "long",
-        month: "long",
+    month: "long",
     day: "numeric",
+  })
+
+  const formattedDate = selectedDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   })
 
   if (step === "calendar") {
@@ -91,13 +97,16 @@ export default function CalendarBooking({
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           gap: "var(--space-6)",
           padding: "var(--space-6)",
           fontFamily: '"Jost", sans-serif',
+          maxWidth: "100%",
+          overflow: "hidden",
         }}
       >
         {/* Calendar Section */}
-        <div style={{ flex: 1 }}>
+        <div>
           <h2
             style={{
               fontSize: "var(--text-2xl)",
@@ -190,22 +199,25 @@ export default function CalendarBooking({
                 style={{
                   padding: "var(--space-2)",
                   fontSize: "var(--text-base)",
-                  backgroundColor: day && day.toDateString() === selectedDate.toDateString()
-                    ? "var(--color-primary-blue)"
-                    : day && day.getTime() < new Date().getTime()
-                    ? "var(--color-background-light-grey)"
-                    : day && (day.getDate() === 11 || day.getDate() === 17)
-                    ? "var(--color-background-light-grey)"
-                    : "transparent",
-                  color: day && day.toDateString() === selectedDate.toDateString()
-                    ? "white"
-                    : "var(--color-text-dark)",
+                  backgroundColor:
+                    day && day.toDateString() === selectedDate.toDateString()
+                      ? "var(--color-primary-blue)"
+                      : day && day.getTime() < new Date().getTime()
+                      ? "var(--color-background-light-grey)"
+                      : day && (day.getDate() === 11 || day.getDate() === 17)
+                      ? "var(--color-background-light-grey)"
+                      : "transparent",
+                  color:
+                    day && day.toDateString() === selectedDate.toDateString()
+                      ? "white"
+                      : "var(--color-text-dark)",
                   border: "none",
                   cursor: day ? "pointer" : "default",
                   borderRadius: "var(--radius-md)",
-                  fontWeight: day && day.toDateString() === selectedDate.toDateString()
-                    ? "var(--font-semibold)"
-                    : "var(--font-regular)",
+                  fontWeight:
+                    day && day.toDateString() === selectedDate.toDateString()
+                      ? "var(--font-semibold)"
+                      : "var(--font-regular)",
                 }}
               >
                 {day ? day.getDate() : ""}
@@ -232,6 +244,7 @@ export default function CalendarBooking({
                 borderRadius: "var(--radius-md)",
                 backgroundColor: "white",
                 cursor: "pointer",
+                fontFamily: '"Jost", sans-serif',
               }}
             >
               <option>India Standard Time (3:57pm)</option>
@@ -244,7 +257,7 @@ export default function CalendarBooking({
         </div>
 
         {/* Time Slots Section */}
-        <div style={{ flex: 1 }}>
+        <div>
           <div
             style={{
               fontSize: "var(--text-lg)",
@@ -258,9 +271,10 @@ export default function CalendarBooking({
 
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
               gap: "var(--space-2)",
+              marginBottom: "var(--space-6)",
             }}
           >
             {timeSlots.map((time) => (
@@ -271,15 +285,18 @@ export default function CalendarBooking({
                   padding: "var(--space-3)",
                   fontSize: "var(--text-base)",
                   fontWeight: "var(--font-medium)",
-                  backgroundColor: selectedTime === time
-                    ? "var(--color-primary-blue)"
-                    : "transparent",
-                  color: selectedTime === time
-                    ? "white"
-                    : "var(--color-primary-blue)",
+                  backgroundColor:
+                    selectedTime === time
+                      ? "var(--color-primary-blue)"
+                      : "transparent",
+                  color:
+                    selectedTime === time
+                      ? "white"
+                      : "var(--color-primary-blue)",
                   border: `2px solid var(--color-primary-blue)`,
                   borderRadius: "var(--radius-md)",
                   cursor: "pointer",
+                  fontFamily: '"Jost", sans-serif',
                 }}
               >
                 {time}
@@ -288,10 +305,9 @@ export default function CalendarBooking({
           </div>
 
           <button
-            onClick={handleNext}
+            onClick={() => setStep("details")}
             style={{
               width: "100%",
-              marginTop: "var(--space-6)",
               padding: "var(--space-3)",
               fontSize: "var(--text-base)",
               fontWeight: "var(--font-semibold)",
@@ -300,6 +316,7 @@ export default function CalendarBooking({
               border: "none",
               borderRadius: "var(--radius-md)",
               cursor: "pointer",
+              fontFamily: '"Jost", sans-serif',
             }}
           >
             Continue
@@ -314,12 +331,36 @@ export default function CalendarBooking({
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         gap: "var(--space-6)",
         padding: "var(--space-6)",
         fontFamily: '"Jost", sans-serif',
+        maxWidth: "100%",
+        overflow: "hidden",
       }}
     >
-      <div style={{ flex: 1 }}>
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2)",
+            marginBottom: "var(--space-6)",
+            cursor: "pointer",
+          }}
+          onClick={() => setStep("calendar")}
+        >
+          <ChevronLeft size={20} style={{ color: "var(--color-primary-blue)" }} />
+          <span
+            style={{
+              color: "var(--color-primary-blue)",
+              fontWeight: "var(--font-medium)",
+            }}
+          >
+            Back
+          </span>
+        </div>
+
         <h2
           style={{
             fontSize: "var(--text-2xl)",
@@ -334,7 +375,7 @@ export default function CalendarBooking({
         <form
           onSubmit={(e) => {
             e.preventDefault()
-            handleNext()
+            handleBooking()
           }}
           style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
         >
@@ -354,6 +395,7 @@ export default function CalendarBooking({
               type="text"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
+              required
               style={{
                 width: "100%",
                 padding: "var(--space-3)",
@@ -361,6 +403,7 @@ export default function CalendarBooking({
                 border: "1px solid var(--color-border-input)",
                 borderRadius: "var(--radius-md)",
                 fontFamily: '"Jost", sans-serif',
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -381,6 +424,7 @@ export default function CalendarBooking({
               type="email"
               value={displayEmail}
               onChange={(e) => setDisplayEmail(e.target.value)}
+              required
               style={{
                 width: "100%",
                 padding: "var(--space-3)",
@@ -388,6 +432,37 @@ export default function CalendarBooking({
                 border: "1px solid var(--color-border-input)",
                 borderRadius: "var(--radius-md)",
                 fontFamily: '"Jost", sans-serif',
+                boxSizing: "border-box",
+              }}
+            />
+          </div>
+
+          <div>
+            <label
+              style={{
+                display: "block",
+                fontSize: "var(--text-base)",
+                fontWeight: "var(--font-medium)",
+                marginBottom: "var(--space-2)",
+                color: "var(--color-text-dark)",
+              }}
+            >
+              Questions (Optional)
+            </label>
+            <textarea
+              value={questions}
+              onChange={(e) => setQuestions(e.target.value)}
+              placeholder="Enter any questions you have for the support team..."
+              style={{
+                width: "100%",
+                minHeight: "120px",
+                padding: "var(--space-3)",
+                fontSize: "var(--text-base)",
+                border: "1px solid var(--color-border-input)",
+                borderRadius: "var(--radius-md)",
+                fontFamily: '"Jost", sans-serif',
+                resize: "vertical",
+                boxSizing: "border-box",
               }}
             />
           </div>
@@ -400,77 +475,52 @@ export default function CalendarBooking({
             }}
           >
             By proceeding, you confirm that you have read and agree to{" "}
-            <a href="#" style={{ color: "var(--color-primary-blue)", textDecoration: "none" }}>
+            <a
+              href="#"
+              style={{
+                color: "var(--color-primary-blue)",
+                textDecoration: "none",
+              }}
+            >
               Calendly's Terms of Use
             </a>{" "}
             and{" "}
-            <a href="#" style={{ color: "var(--color-primary-blue)", textDecoration: "none" }}>
+            <a
+              href="#"
+              style={{
+                color: "var(--color-primary-blue)",
+                textDecoration: "none",
+              }}
+            >
               Privacy Notice
             </a>
             .
           </div>
 
-          <button
-            type="submit"
+          {/* Appointment Summary */}
+          <div
             style={{
-              width: "100%",
-              padding: "var(--space-3)",
-              fontSize: "var(--text-base)",
-              fontWeight: "var(--font-semibold)",
-              backgroundColor: "var(--color-primary-blue)",
-              color: "white",
-              border: "none",
+              backgroundColor: "var(--color-background-light-grey)",
+              padding: "var(--space-4)",
               borderRadius: "var(--radius-md)",
-              cursor: "pointer",
               marginTop: "var(--space-4)",
             }}
           >
-            Schedule Event
-          </button>
+            <div
+              style={{
+                fontSize: "var(--text-sm)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              <div style={{ marginBottom: "var(--space-2)" }}>
+                <strong>📅 {formattedDate}</strong>
+              </div>
+              <div>
+                <strong>🕐 {selectedTime}</strong>
+              </div>
+            </div>
+          </div>
         </form>
-      </div>
-
-      <div
-        style={{
-          flex: 1,
-          backgroundColor: "var(--color-background-light-grey)",
-          padding: "var(--space-6)",
-          borderRadius: "var(--radius-md)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-            marginBottom: "var(--space-4)",
-            cursor: "pointer",
-          }}
-          onClick={() => setStep("calendar")}
-        >
-          <ChevronLeft size={20} style={{ color: "var(--color-primary-blue)" }} />
-          <span style={{ color: "var(--color-primary-blue)", fontWeight: "var(--font-medium)" }}>
-            Back
-          </span>
-        </div>
-
-        <div
-          style={{
-            fontSize: "var(--text-sm)",
-            color: "var(--color-text-secondary)",
-            marginBottom: "var(--space-6)",
-          }}
-        >
-          <div style={{ marginBottom: "var(--space-3)" }}>
-            <strong>📅 {selectedDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</strong>
-          </div>
-          <div style={{ marginBottom: "var(--space-3)" }}>
-            <strong>🕐 {selectedTime}</strong>
-          </div>
-          <div>
-            <strong>🌍 India Standard Time</strong>
-          </div>
-        </div>
       </div>
     </div>
   )

@@ -944,6 +944,8 @@ export default function TodoDetail({
                   ...prev,
                   full_name: data.name,
                   email_address: data.email,
+                  appointment_date: data.date,
+                  appointment_time: data.time,
                 }))
                 setIsSubmitted(true)
               }}
@@ -1025,6 +1027,29 @@ export default function TodoDetail({
                   >
                     ✓ Information Submitted
                   </h4>
+                  
+                  {/* Special display for calendar booking */}
+                  {todo.id === "todo-calendar-booking" && (
+                    <div style={{ display: "grid", gap: "var(--space-4)", marginBottom: "var(--space-4)" }}>
+                      <div>
+                        <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", margin: 0 }}>
+                          Scheduled Appointment
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "var(--text-base-sm)",
+                            fontWeight: "var(--font-semibold)",
+                            color: "var(--color-accent-green)",
+                            margin: 0,
+                            marginTop: "var(--space-1)",
+                          }}
+                        >
+                          📅 {fieldValues["appointment_date"] || "Date selected"} at {fieldValues["appointment_time"] || "Time selected"}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  
                   <div style={{ display: "grid", gap: "var(--space-3)" }}>
                     {todo.fields.map((field) => {
                       const val = fieldValues[field.id]

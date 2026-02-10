@@ -259,7 +259,7 @@ export const mockTodos: Todo[] = [
 
   {
     id: "todo-calendar-booking",
-    title: "Schedule Setup Call",
+    title: "Schedule Setup Call for CRM Integration",
     description: "Please book time with our support team to complete setup for your CRM integration",
     archetype: "vendor_request",
     status: "not_started",
