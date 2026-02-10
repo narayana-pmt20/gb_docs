@@ -335,8 +335,13 @@ export default function TodoDetail({
   }
   const totalFields = todo.fields?.filter((f) => f.required).length || 0
   const filledFields =
-    todo.fields?.filter((f) => f.required && fieldValues[f.id]?.trim()).length ||
-    0
+    todo.fields?.filter((f) => {
+      const val = fieldValues[f.id]
+      if (Array.isArray(val)) {
+        return val.length > 0
+      }
+      return typeof val === "string" && val.trim().length > 0
+    }).length || 0
 
   return (
     <>
