@@ -293,7 +293,8 @@ export default function CalendarBooking({
               display: "flex",
               alignItems: "center",
               gap: "var(--space-2)",
-              marginBottom: "var(--space-4)",
+              marginTop: "var(--space-6)",
+              marginBottom: "var(--space-6)",
             }}
           >
             <span style={{ fontSize: "var(--text-base)" }}>🌍</span>
@@ -479,35 +480,7 @@ export default function CalendarBooking({
             />
           </div>
 
-          <div
-            style={{
-              fontSize: "var(--text-sm)",
-              color: "var(--color-text-secondary)",
-              marginTop: "var(--space-2)",
-            }}
-          >
-            By proceeding, you confirm that you have read and agree to{" "}
-            <a
-              href="#"
-              style={{
-                color: "var(--color-primary-blue)",
-                textDecoration: "none",
-              }}
-            >
-              Calendly's Terms of Use
-            </a>{" "}
-            and{" "}
-            <a
-              href="#"
-              style={{
-                color: "var(--color-primary-blue)",
-                textDecoration: "none",
-              }}
-            >
-              Privacy Notice
-            </a>
-            .
-          </div>
+
 
           {/* Appointment Summary */}
           <div
@@ -547,7 +520,7 @@ export default function CalendarBooking({
               color: "white",
             }}
           >
-            Submit
+            Book appointment
           </button>
         </form>
       </div>
