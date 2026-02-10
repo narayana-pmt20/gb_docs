@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo, useEffect, useCallback } from "react"
+import { useState, useMemo } from "react"
 import { mockTodos } from "@/lib/todo-data"
 import type { Todo } from "@/lib/todo-types"
 import TodoCard from "@/components/todo-card"
@@ -53,53 +53,33 @@ export default function TodosPage() {
     : openTodos.slice(0, MAX_VISIBLE)
   const remainingCount = openTodos.length - MAX_VISIBLE
 
-  const [pendingUpdate, setPendingUpdate] = useState<{
-    type: "complete" | "snooze"
-    todoId: string
-  } | null>(null)
-
-  // Handle pending state updates after render completes
-  useEffect(() => {
-    if (!pendingUpdate) return
-
-    const timer = setTimeout(() => {
-      if (pendingUpdate.type === "complete") {
-        setTodos((prev) =>
-          prev.map((t) =>
-            t.id === pendingUpdate.todoId
-              ? {
-                  ...t,
-                  status: "completed" as const,
-                  completedDate: new Date().toISOString(),
-                }
-              : t
-          )
-        )
-      } else if (pendingUpdate.type === "snooze") {
-        setTodos((prev) =>
-          prev.map((t) =>
-            t.id === pendingUpdate.todoId
-              ? { ...t, status: "snoozed" as const }
-              : t
-          )
-        )
-      }
-      setSelectedTodo(null)
-      setPendingUpdate(null)
-    }, 0)
-
-    return () => clearTimeout(timer)
-  }, [pendingUpdate])
-
   // Handle complete
-  const handleComplete = useCallback((todoId: string) => {
-    setPendingUpdate({ type: "complete", todoId })
-  }, [])
+  const handleComplete = (todoId: string) => {
+    setTodos((prev) =>
+      prev.map((t) =>
+        t.id === todoId
+          ? {
+              ...t,
+              status: "completed" as const,
+              completedDate: new Date().toISOString(),
+            }
+          : t
+      )
+    )
+    setSelectedTodo(null)
+  }
 
   // Handle snooze
-  const handleSnooze = useCallback((todoId: string) => {
-    setPendingUpdate({ type: "snooze", todoId })
-  }, [])
+  const handleSnooze = (todoId: string) => {
+    setTodos((prev) =>
+      prev.map((t) =>
+        t.id === todoId
+          ? { ...t, status: "snoozed" as const }
+          : t
+      )
+    )
+    setSelectedTodo(null)
+  }
 
   return (
     <>

@@ -1215,7 +1215,7 @@ export default function TodoDetail({
                   color: "var(--color-text-dark)",
                 }}
               >
-                Snooze
+                Do It Later
               </button>
               <span
                 style={{
@@ -1227,61 +1227,36 @@ export default function TodoDetail({
                 Hides for 24h
               </span>
             </div>
-          )}
-
-          {/* Do It Later Button */}
-          {!isSubmitted && (
-            <button
-              type="button"
-              onClick={() => onSnooze(todo.id)}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "var(--space-2) var(--space-6)",
-                fontSize: "var(--text-base-sm)",
-                fontWeight: "var(--font-regular)",
-                borderRadius: "var(--radius-md)",
-                border: "1px solid var(--color-border-input)",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                backgroundColor: "var(--color-background-white)",
-                color: "var(--color-text-dark)",
-              }}
-            >
-              Do It Later
-            </button>
-          )}
-
-          {/* Submit & Complete Button (for form todos) or Complete Button (for others) */}
-          {todo.archetype !== "feedback_request" && !isSubmitted && (
-            <button
-              type="button"
-              onClick={() => {
-                if (todo.fields) {
-                  setIsSubmitted(true)
-                } else {
-                  onComplete(todo.id)
-                }
-              }}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "var(--space-2)",
-                padding: "var(--space-2) var(--space-6)",
-                fontSize: "var(--text-base-sm)",
-                fontWeight: "var(--font-medium)",
-                borderRadius: "var(--radius-md)",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                backgroundColor:
-                  todo.paymentDetails?.subscriptionName
-                    ? "var(--color-accent-pink-bright)"
-                    : todo.paymentDetails?.invoiceNumber
-                      ? "var(--color-accent-green)"
-                      : "var(--color-primary-blue)",
+            {todo.archetype !== "feedback_request" && !isSubmitted && (
+              <button
+                type="button"
+                onClick={() => {
+                  // For form fields, mark as submitted
+                  if (todo.fields) {
+                    setIsSubmitted(true)
+                  } else {
+                    // For other archetypes, complete directly
+                    onComplete(todo.id)
+                  }
+                }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "var(--space-2)",
+                  padding: "var(--space-2) var(--space-6)",
+                  fontSize: "var(--text-base-sm)",
+                  fontWeight: "var(--font-medium)",
+                  borderRadius: "var(--radius-md)",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                  backgroundColor:
+                    todo.paymentDetails?.subscriptionName
+                      ? "var(--color-accent-pink-bright)"
+                      : todo.paymentDetails?.invoiceNumber
+                        ? "var(--color-accent-green)"
+                        : "var(--color-primary-blue)",
                   color: "var(--color-white)",
                 }}
               >
