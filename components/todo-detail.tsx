@@ -259,6 +259,7 @@ export default function TodoDetail({
       <div
         role="region"
         aria-label={`Todo details: ${todo.title}`}
+      >
         {/* Header */}
         <div
           className="flex items-center justify-between"
@@ -1048,6 +1049,7 @@ export default function TodoDetail({
             )}
           </div>
         )}
+      </div>
       </div>
     </>
   )
