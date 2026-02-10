@@ -84,13 +84,13 @@ export default function TodosPage() {
   return (
     <>
       {/* Detail View - Full Page */}
-      {selectedTodo ? (
-        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-          {/* Back button header */}
+      {selectedTodo && (
+        <div>
+          {/* Back button */}
           <div
             style={{
               paddingBottom: "var(--space-5)",
-              marginBottom: "var(--space-8)",
+              marginBottom: "var(--space-6)",
               borderBottom: "1px solid var(--color-border-divider)",
             }}
           >
@@ -123,8 +123,10 @@ export default function TodosPage() {
             onSnooze={handleSnooze}
           />
         </div>
-      ) : (
-        // List View - Default
+      )}
+
+      {/* List View */}
+      {!selectedTodo && (
         <>
       <div
         style={{
@@ -437,17 +439,8 @@ export default function TodosPage() {
         )}
       </div>
 
-      {/* Detail Panel */}
-      {selectedTodo && (
-        <TodoDetail
-          todo={selectedTodo}
-          onClose={() => setSelectedTodo(null)}
-          onComplete={handleComplete}
-          onSnooze={handleSnooze}
-        />
-      )}
         </>
       )}
-    </>
+    </> 
   )
 }
