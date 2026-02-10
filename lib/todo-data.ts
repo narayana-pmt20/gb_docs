@@ -50,62 +50,6 @@ export const mockTodos: Todo[] = [
     ],
   },
 
-  // --- INTEGRATIONS ---
-  {
-    id: "todo-2",
-    title: "Connect Google Business Profile",
-    description:
-      "Connect your Google Business Profile so we can manage your local listing, respond to reviews, and track local search performance.",
-    archetype: "integration",
-    status: "not_started",
-    priority: "high",
-    priorityScore: 0.88,
-    blocking: true,
-    targetActor: "business",
-    sourceActor: "plan_executor",
-    estimatedMinutes: 5,
-    dueDate: "2026-02-10T00:00:00Z",
-    requestedDate: "2026-02-03T14:30:00Z",
-    productName: "Local SEO",
-    integrationFlow: "google_business_profile",
-  },
-
-  // --- INFORMATION REQUESTS ---
-  {
-    id: "todo-3",
-    title: "Upload Business Logo",
-    description:
-      "Upload a high-resolution version of your business logo. This will be used across your website, social media profiles, and marketing materials.",
-    archetype: "information_request",
-    status: "in_progress",
-    priority: "high",
-    priorityScore: 0.78,
-    blocking: false,
-    targetActor: "business",
-    sourceActor: "plan_executor",
-    estimatedMinutes: 5,
-    dueDate: "2026-02-12T00:00:00Z",
-    requestedDate: "2026-02-02T09:00:00Z",
-    productName: "Website Design",
-    fields: [
-      {
-        id: "logo_file",
-        label: "Logo File",
-        type: "file",
-        helpText:
-          "Upload PNG, SVG, or AI format. Minimum 500x500px recommended.",
-        required: true,
-      },
-      {
-        id: "logo_guidelines",
-        label: "Brand Guidelines (Optional)",
-        type: "file",
-        helpText: "Upload any brand guidelines document if available",
-        required: false,
-      },
-    ],
-  },
-
   {
     id: "todo-crm-provision",
     title: "Set Up CRM - Provide Configuration Details",
@@ -113,13 +57,13 @@ export const mockTodos: Todo[] = [
       "We need to gather some information about your business to set up your CRM system. This includes your company details, timezone, and preferred communication channels for lead follow-ups.",
     archetype: "information_request",
     status: "not_started",
-    priority: "high",
-    priorityScore: 0.77,
-    blocking: false,
+    priority: "critical",
+    priorityScore: 0.92,
+    blocking: true,
     targetActor: "business",
     sourceActor: "plan_executor",
     estimatedMinutes: 10,
-    dueDate: "2026-02-12T00:00:00Z",
+    dueDate: "2026-02-08T00:00:00Z",
     requestedDate: "2026-02-04T16:00:00Z",
     productName: "CRM",
     fields: [
@@ -187,6 +131,62 @@ export const mockTodos: Todo[] = [
           { key: "sms", label: "SMS" },
           { key: "in_app", label: "In-app / CRM" },
         ],
+      },
+    ],
+  },
+
+  // --- INTEGRATIONS ---
+  {
+    id: "todo-2",
+    title: "Connect Google Business Profile",
+    description:
+      "Connect your Google Business Profile so we can manage your local listing, respond to reviews, and track local search performance.",
+    archetype: "integration",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.88,
+    blocking: true,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-10T00:00:00Z",
+    requestedDate: "2026-02-03T14:30:00Z",
+    productName: "Local SEO",
+    integrationFlow: "google_business_profile",
+  },
+
+  // --- INFORMATION REQUESTS ---
+  {
+    id: "todo-3",
+    title: "Upload Business Logo",
+    description:
+      "Upload a high-resolution version of your business logo. This will be used across your website, social media profiles, and marketing materials.",
+    archetype: "information_request",
+    status: "in_progress",
+    priority: "high",
+    priorityScore: 0.78,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 5,
+    dueDate: "2026-02-12T00:00:00Z",
+    requestedDate: "2026-02-02T09:00:00Z",
+    productName: "Website Design",
+    fields: [
+      {
+        id: "logo_file",
+        label: "Logo File",
+        type: "file",
+        helpText:
+          "Upload PNG, SVG, or AI format. Minimum 500x500px recommended.",
+        required: true,
+      },
+      {
+        id: "logo_guidelines",
+        label: "Brand Guidelines (Optional)",
+        type: "file",
+        helpText: "Upload any brand guidelines document if available",
+        required: false,
       },
     ],
   },
