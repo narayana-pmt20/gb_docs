@@ -126,8 +126,8 @@ function TodoFormField({
           >
             <option value="">Select an option...</option>
             {field.options?.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
+              <option key={opt.key} value={opt.key}>
+                {opt.label}
               </option>
             ))}
           </select>
