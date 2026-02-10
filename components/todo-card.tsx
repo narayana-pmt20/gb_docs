@@ -15,6 +15,9 @@ import {
   PenTool,
   Share2,
   Server,
+  Settings,
+  Mic,
+  Phone,
 } from "lucide-react"
 import type { Todo, TodoPriority } from "@/lib/todo-types"
 import { ARCHETYPE_LABELS, PRIORITY_LABELS } from "@/lib/todo-types"
@@ -31,6 +34,9 @@ export const productIconMap: Record<string, React.ReactNode> = {
   "Website": <MonitorSmartphone size={20} />,
   "Account Setup": <FolderCog size={20} />,
   "Reputation Management": <Star size={20} />,
+  "CRM": <Settings size={20} />,
+  "AI Voice Agent": <Mic size={20} />,
+  "Calendar Booking": <Phone size={20} />,
 }
 
 export const productColorMap: Record<string, { bg: string; color: string }> = {
@@ -73,6 +79,18 @@ export const productColorMap: Record<string, { bg: string; color: string }> = {
   "Reputation Management": {
     bg: "var(--color-background-light-orange)",
     color: "var(--color-accent-orange)",
+  },
+  "CRM": {
+    bg: "var(--color-background-light-blue)",
+    color: "var(--color-accent-blue)",
+  },
+  "AI Voice Agent": {
+    bg: "var(--color-background-light-orange)",
+    color: "var(--color-accent-orange)",
+  },
+  "Calendar Booking": {
+    bg: "var(--color-background-light-green-alt)",
+    color: "var(--color-accent-green)",
   },
 }
 
