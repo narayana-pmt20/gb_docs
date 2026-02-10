@@ -23,6 +23,8 @@ export default function CalendarBooking({
   const [step, setStep] = useState<"calendar" | "details">("calendar")
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
+  const [displayName, setDisplayName] = useState(name)
+  const [displayEmail, setDisplayEmail] = useState(email)
   const [questions, setQuestions] = useState("")
   const [currentMonth, setCurrentMonth] = useState(new Date())
 
@@ -71,10 +73,21 @@ export default function CalendarBooking({
     onBookingComplete({
       date: selectedDate.toISOString().split("T")[0],
       time: selectedTime,
-      name: name,
-      email: email,
+      name: displayName,
+      email: displayEmail,
       questions: questions,
     })
+  }
+
+  const formatAppointmentDate = (date: Date, time: string) => {
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }
+    const dateStr = date.toLocaleDateString("en-US", options)
+    return `${dateStr}  ${time}`
   }
 
   const dayOfWeek = selectedDate.toLocaleDateString("en-US", {
@@ -389,17 +402,21 @@ export default function CalendarBooking({
             >
               Name
             </label>
-            <div
+            <input
+              type="text"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
               style={{
+                width: "100%",
                 padding: "var(--space-3)",
                 fontSize: "var(--text-base)",
-                backgroundColor: "var(--color-background-light-grey)",
+                border: "1px solid var(--color-border-input)",
                 borderRadius: "var(--radius-md)",
+                fontFamily: '"Jost", sans-serif',
+                boxSizing: "border-box",
                 color: "var(--color-text-dark)",
               }}
-            >
-              {name}
-            </div>
+            />
           </div>
 
           <div>
@@ -414,17 +431,21 @@ export default function CalendarBooking({
             >
               Email
             </label>
-            <div
+            <input
+              type="email"
+              value={displayEmail}
+              onChange={(e) => setDisplayEmail(e.target.value)}
               style={{
+                width: "100%",
                 padding: "var(--space-3)",
                 fontSize: "var(--text-base)",
-                backgroundColor: "var(--color-background-light-grey)",
+                border: "1px solid var(--color-border-input)",
                 borderRadius: "var(--radius-md)",
+                fontFamily: '"Jost", sans-serif',
+                boxSizing: "border-box",
                 color: "var(--color-text-dark)",
               }}
-            >
-              {email}
-            </div>
+            />
           </div>
 
           <div>
@@ -502,11 +523,8 @@ export default function CalendarBooking({
                 color: "var(--color-text-secondary)",
               }}
             >
-              <div style={{ marginBottom: "var(--space-2)" }}>
-                <strong>📅 {formattedDate}</strong>
-              </div>
               <div>
-                <strong>🕐 {selectedTime}</strong>
+                <strong>{formatAppointmentDate(selectedDate, selectedTime)}</strong>
               </div>
             </div>
           </div>

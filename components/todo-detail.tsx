@@ -1045,7 +1045,21 @@ export default function TodoDetail({
                             marginTop: "var(--space-1)",
                           }}
                         >
-                          📅 {fieldValues["appointment_date"] || "Date selected"} at {fieldValues["appointment_time"] || "Time selected"}
+                          {fieldValues["appointment_date"] && fieldValues["appointment_time"]
+                            ? (() => {
+                                const dateParts = (fieldValues["appointment_date"] as string).split("-")
+                                const date = new Date(
+                                  parseInt(dateParts[0]),
+                                  parseInt(dateParts[1]) - 1,
+                                  parseInt(dateParts[2])
+                                )
+                                const dayName = date.toLocaleDateString("en-US", { weekday: "long" })
+                                const monthName = date.toLocaleDateString("en-US", { month: "short" })
+                                const day = date.getDate()
+                                const year = date.getFullYear()
+                                return `${dayName} ${monthName} ${day}, ${year}  ${fieldValues["appointment_time"]}`
+                              })()
+                            : "Date and time selected"}
                         </p>
                       </div>
                     </div>
