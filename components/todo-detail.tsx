@@ -1215,7 +1215,7 @@ export default function TodoDetail({
                   color: "var(--color-text-dark)",
                 }}
               >
-                Snooze
+                Do It Later
               </button>
               <span
                 style={{
