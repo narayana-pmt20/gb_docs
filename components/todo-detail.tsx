@@ -1297,7 +1297,7 @@ export default function TodoDetail({
                 ) : (
                   <>
                     <CheckCircle2 size={16} />
-                    Submit & Complete
+                    Submit
                   </>
                 )}
               </button>
