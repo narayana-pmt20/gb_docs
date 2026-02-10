@@ -345,24 +345,7 @@ export default function TodoDetail({
 
   return (
     <>
-      {/* Overlay */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          backgroundColor: "rgba(0, 0, 0, 0.3)",
-          zIndex: 40,
-        }}
-        onClick={onClose}
-        onKeyDown={(e) => {
-          if (e.key === "Escape") onClose()
-        }}
-        role="button"
-        tabIndex={0}
-        aria-label="Close detail panel"
-      />
-
-      {/* Panel */}
+      {/* Panel - Full Page Content */}
       <div
         role="dialog"
         aria-label={`Todo: ${todo.title}`}
