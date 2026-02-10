@@ -185,8 +185,8 @@ export default function CalendarBooking({
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(7, 1fr)",
-              gap: "var(--space-1)",
-              marginBottom: "var(--space-4)",
+              gap: "var(--space-2)",
+              marginBottom: "var(--space-6)",
               minWidth: 0,
             }}
           >
@@ -198,8 +198,9 @@ export default function CalendarBooking({
                   fontSize: "var(--text-xs)",
                   fontWeight: "var(--font-semibold)",
                   color: "var(--color-text-secondary)",
-                  padding: "var(--space-1)",
+                  padding: "var(--space-2) var(--space-1)",
                   minWidth: 0,
+                  letterSpacing: "0.5px",
                 }}
               >
                 {day}
@@ -211,8 +212,9 @@ export default function CalendarBooking({
                 key={index}
                 onClick={() => day && setSelectedDate(day)}
                 style={{
-                  padding: "var(--space-2)",
-                  fontSize: "var(--text-sm)",
+                  padding: "var(--space-3) var(--space-1)",
+                  fontSize: "var(--text-base)",
+                  fontWeight: "var(--font-medium)",
                   backgroundColor:
                     day && day.toDateString() === selectedDate.toDateString()
                       ? "var(--color-primary-blue)"
@@ -228,15 +230,12 @@ export default function CalendarBooking({
                   border: "none",
                   cursor: day ? "pointer" : "default",
                   borderRadius: "var(--radius-md)",
-                  fontWeight:
-                    day && day.toDateString() === selectedDate.toDateString()
-                      ? "var(--font-semibold)"
-                      : "var(--font-regular)",
-                  aspectRatio: "1 / 1",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   minWidth: 0,
+                  minHeight: "40px",
+                  transition: "background-color 0.2s ease",
                 }}
               >
                 {day ? day.getDate() : ""}
