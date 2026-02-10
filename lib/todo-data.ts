@@ -82,11 +82,10 @@ export const mockTodos: Todo[] = [
         id: "preferred_followup_channel",
         label: "What is Your Preferred Follow-up Channel",
         type: "checkbox",
-        value: ["email", "phone"],
+        value: ["email", "sms"],
         required: true,
         options: [
           { key: "email", label: "Email" },
-          { key: "phone", label: "Phone" },
           { key: "sms", label: "SMS" },
         ],
       },
