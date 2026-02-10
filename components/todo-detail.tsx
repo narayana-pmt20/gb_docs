@@ -1050,8 +1050,9 @@ export default function TodoDetail({
                 >
                   <h4
                     style={{
-                      fontSize: "var(--text-base-sm)",
+                      fontSize: "var(--text-2xl)",
                       fontWeight: "var(--font-semibold)",
+                      margin: 0,
                       color: "var(--color-accent-green)",
                       marginBottom: "var(--space-4)",
                       paddingBottom: "var(--space-3)",
@@ -1065,12 +1066,12 @@ export default function TodoDetail({
                   {todo.id === "todo-calendar-booking" && (
                     <div style={{ display: "grid", gap: "var(--space-4)", marginBottom: "var(--space-4)" }}>
                       <div>
-                        <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", margin: 0 }}>
+                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
                           Scheduled Appointment
                         </p>
                         <p
                           style={{
-                            fontSize: "var(--text-base-sm)",
+                            fontSize: "var(--text-lg)",
                             fontWeight: "var(--font-semibold)",
                             color: "var(--color-accent-green)",
                             margin: 0,
@@ -1106,12 +1107,12 @@ export default function TodoDetail({
                       
                       return (
                         <div key={field.id}>
-                          <p style={{ fontSize: "var(--text-xs)", color: "var(--color-text-muted)", margin: 0 }}>
+                          <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
                             {field.label}
                           </p>
                           <p
                             style={{
-                              fontSize: "var(--text-base-sm)",
+                              fontSize: "var(--text-base)",
                               fontWeight: "var(--font-medium)",
                               color: "var(--color-text-dark)",
                               margin: 0,
@@ -1141,7 +1142,7 @@ export default function TodoDetail({
                       <div>
                         <p
                           style={{
-                            fontSize: "var(--text-base-sm)",
+                            fontSize: "var(--text-base)",
                             fontWeight: "var(--font-semibold)",
                             color: "var(--color-primary-blue)",
                             margin: 0,
@@ -1152,7 +1153,7 @@ export default function TodoDetail({
                         </p>
                         <p
                           style={{
-                            fontSize: "var(--text-xs)",
+                            fontSize: "var(--text-sm)",
                             color: "var(--color-text-secondary)",
                             margin: 0,
                           }}
@@ -1168,7 +1169,7 @@ export default function TodoDetail({
                         }}
                         style={{
                           padding: "var(--space-2) var(--space-4)",
-                          fontSize: "var(--text-xs)",
+                          fontSize: "var(--text-sm)",
                           fontWeight: "var(--font-medium)",
                           backgroundColor: "var(--color-primary-blue)",
                           color: "var(--color-white)",
