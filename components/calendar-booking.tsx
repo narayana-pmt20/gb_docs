@@ -21,12 +21,10 @@ export default function CalendarBooking({
   email,
 }: CalendarBookingProps) {
   const [step, setStep] = useState<"calendar" | "details">("calendar")
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date(2026, 1, 12))
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
-  const [displayName, setDisplayName] = useState(name)
-  const [displayEmail, setDisplayEmail] = useState(email)
   const [questions, setQuestions] = useState("")
-  const [currentMonth, setCurrentMonth] = useState(new Date(2026, 1))
+  const [currentMonth, setCurrentMonth] = useState(new Date())
 
   const timeSlots = [
     "1:00pm",
@@ -73,8 +71,8 @@ export default function CalendarBooking({
     onBookingComplete({
       date: selectedDate.toISOString().split("T")[0],
       time: selectedTime,
-      name: displayName,
-      email: displayEmail,
+      name: name,
+      email: email,
       questions: questions,
     })
   }
@@ -386,26 +384,22 @@ export default function CalendarBooking({
                 fontSize: "var(--text-base)",
                 fontWeight: "var(--font-medium)",
                 marginBottom: "var(--space-2)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              Name
+            </label>
+            <div
+              style={{
+                padding: "var(--space-3)",
+                fontSize: "var(--text-base)",
+                backgroundColor: "var(--color-background-light-grey)",
+                borderRadius: "var(--radius-md)",
                 color: "var(--color-text-dark)",
               }}
             >
-              Name *
-            </label>
-            <input
-              type="text"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "var(--space-3)",
-                fontSize: "var(--text-base)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                fontFamily: '"Jost", sans-serif',
-                boxSizing: "border-box",
-              }}
-            />
+              {name}
+            </div>
           </div>
 
           <div>
@@ -415,26 +409,22 @@ export default function CalendarBooking({
                 fontSize: "var(--text-base)",
                 fontWeight: "var(--font-medium)",
                 marginBottom: "var(--space-2)",
+                color: "var(--color-text-secondary)",
+              }}
+            >
+              Email
+            </label>
+            <div
+              style={{
+                padding: "var(--space-3)",
+                fontSize: "var(--text-base)",
+                backgroundColor: "var(--color-background-light-grey)",
+                borderRadius: "var(--radius-md)",
                 color: "var(--color-text-dark)",
               }}
             >
-              Email *
-            </label>
-            <input
-              type="email"
-              value={displayEmail}
-              onChange={(e) => setDisplayEmail(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "var(--space-3)",
-                fontSize: "var(--text-base)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                fontFamily: '"Jost", sans-serif',
-                boxSizing: "border-box",
-              }}
-            />
+              {email}
+            </div>
           </div>
 
           <div>

@@ -319,6 +319,7 @@ export default function TodoDetail({
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [timeLeft, setTimeLeft] = useState(7)
   const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({})
+  const [isCalendarBooked, setIsCalendarBooked] = useState(false)
 
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>(
     () => todo.chatMessages || []
@@ -947,7 +948,7 @@ export default function TodoDetail({
                   appointment_date: data.date,
                   appointment_time: data.time,
                 }))
-                setIsSubmitted(true)
+                setIsCalendarBooked(true)
               }}
             />
           )}
@@ -1299,6 +1300,8 @@ export default function TodoDetail({
               </div>
             )}
             {todo.archetype !== "feedback_request" && !isSubmitted && (
+              // For calendar booking, only show submit after booking is confirmed
+              (todo.id === "todo-calendar-booking" ? isCalendarBooked : true) && (
               <button
                 type="button"
                 onClick={() => {
@@ -1369,7 +1372,7 @@ export default function TodoDetail({
                   </>
                 )}
               </button>
-            )}
+            ))}
           </div>
         )}
       </div>
