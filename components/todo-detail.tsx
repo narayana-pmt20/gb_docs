@@ -938,8 +938,8 @@ export default function TodoDetail({
           {/* Calendar Booking Flow */}
           {todo.id === "todo-calendar-booking" && !isCompleted && (
             <CalendarBooking
-              name={fieldValues["full_name"] as string || ""}
-              email={fieldValues["email_address"] as string || ""}
+              name="Narayana sami"
+              email="narayana@umbrellaus.com"
               onBookingComplete={(data) => {
                 setFieldValues((prev) => ({
                   ...prev,
