@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useImperativeHandle, forwardRef } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
 interface CalendarBookingProps {
@@ -15,11 +15,12 @@ interface CalendarBookingProps {
   email: string
 }
 
-export default function CalendarBooking({
-  onBookingComplete,
-  name,
-  email,
-}: CalendarBookingProps) {
+export interface CalendarBookingHandle {
+  submitBooking: () => void
+}
+
+const CalendarBooking = forwardRef<CalendarBookingHandle, CalendarBookingProps>(
+  ({ onBookingComplete, name, email }, ref) => {
   const [step, setStep] = useState<"calendar" | "details">("calendar")
   const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const [selectedTime, setSelectedTime] = useState<string>("2:00pm")
@@ -78,6 +79,10 @@ export default function CalendarBooking({
       questions: questions,
     })
   }
+
+  useImperativeHandle(ref, () => ({
+    submitBooking: handleBooking,
+  }))
 
   const formatAppointmentDate = (date: Date, time: string) => {
     const options: Intl.DateTimeFormatOptions = {
@@ -385,10 +390,6 @@ export default function CalendarBooking({
         </h2>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            handleBooking()
-          }}
           style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}
         >
           <div>
@@ -516,7 +517,6 @@ export default function CalendarBooking({
               padding: "var(--space-4)",
               borderRadius: "var(--radius-md)",
               marginTop: "var(--space-4)",
-              marginBottom: "var(--space-4)",
             }}
           >
             <div
@@ -530,27 +530,12 @@ export default function CalendarBooking({
               </div>
             </div>
           </div>
-
-          {/* Submit Button */}
-          <button
-            type="submit"
-            style={{
-              width: "100%",
-              padding: "var(--space-3) var(--space-4)",
-              fontSize: "var(--text-base)",
-              fontWeight: "var(--font-semibold)",
-              borderRadius: "var(--radius-md)",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "inherit",
-              backgroundColor: "var(--color-primary-blue)",
-              color: "white",
-            }}
-          >
-            Submit
-          </button>
         </form>
       </div>
     </div>
   )
-}
+})
+
+CalendarBooking.displayName = "CalendarBooking"
+
+export default CalendarBooking
