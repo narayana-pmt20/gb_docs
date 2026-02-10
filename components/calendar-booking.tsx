@@ -350,7 +350,7 @@ export default function CalendarBooking({
         padding: "var(--space-6)",
         fontFamily: '"Jost", sans-serif',
         maxWidth: "100%",
-        overflow: "hidden",
+        overflow: "visible",
       }}
     >
       <div>
