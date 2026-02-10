@@ -106,6 +106,91 @@ export const mockTodos: Todo[] = [
     ],
   },
 
+  {
+    id: "todo-crm-provision",
+    title: "Set Up CRM - Provide Configuration Details",
+    description:
+      "We need to gather some information about your business to set up your CRM system. This includes your company details, timezone, and preferred communication channels for lead follow-ups.",
+    archetype: "information_request",
+    status: "not_started",
+    priority: "high",
+    priorityScore: 0.77,
+    blocking: false,
+    targetActor: "business",
+    sourceActor: "plan_executor",
+    estimatedMinutes: 10,
+    dueDate: "2026-02-12T00:00:00Z",
+    requestedDate: "2026-02-04T16:00:00Z",
+    productName: "CRM",
+    fields: [
+      {
+        id: "project_name",
+        label: "Project Name",
+        type: "text",
+        placeholder: "e.g., Q1 2026 Marketing Initiative",
+        required: true,
+      },
+      {
+        id: "company_name",
+        label: "Company Name",
+        type: "text",
+        prefill_key: "account.company_name",
+        required: true,
+      },
+      {
+        id: "primary_business_email",
+        label: "Primary Business Email",
+        type: "email",
+        prefill_key: "account.email",
+        required: true,
+      },
+      {
+        id: "primary_business_phone",
+        label: "Primary Business Phone Number",
+        type: "text",
+        placeholder: "(555) 123-4567",
+        prefill_key: "account.phone",
+        required: true,
+      },
+      {
+        id: "business_timezone",
+        label: "Business Timezone",
+        type: "dropdown",
+        required: true,
+        options: [
+          { key: "et", label: "Eastern Time (ET)" },
+          { key: "ct", label: "Central Time (CT)" },
+          { key: "mt", label: "Mountain Time (MT)" },
+          { key: "pt", label: "Pacific Time (PT)" },
+          { key: "ak", label: "Alaska Time (AK)" },
+          { key: "ht", label: "Hawaii-Aleutian Time (HT)" },
+        ],
+      },
+      {
+        id: "enable_auto_followup",
+        label: "Enable Auto Follow-up for New Leads",
+        type: "dropdown",
+        required: true,
+        options: [
+          { key: "yes", label: "Yes" },
+          { key: "no", label: "No" },
+        ],
+      },
+      {
+        id: "preferred_followup_channel",
+        label: "What is Your Preferred Follow-up Channel",
+        type: "dropdown",
+        required: true,
+        options: [
+          { key: "email", label: "Email" },
+          { key: "phone", label: "Phone" },
+          { key: "sms", label: "SMS" },
+          { key: "in_app", label: "In-app / CRM" },
+        ],
+      },
+    ],
+  },
+
   // --- FEEDBACK REQUESTS ---
   {
     id: "todo-4",

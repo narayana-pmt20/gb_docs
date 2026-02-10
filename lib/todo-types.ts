@@ -28,6 +28,11 @@ export interface ChatMessage {
   attachments?: string[]
 }
 
+export interface TodoFieldOption {
+  key: string
+  label: string
+}
+
 export interface TodoField {
   id: string
   label: string
@@ -36,7 +41,8 @@ export interface TodoField {
   helpText?: string
   required: boolean
   value?: string
-  options?: string[] // for dropdown type
+  options?: TodoFieldOption[] // for dropdown type - now supports key/label pairs
+  prefill_key?: string // dot-notation path to prefill from account context (e.g. "account.company_name")
 }
 
 export interface Todo {
