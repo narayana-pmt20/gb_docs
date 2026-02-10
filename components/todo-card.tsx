@@ -239,7 +239,7 @@ export default function TodoCard({
         {/* Description */}
         <p
           style={{
-            fontSize: "var(--text-base)",
+            fontSize: "var(--text-lg)",
             color: "var(--color-text-muted)",
             lineHeight: "var(--leading-normal)",
             marginBottom: "var(--space-3)",
@@ -261,7 +261,7 @@ export default function TodoCard({
           {!isCompleted && (
             <span
               style={{
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-base)",
                 fontWeight: "var(--font-medium)",
                 color: priorityColors.color,
                 backgroundColor: priorityColors.bg,
@@ -276,7 +276,7 @@ export default function TodoCard({
           {/* Archetype badge */}
           <span
             style={{
-              fontSize: "var(--text-sm)",
+              fontSize: "var(--text-base)",
               fontWeight: "var(--font-medium)",
               color: iconColors.color,
               backgroundColor: iconColors.bg,
@@ -293,7 +293,7 @@ export default function TodoCard({
               className="flex items-center"
               style={{
                 gap: "4px",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-base)",
                 color: "var(--color-accent-green)",
               }}
             >
@@ -306,7 +306,7 @@ export default function TodoCard({
                 className="flex items-center"
                 style={{
                   gap: "4px",
-                  fontSize: "var(--text-sm)",
+                  fontSize: "var(--text-base)",
                   color: isDueOverdue
                     ? "var(--color-accent-pink-bright)"
                     : "var(--color-text-muted)",
@@ -325,7 +325,7 @@ export default function TodoCard({
               className="flex items-center"
               style={{
                 gap: "4px",
-                fontSize: "var(--text-sm)",
+                fontSize: "var(--text-base)",
                 color: "var(--color-text-muted)",
               }}
             >
