@@ -36,7 +36,7 @@ const defaultColors = {
 interface TodoDetailProps {
   todo: Todo
   onClose: () => void
-  onComplete: (todoId: string) => void
+  onComplete: (todoId: string, completedData?: Record<string, any>) => void
   onSnooze: (todoId: string) => void
 }
 
@@ -1062,76 +1062,6 @@ export default function TodoDetail({
                     ✓ Information Submitted
                   </h4>
                   
-                  {/* Special display for calendar booking */}
-                  {todo.id === "todo-calendar-booking" && (
-                    <div style={{ display: "grid", gap: "var(--space-4)", marginBottom: "var(--space-4)" }}>
-                      <div>
-                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
-                          Name
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "var(--text-base)",
-                            fontWeight: "var(--font-medium)",
-                            color: "var(--color-text-dark)",
-                            margin: 0,
-                            marginTop: "var(--space-1)",
-                          }}
-                        >
-                          {fieldValues["full_name"] || "—"}
-                        </p>
-                      </div>
-
-                      <div>
-                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
-                          Email
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "var(--text-base)",
-                            fontWeight: "var(--font-medium)",
-                            color: "var(--color-text-dark)",
-                            margin: 0,
-                            marginTop: "var(--space-1)",
-                          }}
-                        >
-                          {fieldValues["email_address"] || "—"}
-                        </p>
-                      </div>
-
-                      <div>
-                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
-                          Scheduled Appointment
-                        </p>
-                        <p
-                          style={{
-                            fontSize: "var(--text-base)",
-                            fontWeight: "var(--font-semibold)",
-                            color: "var(--color-accent-green)",
-                            margin: 0,
-                            marginTop: "var(--space-1)",
-                          }}
-                        >
-                          {fieldValues["appointment_date"] && fieldValues["appointment_time"]
-                            ? (() => {
-                                const dateParts = (fieldValues["appointment_date"] as string).split("-")
-                                const date = new Date(
-                                  parseInt(dateParts[0]),
-                                  parseInt(dateParts[1]) - 1,
-                                  parseInt(dateParts[2])
-                                )
-                                const dayName = date.toLocaleDateString("en-US", { weekday: "long" })
-                                const monthName = date.toLocaleDateString("en-US", { month: "short" })
-                                const day = date.getDate()
-                                const year = date.getFullYear()
-                                return `${dayName} ${monthName} ${day}, ${year}  ${fieldValues["appointment_time"]}`
-                              })()
-                            : "Date and time selected"}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                  
                   <div style={{ display: "grid", gap: "var(--space-3)" }}>
                     {todo.fields.map((field) => {
                       const val = fieldValues[field.id]
@@ -1372,6 +1302,12 @@ export default function TodoDetail({
                     if (isValid) {
                       setFieldErrors({})
                       setIsSubmitted(true)
+                      // Store completed data for calendar booking
+                      if (todo.id === "todo-calendar-booking") {
+                        setTimeout(() => {
+                          onComplete(todo.id, fieldValues)
+                        }, 3000)
+                      }
                     } else {
                       setFieldErrors(errors)
                     }

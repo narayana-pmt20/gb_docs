@@ -54,7 +54,7 @@ export default function TodosPage() {
   const remainingCount = openTodos.length - MAX_VISIBLE
 
   // Handle complete
-  const handleComplete = (todoId: string) => {
+  const handleComplete = (todoId: string, completedData?: Record<string, any>) => {
     setTodos((prev) =>
       prev.map((t) =>
         t.id === todoId
@@ -62,6 +62,7 @@ export default function TodosPage() {
               ...t,
               status: "completed" as const,
               completedDate: new Date().toISOString(),
+              completedData: completedData || undefined,
             }
           : t
       )
