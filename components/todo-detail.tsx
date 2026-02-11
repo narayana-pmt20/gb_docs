@@ -1067,11 +1067,45 @@ export default function TodoDetail({
                     <div style={{ display: "grid", gap: "var(--space-4)", marginBottom: "var(--space-4)" }}>
                       <div>
                         <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
+                          Name
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "var(--text-base)",
+                            fontWeight: "var(--font-medium)",
+                            color: "var(--color-text-dark)",
+                            margin: 0,
+                            marginTop: "var(--space-1)",
+                          }}
+                        >
+                          {fieldValues["full_name"] || "—"}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
+                          Email
+                        </p>
+                        <p
+                          style={{
+                            fontSize: "var(--text-base)",
+                            fontWeight: "var(--font-medium)",
+                            color: "var(--color-text-dark)",
+                            margin: 0,
+                            marginTop: "var(--space-1)",
+                          }}
+                        >
+                          {fieldValues["email_address"] || "—"}
+                        </p>
+                      </div>
+
+                      <div>
+                        <p style={{ fontSize: "var(--text-sm)", color: "var(--color-text-muted)", margin: 0 }}>
                           Scheduled Appointment
                         </p>
                         <p
                           style={{
-                            fontSize: "var(--text-lg)",
+                            fontSize: "var(--text-base)",
                             fontWeight: "var(--font-semibold)",
                             color: "var(--color-accent-green)",
                             margin: 0,
