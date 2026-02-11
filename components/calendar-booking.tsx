@@ -130,6 +130,37 @@ export default function CalendarBooking({
             Select a Date & Time
           </h2>
 
+          {/* Timezone */}
+          <div
+            style={{
+              fontSize: "var(--text-sm)",
+              color: "var(--color-text-secondary)",
+              display: "flex",
+              alignItems: "center",
+              gap: "var(--space-2)",
+              marginBottom: "var(--space-6)",
+            }}
+          >
+            <span style={{ fontSize: "var(--text-base)" }}>🌍</span>
+            <select
+              style={{
+                fontSize: "var(--text-base)",
+                padding: "var(--space-2)",
+                border: "1px solid var(--color-border-input)",
+                borderRadius: "var(--radius-md)",
+                backgroundColor: "white",
+                cursor: "pointer",
+                fontFamily: '"Jost", sans-serif',
+              }}
+            >
+              <option>India Standard Time (3:57pm)</option>
+              <option>Eastern Time (ET)</option>
+              <option>Central Time (CT)</option>
+              <option>Mountain Time (MT)</option>
+              <option>Pacific Time (PT)</option>
+            </select>
+          </div>
+
           {/* Month Navigation */}
           <div
             style={{
@@ -290,38 +321,6 @@ export default function CalendarBooking({
                 {time}
               </button>
             ))}
-          </div>
-
-          {/* Timezone - Moved below time slots */}
-          <div
-            style={{
-              fontSize: "var(--text-sm)",
-              color: "var(--color-text-secondary)",
-              display: "flex",
-              alignItems: "center",
-              gap: "var(--space-2)",
-              marginTop: "var(--space-6)",
-              marginBottom: "var(--space-6)",
-            }}
-          >
-            <span style={{ fontSize: "var(--text-base)" }}>🌍</span>
-            <select
-              style={{
-                fontSize: "var(--text-base)",
-                padding: "var(--space-2)",
-                border: "1px solid var(--color-border-input)",
-                borderRadius: "var(--radius-md)",
-                backgroundColor: "white",
-                cursor: "pointer",
-                fontFamily: '"Jost", sans-serif',
-              }}
-            >
-              <option>India Standard Time (3:57pm)</option>
-              <option>Eastern Time (ET)</option>
-              <option>Central Time (CT)</option>
-              <option>Mountain Time (MT)</option>
-              <option>Pacific Time (PT)</option>
-            </select>
           </div>
 
           <button
