@@ -153,11 +153,13 @@ export default function CalendarBooking({
                 fontFamily: '"Jost", sans-serif',
               }}
             >
-              <option>India Standard Time (3:57pm)</option>
               <option>Eastern Time (ET)</option>
               <option>Central Time (CT)</option>
               <option>Mountain Time (MT)</option>
               <option>Pacific Time (PT)</option>
+              <option>Alaska Time (AKT)</option>
+              <option>Hawaii-Aleutian Time (HAT)</option>
+              <option>Samoa Standard Time (SST)</option>
             </select>
           </div>
 
