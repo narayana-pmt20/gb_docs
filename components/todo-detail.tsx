@@ -498,6 +498,7 @@ export default function TodoDetail({
               </span>
             </div>
             <div className="flex items-center" style={{ gap: "var(--space-2)" }}>
+              {isCompleted && <CheckCircle2 size={14} style={{ color: "var(--color-accent-green)" }} />}
               <span style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
                 Status: {STATUS_LABELS[todo.status]}
               </span>
