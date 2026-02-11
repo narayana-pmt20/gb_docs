@@ -1980,6 +1980,8 @@ export const mockTodos: Todo[] = [
     completedData: {
       "PPC Keywords": "emergency plumber, water heater repair, pipe leak fix, drain cleaning near me, 24/7 plumber SF",
       "Negative Keywords": "DIY plumbing, plumbing school, plumbing jobs",
-    },
+      },
+    ],
   },
 ]
+
